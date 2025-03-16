@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Azure.CognitiveServices.Language.TextAnalytics;
 using Microsoft.Rest;
 using System.Net.Http;
+using Microsoft.Azure.CognitiveServices.Language.TextAnalytics.Models;
 #endregion
 namespace TextAnalysis
 {
@@ -16,7 +17,9 @@ namespace TextAnalysis
         #endregion
         public static void Main(string[] args)
         {
-            var credentials = new ApiKeyServiceClientCredentials(_subscriptionKey);
+            var credentials = new ServiceClientCredentials();
+            credentials.ApiKey.QueryParameterName = "Ocp-Apim-Subscription-Key";
+            credentials.ApiKey.Value = _subscriptionKey;
             var client = new TextAnalyticsClient(credentials)
             {
                 Endpoint = _endpoint
