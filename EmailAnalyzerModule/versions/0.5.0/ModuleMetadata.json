@@ -1,1 +1,0 @@
-{"Name":"EmailAnalyzerModule","Version":{"Major":0,"Minor":5,"Patch":0},"Compiled":false,"Description":"M\u00F3dulo que analiza correos electr\u00F3nicos (.eml) y sugiere respuestas usando NLP con Azure Cognitive Services","RequiredAPIs":["Azure Cognitive Services"],"RequiredNuGets":["Microsoft.Azure.CognitiveServices.Language.TextAnalytics","Newtonsoft.Json"]}
