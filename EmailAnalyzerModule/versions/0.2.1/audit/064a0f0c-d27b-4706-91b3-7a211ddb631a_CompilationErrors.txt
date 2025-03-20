@@ -1,3 +1,0 @@
-CS0144 : Cannot create an instance of the abstract type or interface 'ServiceClientCredentials' At Line-Column : (19,30)-(19,60)
-CS1061 : 'ServiceClientCredentials' does not contain a definition for 'ApiKey' and no accessible extension method 'ApiKey' accepting a first argument of type 'ServiceClientCredentials' could be found (are you missing a using directive or an assembly reference?) At Line-Column : (20,24)-(20,30)
-CS1061 : 'ServiceClientCredentials' does not contain a definition for 'ApiKey' and no accessible extension method 'ApiKey' accepting a first argument of type 'ServiceClientCredentials' could be found (are you missing a using directive or an assembly reference?) At Line-Column : (21,24)-(21,30)
