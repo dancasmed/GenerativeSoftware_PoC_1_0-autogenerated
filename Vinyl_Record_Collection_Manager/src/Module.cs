@@ -8,31 +8,24 @@ public class VinylRecordCollectionManager : IGeneratedModule
 {
     public string Name { get; set; } = "Vinyl Record Collection Manager";
 
-    private string _dataFilePath;
-
     public bool Main(string dataFolder)
     {
-        _dataFilePath = Path.Combine(dataFolder, "vinyl_records.json");
+        Console.WriteLine("Starting Vinyl Record Collection Manager...");
 
-        Console.WriteLine("Vinyl Record Collection Manager is running...");
+        string recordsFilePath = Path.Combine(dataFolder, "vinyl_records.json");
+        List<VinylRecord> records = LoadRecords(recordsFilePath);
 
-        if (!Directory.Exists(dataFolder))
-        {
-            Directory.CreateDirectory(dataFolder);
-        }
-
-        List<VinylRecord> records = LoadRecords();
-
-        while (true)
+        bool running = true;
+        while (running)
         {
             Console.WriteLine("\nOptions:");
             Console.WriteLine("1. Add a new vinyl record");
             Console.WriteLine("2. View all vinyl records");
             Console.WriteLine("3. Exit");
+            Console.Write("Choose an option: ");
+            string input = Console.ReadLine();
 
-            string choice = Console.ReadLine();
-
-            switch (choice)
+            switch (input)
             {
                 case "1":
                     AddRecord(records);
@@ -41,44 +34,45 @@ public class VinylRecordCollectionManager : IGeneratedModule
                     ViewRecords(records);
                     break;
                 case "3":
-                    SaveRecords(records);
-                    return true;
+                    running = false;
+                    break;
                 default:
                     Console.WriteLine("Invalid option. Please try again.");
                     break;
             }
         }
+
+        SaveRecords(records, recordsFilePath);
+        Console.WriteLine("Exiting Vinyl Record Collection Manager...");
+        return true;
     }
 
-    private List<VinylRecord> LoadRecords()
+    private List<VinylRecord> LoadRecords(string filePath)
     {
-        if (File.Exists(_dataFilePath))
+        if (File.Exists(filePath))
         {
-            string json = File.ReadAllText(_dataFilePath);
+            string json = File.ReadAllText(filePath);
             return JsonSerializer.Deserialize<List<VinylRecord>>(json);
         }
         return new List<VinylRecord>();
     }
 
-    private void SaveRecords(List<VinylRecord> records)
+    private void SaveRecords(List<VinylRecord> records, string filePath)
     {
         string json = JsonSerializer.Serialize(records);
-        File.WriteAllText(_dataFilePath, json);
-        Console.WriteLine("Records saved successfully.");
+        File.WriteAllText(filePath, json);
     }
 
     private void AddRecord(List<VinylRecord> records)
     {
-        Console.WriteLine("Enter the title of the vinyl record:");
-        string title = Console.ReadLine();
-
-        Console.WriteLine("Enter the artist name:");
+        Console.Write("Enter the artist name: ");
         string artist = Console.ReadLine();
-
-        Console.WriteLine("Enter the year of release:");
+        Console.Write("Enter the album title: ");
+        string title = Console.ReadLine();
+        Console.Write("Enter the release year: ");
         int year = int.Parse(Console.ReadLine());
 
-        records.Add(new VinylRecord { Title = title, Artist = artist, Year = year });
+        records.Add(new VinylRecord { Artist = artist, Title = title, Year = year });
         Console.WriteLine("Record added successfully.");
     }
 
@@ -92,14 +86,14 @@ public class VinylRecordCollectionManager : IGeneratedModule
 
         foreach (var record in records)
         {
-            Console.WriteLine($"Title: {record.Title}, Artist: {record.Artist}, Year: {record.Year}");
+            Console.WriteLine($"Artist: {record.Artist}, Title: {record.Title}, Year: {record.Year}");
         }
     }
 }
 
 public class VinylRecord
 {
-    public string Title { get; set; }
     public string Artist { get; set; }
+    public string Title { get; set; }
     public int Year { get; set; }
 }
