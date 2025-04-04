@@ -1,0 +1,1 @@
+{"Name":"Lottery Number Generator","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"Simulates a lottery number generator with user picks. Generates random winning numbers and compares them against user picks.","RequiredAPIs":[],"RequiredNuGets":[]}
