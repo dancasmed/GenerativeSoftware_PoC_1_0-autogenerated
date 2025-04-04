@@ -1,0 +1,1 @@
+{"Name":"Wine Collection Tracker","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A module for tracking wine collections with vineyard and vintage details, including search functionality and JSON data persistence.","RequiredAPIs":[],"RequiredNuGets":[]}
