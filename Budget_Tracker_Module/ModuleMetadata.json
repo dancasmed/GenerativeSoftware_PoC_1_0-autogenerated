@@ -1,0 +1,1 @@
+{"Name":"Budget Tracker Module","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A text-based budgeting application for managing income and expenses with data persistence in JSON format.","RequiredAPIs":[],"RequiredNuGets":[]}
