@@ -1,0 +1,1 @@
+{"Name":"Date Calculator Module","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"Calculates the number of days between two dates. The dates can be configured via a JSON file in the data folder.","RequiredAPIs":[],"RequiredNuGets":[]}
