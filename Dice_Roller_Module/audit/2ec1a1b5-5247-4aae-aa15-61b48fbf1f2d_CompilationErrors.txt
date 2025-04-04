@@ -1,1 +1,0 @@
-CS1061 : 'List<int>' does not contain a definition for 'Sum' and no accessible extension method 'Sum' accepting a first argument of type 'List<int>' could be found (are you missing a using directive or an assembly reference?) At Line-Column : (68,46)-(68,49)
