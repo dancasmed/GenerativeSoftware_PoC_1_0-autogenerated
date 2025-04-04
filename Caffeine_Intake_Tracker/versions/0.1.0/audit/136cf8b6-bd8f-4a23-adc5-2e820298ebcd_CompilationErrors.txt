@@ -1,0 +1,1 @@
+CS1061 : 'Dictionary<DateTime, int>.ValueCollection' does not contain a definition for 'Sum' and no accessible extension method 'Sum' accepting a first argument of type 'Dictionary<DateTime, int>.ValueCollection' could be found (are you missing a using directive or an assembly reference?) At Line-Column : (148,45)-(148,48)
