@@ -1,0 +1,1 @@
+{"Name":"Dice Roller Module","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":false,"Description":"A module for simulating dice rolls for tabletop games with multiple dice types (D4, D6, D8, D10, D12, D20, D100) and tracking roll statistics.","RequiredAPIs":[],"RequiredNuGets":[]}
