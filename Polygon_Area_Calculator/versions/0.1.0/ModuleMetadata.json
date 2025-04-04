@@ -1,0 +1,1 @@
+{"Name":"Polygon Area Calculator","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"Calculates the area of a polygon given its vertices using the shoelace formula. Reads vertices from a JSON file and saves the result to another JSON file.","RequiredAPIs":[],"RequiredNuGets":[]}
