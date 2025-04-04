@@ -1,0 +1,1 @@
+{"Name":"Age Calculator","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"Calculates age in years, months, and days from a given birthdate. Persists birthdate in a JSON config file for future use.","RequiredAPIs":[],"RequiredNuGets":[]}
