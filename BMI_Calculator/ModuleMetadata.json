@@ -1,1 +1,0 @@
-{"Name":"BMI Calculator","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A module that calculates Body Mass Index (BMI) based on user input for height and weight, and saves the results to a JSON file.","RequiredAPIs":[],"RequiredNuGets":[]}
