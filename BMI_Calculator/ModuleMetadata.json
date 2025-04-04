@@ -1,1 +1,0 @@
-{"Name":"BMI Calculator","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"Calculates Body Mass Index (BMI) based on user\u0027s weight and height inputs and saves the results to a JSON file.","RequiredAPIs":[],"RequiredNuGets":[]}
