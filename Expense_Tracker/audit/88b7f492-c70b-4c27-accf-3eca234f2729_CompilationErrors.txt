@@ -1,2 +1,0 @@
-CS1061 : 'List<Expense>' does not contain a definition for 'Sum' and no accessible extension method 'Sum' accepting a first argument of type 'List<Expense>' could be found (are you missing a using directive or an assembly reference?) At Line-Column : (135,63)-(135,66)
-CS1061 : 'List<Expense>' does not contain a definition for 'Sum' and no accessible extension method 'Sum' accepting a first argument of type 'List<Expense>' could be found (are you missing a using directive or an assembly reference?) At Line-Column : (143,69)-(143,72)
