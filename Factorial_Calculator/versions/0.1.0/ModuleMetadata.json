@@ -1,0 +1,1 @@
+{"Name":"Factorial Calculator","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A module that calculates the factorial of a given non-negative integer and saves the result to a JSON file.","RequiredAPIs":[],"RequiredNuGets":[]}
