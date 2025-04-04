@@ -1,0 +1,1 @@
+{"Name":"Matrix Determinant Calculator","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"Calculates the determinant of a 2x2 matrix and saves the result to a JSON file.","RequiredAPIs":[],"RequiredNuGets":[]}
