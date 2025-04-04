@@ -1,0 +1,1 @@
+{"Name":"Todo List Manager","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A simple to-do list manager that allows adding tasks with priorities and deadlines, marking tasks as completed, and persisting data to JSON files.","RequiredAPIs":[],"RequiredNuGets":[]}
