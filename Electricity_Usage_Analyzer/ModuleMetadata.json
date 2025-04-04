@@ -1,0 +1,1 @@
+{"Name":"Electricity Usage Analyzer","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A module for logging and analyzing monthly electricity usage data, including kWh consumption and costs. Allows adding new monthly entries, viewing statistics, and persisting data to JSON files.","RequiredAPIs":[],"RequiredNuGets":[]}
