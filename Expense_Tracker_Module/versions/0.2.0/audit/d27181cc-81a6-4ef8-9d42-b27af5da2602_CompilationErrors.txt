@@ -1,0 +1,1 @@
+CS1061 : 'List<ExpenseTrackerModule.Expense>' does not contain a definition for 'Where' and no accessible extension method 'Where' accepting a first argument of type 'List<ExpenseTrackerModule.Expense>' could be found (are you missing a using directive or an assembly reference?) At Line-Column : (49,13)-(49,18)
