@@ -1,0 +1,1 @@
+{"Name":"Restaurant Manager","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A module for managing a list of favorite restaurants with their cuisine types. Allows adding, listing, and searching restaurants by cuisine type.","RequiredAPIs":[],"RequiredNuGets":[]}
