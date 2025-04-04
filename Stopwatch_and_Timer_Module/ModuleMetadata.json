@@ -1,0 +1,1 @@
+{"Name":"Stopwatch and Timer Module","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A module that provides stopwatch and timer functionality with commands to start, stop, reset, lap, and set timer durations.","RequiredAPIs":[],"RequiredNuGets":[]}
