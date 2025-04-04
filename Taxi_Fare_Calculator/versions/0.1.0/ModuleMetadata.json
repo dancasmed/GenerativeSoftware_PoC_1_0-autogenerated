@@ -1,0 +1,1 @@
+{"Name":"Taxi Fare Calculator","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"Calculates taxi fare based on distance traveled and time, with configurable rates and minimum fare.","RequiredAPIs":[],"RequiredNuGets":[]}
