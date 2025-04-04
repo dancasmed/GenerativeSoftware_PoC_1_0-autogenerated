@@ -1,1 +1,0 @@
-{"Name":"Password Generator Module","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"Generates random passwords with customizable length and special character options. Settings are persisted in JSON format.","RequiredAPIs":[],"RequiredNuGets":[]}
