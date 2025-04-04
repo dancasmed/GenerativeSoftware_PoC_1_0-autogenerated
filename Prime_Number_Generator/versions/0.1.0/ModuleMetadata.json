@@ -1,0 +1,1 @@
+{"Name":"Prime Number Generator","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"Generates a list of prime numbers within a given range and saves them to a JSON file.","RequiredAPIs":[],"RequiredNuGets":[]}
