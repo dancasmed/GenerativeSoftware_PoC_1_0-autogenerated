@@ -1,1 +1,0 @@
-{"Name":"Printer Task Manager","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"Manages a queue of printer tasks with priority levels (High, Medium, Low) and processes them in priority order.","RequiredAPIs":[],"RequiredNuGets":[]}

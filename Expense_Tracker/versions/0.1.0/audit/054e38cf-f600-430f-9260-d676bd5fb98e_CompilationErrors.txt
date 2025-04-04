@@ -1,2 +1,0 @@
-CS1061 : 'List<Expense>' does not contain a definition for 'Where' and no accessible extension method 'Where' accepting a first argument of type 'List<Expense>' could be found (are you missing a using directive or an assembly reference?) At Line-Column : (119,13)-(119,18)
-CS1503 : Argument 1: cannot convert from 'method group' to 'scoped System.ReadOnlySpan<char>' At Line-Column : (138,53)-(138,67)

@@ -1,2 +1,0 @@
-CS1061 : 'string[]' does not contain a definition for 'Count' and no accessible extension method 'Count' accepting a first argument of type 'string[]' could be found (are you missing a using directive or an assembly reference?) At Line-Column : (39,37)-(39,42)
-CS1061 : 'string[]' does not contain a definition for 'Count' and no accessible extension method 'Count' accepting a first argument of type 'string[]' could be found (are you missing a using directive or an assembly reference?) At Line-Column : (40,37)-(40,42)

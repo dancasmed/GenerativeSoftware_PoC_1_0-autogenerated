@@ -1,1 +1,0 @@
-{"Name":"Volume Calculator Module","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A module that calculates volumes of various 3D shapes (cube, sphere, cylinder, cone, rectangular prism) and persists calculation history.","RequiredAPIs":[],"RequiredNuGets":[]}

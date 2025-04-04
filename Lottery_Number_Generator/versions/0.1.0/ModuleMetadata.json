@@ -1,1 +1,0 @@
-{"Name":"Lottery Number Generator","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A module that generates random lottery numbers based on configurable settings and saves results to JSON files.","RequiredAPIs":[],"RequiredNuGets":[]}

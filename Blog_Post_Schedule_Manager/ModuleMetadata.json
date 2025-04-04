@@ -1,1 +1,0 @@
-{"Name":"Blog Post Schedule Manager","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A module to manage blog post schedules with deadlines and topics. Allows adding, viewing, marking as completed, and deleting blog posts.","RequiredAPIs":[],"RequiredNuGets":[]}

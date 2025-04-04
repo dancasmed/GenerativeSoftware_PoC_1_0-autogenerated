@@ -1,1 +1,0 @@
-{"Name":"Movie Watchlist Manager","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A module for managing a movie watchlist with genres and ratings. Allows adding, listing, and filtering movies by genre or rating.","RequiredAPIs":[],"RequiredNuGets":[]}
