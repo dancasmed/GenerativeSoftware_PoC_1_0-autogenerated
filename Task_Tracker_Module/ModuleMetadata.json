@@ -1,0 +1,1 @@
+{"Name":"Task Tracker Module","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A module for tracking project tasks and team member assignments with JSON persistence","RequiredAPIs":[],"RequiredNuGets":[{"nuget_name":"System.Text.Json","nuget_version":"6.0.0"}]}
