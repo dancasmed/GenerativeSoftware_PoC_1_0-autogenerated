@@ -1,0 +1,1 @@
+CS0136 : A local or parameter named 'member' cannot be declared in this scope because that name is used in an enclosing local scope to define a local or parameter At Line-Column : (189,21)-(189,27)
