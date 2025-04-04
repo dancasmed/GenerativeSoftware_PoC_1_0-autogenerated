@@ -1,0 +1,1 @@
+{"Name":"Secure Password Generator","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"Generates a random secure password and saves it to a JSON file in the specified data folder.","RequiredAPIs":[],"RequiredNuGets":[]}
