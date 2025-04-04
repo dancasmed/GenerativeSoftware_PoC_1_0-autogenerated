@@ -1,0 +1,1 @@
+{"Name":"Quote of the Day","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A module that displays a random quote from a predefined list each day. The quotes can be persisted and loaded from a JSON file.","RequiredAPIs":[],"RequiredNuGets":[]}
