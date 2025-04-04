@@ -1,0 +1,1 @@
+{"Name":"Contact Manager","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A module for managing contacts with phone numbers and emails, with persistence to JSON files.","RequiredAPIs":[],"RequiredNuGets":[{"nuget_name":"System.Text.Json","nuget_version":"6.0.0"}]}
