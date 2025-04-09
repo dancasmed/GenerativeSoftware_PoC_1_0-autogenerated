@@ -1,0 +1,1 @@
+{"Name":"Website Traffic Analyzer","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":false,"Description":"A module that tracks and analyzes website traffic data, storing visit information in JSON format and providing basic analytics.","RequiredAPIs":[],"RequiredNuGets":[]}
