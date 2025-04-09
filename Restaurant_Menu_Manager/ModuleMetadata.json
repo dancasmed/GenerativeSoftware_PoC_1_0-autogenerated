@@ -1,0 +1,1 @@
+{"Name":"Restaurant Menu Manager","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":false,"Description":"A module to manage a restaurant\u0027s menu with items, prices, and categories.","RequiredAPIs":[],"RequiredNuGets":[{"nuget_name":"System.Text.Json","nuget_version":"6.0.0"}]}
