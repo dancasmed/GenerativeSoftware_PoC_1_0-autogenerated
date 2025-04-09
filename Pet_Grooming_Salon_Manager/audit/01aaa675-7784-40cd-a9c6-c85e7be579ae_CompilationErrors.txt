@@ -1,0 +1,2 @@
+CS1061 : 'List<Appointment>' does not contain a definition for 'Max' and no accessible extension method 'Max' accepting a first argument of type 'List<Appointment>' could be found (are you missing a using directive or an assembly reference?) At Line-Column : (144,59)-(144,62)
+CS1061 : 'List<Service>' does not contain a definition for 'Max' and no accessible extension method 'Max' accepting a first argument of type 'List<Service>' could be found (are you missing a using directive or an assembly reference?) At Line-Column : (216,51)-(216,54)
