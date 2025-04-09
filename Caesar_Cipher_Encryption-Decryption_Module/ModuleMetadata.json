@@ -1,0 +1,1 @@
+{"Name":"Caesar Cipher Encryption-Decryption Module","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":false,"Description":"Provides simple encryption and decryption using Caesar cipher algorithm. Stores shift value in a JSON file in the specified data folder.","RequiredAPIs":[],"RequiredNuGets":[]}
