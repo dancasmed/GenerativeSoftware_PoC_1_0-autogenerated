@@ -1,0 +1,1 @@
+{"Name":"Pi Calculator Module","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"Calculates PI to N decimal places and stores the result in JSON files.","RequiredAPIs":[],"RequiredNuGets":[]}
