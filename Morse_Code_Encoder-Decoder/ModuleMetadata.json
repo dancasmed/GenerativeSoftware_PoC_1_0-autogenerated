@@ -1,1 +1,0 @@
-{"Name":"Morse Code Encoder-Decoder","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"Provides functionality to encode text to Morse code and decode Morse code back to text. Results are saved to JSON files in the specified data folder.","RequiredAPIs":[],"RequiredNuGets":[]}
