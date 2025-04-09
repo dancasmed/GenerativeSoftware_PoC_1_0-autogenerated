@@ -1,0 +1,1 @@
+{"Name":"Shortest Path Finder","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"Finds the shortest path between two points in a grid using BFS algorithm.","RequiredAPIs":[],"RequiredNuGets":[{"nuget_name":"System.Text.Json","nuget_version":"6.0.0"}]}
