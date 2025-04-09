@@ -1,0 +1,1 @@
+{"Name":"Average Speed Calculator","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"Calculates the average speed of a vehicle over a journey based on total distance and time from a JSON configuration file.","RequiredAPIs":[],"RequiredNuGets":[]}
