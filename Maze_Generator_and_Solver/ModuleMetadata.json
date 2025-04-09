@@ -1,0 +1,1 @@
+{"Name":"Maze Generator and Solver","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A module that generates a random maze and attempts to solve it using a backtracking algorithm. The maze and its solution are saved as JSON files in the specified data folder.","RequiredAPIs":[],"RequiredNuGets":[]}
