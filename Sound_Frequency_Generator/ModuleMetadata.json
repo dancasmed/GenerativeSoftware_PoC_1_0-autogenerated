@@ -1,0 +1,1 @@
+{"Name":"Sound Frequency Generator","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A module that generates sound frequencies for testing purposes. It uses the console\u0027s beep function and stores configuration in a JSON file.","RequiredAPIs":[],"RequiredNuGets":[]}
