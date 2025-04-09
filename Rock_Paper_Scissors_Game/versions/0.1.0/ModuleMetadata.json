@@ -1,0 +1,1 @@
+{"Name":"Rock Paper Scissors Game","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A console-based rock-paper-scissors game that tracks game statistics and saves them to a JSON file.","RequiredAPIs":[],"RequiredNuGets":[]}
