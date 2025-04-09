@@ -1,0 +1,1 @@
+{"Name":"Poem and Short Story Analyzer","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A module that analyzes the structure of poems or short stories, providing statistics like word count, line count, unique words, and word frequency.","RequiredAPIs":[],"RequiredNuGets":[]}
