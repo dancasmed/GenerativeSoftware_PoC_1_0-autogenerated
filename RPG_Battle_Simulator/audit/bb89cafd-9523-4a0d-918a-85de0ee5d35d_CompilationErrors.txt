@@ -1,1 +1,0 @@
-CS1061 : 'Enemy' does not contain a definition for 'MaxHealth' and no accessible extension method 'MaxHealth' accepting a first argument of type 'Enemy' could be found (are you missing a using directive or an assembly reference?) At Line-Column : (121,72)-(121,81)
