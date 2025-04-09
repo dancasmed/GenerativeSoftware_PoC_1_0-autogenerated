@@ -1,0 +1,1 @@
+{"Name":"Coin Collection Manager","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A module that simulates a coin collection manager with rarity ratings. Allows adding, viewing, and searching coins by rarity.","RequiredAPIs":[],"RequiredNuGets":[]}
