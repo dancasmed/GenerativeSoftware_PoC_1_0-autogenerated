@@ -1,0 +1,6 @@
+CS1525 : Invalid expression term '' At Line-Column : (69,24)-(69,25)
+CS1002 : ; expected At Line-Column : (69,24)-(69,25)
+CS1056 : Unexpected character '$' At Line-Column : (69,24)-(69,24)
+CS1056 : Unexpected character '\' At Line-Column : (69,25)-(69,25)
+CS1010 : Newline in constant At Line-Column : (69,26)-(69,26)
+CS1002 : ; expected At Line-Column : (69,67)-(69,67)

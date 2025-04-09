@@ -1,0 +1,1 @@
+{"Name":"Text Analyzer","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":false,"Description":"Analyzes text and counts the frequency of each word, saving results to a JSON file.","RequiredAPIs":[],"RequiredNuGets":[]}
