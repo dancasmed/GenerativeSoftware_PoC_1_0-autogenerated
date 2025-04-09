@@ -1,0 +1,1 @@
+{"Name":"Fantasy Football Draft Manager","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A module that simulates a fantasy football draft manager, allowing users to view available players, draft players, and save their draft results.","RequiredAPIs":[],"RequiredNuGets":[{"nuget_name":"System.Text.Json","nuget_version":"7.0.0"}]}
