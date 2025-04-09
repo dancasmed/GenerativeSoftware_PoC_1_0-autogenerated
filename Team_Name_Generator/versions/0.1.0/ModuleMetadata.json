@@ -1,0 +1,1 @@
+{"Name":"Team Name Generator","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"Generates random team names for sports or games using a combination of adjectives and nouns. Can be configured via JSON file.","RequiredAPIs":[],"RequiredNuGets":[]}
