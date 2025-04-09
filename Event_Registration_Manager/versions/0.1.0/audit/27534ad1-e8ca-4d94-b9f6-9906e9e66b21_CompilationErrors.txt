@@ -1,0 +1,3 @@
+CS1061 : 'List<Attendee>' does not contain a definition for 'Count' and no accessible extension method 'Count' accepting a first argument of type 'List<Attendee>' could be found (are you missing a using directive or an assembly reference?) At Line-Column : (161,45)-(161,50)
+CS1061 : 'List<Attendee>' does not contain a definition for 'Where' and no accessible extension method 'Where' accepting a first argument of type 'List<Attendee>' could be found (are you missing a using directive or an assembly reference?) At Line-Column : (215,43)-(215,48)
+CS0019 : Operator '==' cannot be applied to operands of type 'method group' and 'int' At Line-Column : (217,16)-(217,41)
