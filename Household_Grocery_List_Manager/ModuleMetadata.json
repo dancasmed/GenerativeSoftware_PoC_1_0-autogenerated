@@ -1,0 +1,1 @@
+{"Name":"Household Grocery List Manager","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A module for managing a shared grocery list for a household. Allows adding, removing, viewing, and clearing items from the list, with persistent storage in JSON format.","RequiredAPIs":[],"RequiredNuGets":[]}
