@@ -1,0 +1,1 @@
+{"Name":"Body Fat Calculator","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"Calculates body fat percentage using the US Navy method based on input measurements (gender, age, weight, height, neck, waist, and hip circumference).","RequiredAPIs":[],"RequiredNuGets":[]}
