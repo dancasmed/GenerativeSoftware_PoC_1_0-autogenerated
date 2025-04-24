@@ -23,7 +23,7 @@
     "MinimumFeatures": [
       {
         "Description": "CRUDS operations for vinyl records",
-        "IsImplemented": false
+        "IsImplemented": true
       },
       {
         "Description": "Basic search functionality",

@@ -71,7 +71,8 @@ public class VinylManagerModule : IGeneratedModule {
         
         var records = LoadRecords();
         
-        switch (Console.ReadLine()) {
+        var input = Console.ReadLine();
+        switch (input) {
             case "1":
                 AddRecord(records);
                 break;
@@ -86,6 +87,11 @@ public class VinylManagerModule : IGeneratedModule {
                 break;
             case "5":
                 SearchRecords(records);
+                break;
+            case "6":
+                return;
+            default:
+                Console.WriteLine("Invalid option");
                 break;
         }
     }
@@ -164,19 +170,69 @@ public class VinylManagerModule : IGeneratedModule {
     }
     
     private void EditRecord(List<Record> records) {
-        Console.WriteLine("Edit Record functionality not implemented.");
+        Console.WriteLine("\nEnter record title to edit:");
+        var searchTerm = Console.ReadLine();
+        var record = records.FirstOrDefault(r => r.Title.Equals(searchTerm, StringComparison.OrdinalIgnoreCase));
+
+        if (record == null) {
+            Console.WriteLine("Record not found");
+            return;
+        }
+
+        record.Title = ReadInput("New Title (press enter to keep current)") ?? record.Title;
+        record.Artist = ReadInput("New Artist (press enter to keep current)") ?? record.Artist;
+        record.Year = int.TryParse(ReadInput("New Year (press enter to keep current)"), out var newYear) ? newYear : record.Year;
+        record.Genre = ReadInput("New Genre (press enter to keep current)") ?? record.Genre;
+        record.Condition = ReadInput("New Condition (Mint/Good/Fair)") ?? record.Condition;
+        record.Value = decimal.TryParse(ReadInput("New Value (press enter to keep current)"), out var newValue) ? newValue : record.Value;
+
+        SaveRecords(records);
+        Console.WriteLine("Record updated successfully");
     }
     
     private void DeleteRecord(List<Record> records) {
-        Console.WriteLine("Delete Record functionality not implemented.");
+        Console.WriteLine("\nEnter record title to delete:");
+        var searchTerm = Console.ReadLine();
+        var record = records.FirstOrDefault(r => r.Title.Equals(searchTerm, StringComparison.OrdinalIgnoreCase));
+
+        if (record == null) {
+            Console.WriteLine("Record not found");
+            return;
+        }
+
+        records.Remove(record);
+        SaveRecords(records);
+        Console.WriteLine("Record deleted successfully");
     }
     
     private void ListRecords(List<Record> records) {
-        Console.WriteLine("List Records functionality not implemented.");
+        Console.WriteLine("\nAll Records:");
+        foreach (var record in records) {
+            Console.WriteLine($"{record.Title} by {record.Artist} ({record.Year}) - {record.Genre} | Condition: {record.Condition} | Value: {record.Value:C}");
+        }
     }
     
     private void SearchRecords(List<Record> records) {
-        Console.WriteLine("Search Records functionality not implemented.");
+        Console.WriteLine("\nSearch by:");
+        Console.WriteLine("1. Title");
+        Console.WriteLine("2. Artist");
+        Console.WriteLine("3. Genre");
+        
+        var searchType = Console.ReadLine();
+        Console.WriteLine("Enter search term:");
+        var searchTerm = Console.ReadLine();
+
+        IEnumerable<Record> results = searchType switch {
+            "1" => records.Where(r => r.Title.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)),
+            "2" => records.Where(r => r.Artist.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)),
+            "3" => records.Where(r => r.Genre.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)),
+            _ => Enumerable.Empty<Record>()
+        };
+
+        Console.WriteLine("\nSearch Results:");
+        foreach (var record in results) {
+            Console.WriteLine($"{record.Title} by {record.Artist} ({record.Year}) - {record.Genre}");
+        }
     }
 }
 
