@@ -223,9 +223,9 @@ public class VinylManagerModule : IGeneratedModule {
         var searchTerm = Console.ReadLine();
 
         IEnumerable<Record> results = searchType switch {
-            "1" => records.Where(r => r.Title.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)),
-            "2" => records.Where(r => r.Artist.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)),
-            "3" => records.Where(r => r.Genre.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)),
+            "1" => records.Where(r => r.Title.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0),
+            "2" => records.Where(r => r.Artist.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0),
+            "3" => records.Where(r => r.Genre.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0),
             _ => Enumerable.Empty<Record>()
         };
 

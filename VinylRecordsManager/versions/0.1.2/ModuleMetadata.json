@@ -27,7 +27,7 @@
       },
       {
         "Description": "Basic search functionality",
-        "IsImplemented": false
+        "IsImplemented": true
       },
       {
         "Description": "Ability to categorize records by genre and artist",
