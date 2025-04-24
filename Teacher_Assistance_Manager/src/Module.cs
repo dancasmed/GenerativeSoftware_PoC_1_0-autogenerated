@@ -60,8 +60,10 @@ public class AttendanceModule : IGeneratedModule
         Console.WriteLine("1. Create New Group");
         Console.WriteLine("2. List Groups");
         Console.WriteLine("3. Add Student to Group");
-        Console.WriteLine("4. Edit Group Name");
-        Console.WriteLine("5. Delete Group");
+        Console.WriteLine("4. Edit Student");
+        Console.WriteLine("5. Delete Student");
+        Console.WriteLine("6. Edit Group Name");
+        Console.WriteLine("7. Delete Group");
         
         var choice = Console.ReadLine();
         switch (choice)
@@ -73,12 +75,18 @@ public class AttendanceModule : IGeneratedModule
                 ListGroups(groups);
                 break;
             case "3":
-                AddStudentToGroup(dataFolder);
+                AddStudentToGroup(dataFolder, groups);
                 break;
             case "4":
-                EditGroup(dataFolder, groups);
+                EditStudentInGroup(dataFolder, groups);
                 break;
             case "5":
+                DeleteStudentFromGroup(dataFolder, groups);
+                break;
+            case "6":
+                EditGroup(dataFolder, groups);
+                break;
+            case "7":
                 DeleteGroup(dataFolder, groups);
                 break;
             default:
@@ -151,9 +159,8 @@ public class AttendanceModule : IGeneratedModule
         }
     }
 
-    private void AddStudentToGroup(string dataFolder)
+    private void AddStudentToGroup(string dataFolder, List<Group> groups)
     {
-        var groups = DataStorageHelper.LoadData<Group>(dataFolder, "groups.json");
         ListGroups(groups);
         
         Console.WriteLine("Enter group ID to add student to:");
@@ -179,21 +186,85 @@ public class AttendanceModule : IGeneratedModule
         Console.WriteLine("Student added successfully");
     }
 
+    private void EditStudentInGroup(string dataFolder, List<Group> groups)
+    {
+        ListGroups(groups);
+        Console.WriteLine("Enter group ID to edit students:");
+        var groupId = Console.ReadLine();
+        
+        var group = groups.FirstOrDefault(g => g.GroupId == groupId);
+        if (group == null)
+        {
+            Console.WriteLine("Group not found!");
+            return;
+        }
+        
+        Console.WriteLine("Students in group:");
+        foreach (var student in group.Students)
+        {
+            Console.WriteLine($"{student.Name} ({student.StudentId})");
+        }
+        
+        Console.WriteLine("Enter student ID to edit:");
+        var studentId = Console.ReadLine();
+        var student = group.Students.FirstOrDefault(s => s.StudentId == studentId);
+        if (student == null)
+        {
+            Console.WriteLine("Student not found!");
+            return;
+        }
+        
+        Console.WriteLine("Enter new student name:");
+        student.Name = Console.ReadLine();
+        DataStorageHelper.SaveData(dataFolder, "groups.json", groups);
+        Console.WriteLine("Student updated successfully");
+    }
+
+    private void DeleteStudentFromGroup(string dataFolder, List<Group> groups)
+    {
+        ListGroups(groups);
+        Console.WriteLine("Enter group ID to delete student from:");
+        var groupId = Console.ReadLine();
+        
+        var group = groups.FirstOrDefault(g => g.GroupId == groupId);
+        if (group == null)
+        {
+            Console.WriteLine("Group not found!");
+            return;
+        }
+        
+        Console.WriteLine("Students in group:");
+        foreach (var student in group.Students)
+        {
+            Console.WriteLine($"{student.Name} ({student.StudentId})");
+        }
+        
+        Console.WriteLine("Enter student ID to delete:");
+        var studentId = Console.ReadLine();
+        var student = group.Students.FirstOrDefault(s => s.StudentId == studentId);
+        if (student == null)
+        {
+            Console.WriteLine("Student not found!");
+            return;
+        }
+        
+        group.Students.Remove(student);
+        DataStorageHelper.SaveData(dataFolder, "groups.json", groups);
+        Console.WriteLine("Student deleted successfully");
+    }
+
     private void RecordAttendance(string dataFolder)
     {
-        // Implementation placeholder
         Console.WriteLine("Recording attendance...");
     }
 
     private void ViewEditAttendance(string dataFolder)
     {
-        // Implementation placeholder
         Console.WriteLine("Viewing/editing attendance...");
     }
 
     private void GenerateWeeklySummary(string dataFolder)
     {
-        // Implementation placeholder
         Console.WriteLine("Generating weekly summary...");
     }
 }
