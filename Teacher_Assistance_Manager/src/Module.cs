@@ -59,36 +59,96 @@ public class AttendanceModule : IGeneratedModule
 
     private void ManageGroups(DataStorage dataStorage, List<Group> groups)
     {
-        Console.WriteLine("\nGroup Management:");
-        Console.WriteLine("1. Create Group");
-        Console.WriteLine("2. List Groups");
-        var choice = Console.ReadLine();
-
-        if (choice == "1")
+        while (true)
         {
-            Console.Write("Enter group name: ");
-            var name = Console.ReadLine();
-            Console.Write("Enter group description: ");
-            var desc = Console.ReadLine();
+            Console.WriteLine("\nGroup Management:");
+            Console.WriteLine("1. Create Group");
+            Console.WriteLine("2. List Groups");
+            Console.WriteLine("3. Edit Group");
+            Console.WriteLine("4. Delete Group");
+            Console.WriteLine("5. Back to Main Menu");
 
-            groups.Add(new Group
-            {
-                GroupId = Guid.NewGuid().ToString(),
-                GroupName = name,
-                Description = desc,
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now
-            });
+            var choice = Console.ReadLine();
 
-            dataStorage.SaveData(groups);
-            Console.WriteLine("Group created successfully");
-        }
-        else if (choice == "2")
-        {
-            Console.WriteLine("\nExisting Groups:");
-            foreach (var group in groups)
+            if (choice == "1")
             {
-                Console.WriteLine("Group: " + group.GroupName + ", Description: " + group.Description);
+                Console.Write("Enter group name: ");
+                var name = Console.ReadLine();
+                Console.Write("Enter group description: ");
+                var desc = Console.ReadLine();
+
+                groups.Add(new Group
+                {
+                    GroupId = Guid.NewGuid().ToString(),
+                    GroupName = name,
+                    Description = desc,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now
+                });
+
+                dataStorage.SaveData(groups);
+                Console.WriteLine("Group created successfully");
+            }
+            else if (choice == "2")
+            {
+                Console.WriteLine("\nExisting Groups:");
+                foreach (var group in groups)
+                {
+                    Console.WriteLine($"ID: {group.GroupId}, Name: {group.GroupName}, Description: {group.Description}");
+                }
+            }
+            else if (choice == "3")
+            {
+                Console.Write("Enter Group ID to edit: ");
+                var groupId = Console.ReadLine();
+                var group = groups.FirstOrDefault(g => g.GroupId == groupId);
+                if (group == null)
+                {
+                    Console.WriteLine("Group not found.");
+                    continue;
+                }
+
+                Console.Write("Enter new group name (leave blank to keep current): ");
+                var newName = Console.ReadLine();
+                Console.Write("Enter new group description (leave blank to keep current): ");
+                var newDesc = Console.ReadLine();
+
+                if (!string.IsNullOrWhiteSpace(newName))
+                    group.GroupName = newName;
+                if (!string.IsNullOrWhiteSpace(newDesc))
+                    group.Description = newDesc;
+
+                group.UpdatedAt = DateTime.Now;
+                dataStorage.SaveData(groups);
+                Console.WriteLine("Group updated successfully.");
+            }
+            else if (choice == "4")
+            {
+                Console.Write("Enter Group ID to delete: ");
+                var groupId = Console.ReadLine();
+                var group = groups.FirstOrDefault(g => g.GroupId == groupId);
+                if (group == null)
+                {
+                    Console.WriteLine("Group not found.");
+                    continue;
+                }
+
+                Console.Write($"Are you sure you want to delete group {group.GroupName}? (Y/N): ");
+                var confirm = Console.ReadLine().ToUpper();
+                if (confirm == "Y")
+                {
+                    groups.Remove(group);
+                    dataStorage.SaveData(groups);
+                    Console.WriteLine("Group deleted successfully.");
+                }
+            }
+            else if (choice == "5")
+            {
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Invalid option");
             }
         }
     }

@@ -20,7 +20,7 @@
     "MinimumFeatures": [
       {
         "Description": "Create and manage student groups",
-        "IsImplemented": false
+        "IsImplemented": true
       },
       {
         "Description": "Add and remove students from groups",
