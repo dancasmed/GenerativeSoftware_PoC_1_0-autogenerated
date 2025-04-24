@@ -1,0 +1,9 @@
+{
+  "choices": [
+    {
+      "message": {
+        "content": "\u0060\u0060\u0060json\n{\n    \u0022isFeatureImplemented\u0022: true,\n    \u0022updatedSourceCodeFiles\u0022: [],\n    \u0022required_nugets\u0022: []\n}\n\u0060\u0060\u0060"
+      }
+    }
+  ]
+}

@@ -90,7 +90,7 @@ public class VinylCollectionModule : IGeneratedModule
 
         while (true)
         {
-            Console.WriteLine("\n1. Add Record\n2. Update Record\n3. Delete Record\n4. Search Records\n5. Add Listening Session\n6. View Statistics\n7. Get Recommendations\n8. Exit");
+            Console.WriteLine("\n1. Add Record\n2. Update Record\n3. Delete Record\n4. List Records\n5. Search Records\n6. Add Listening Session\n7. View Statistics\n8. Get Recommendations\n9. Exit");
             Console.Write("Select option: ");
             switch (Console.ReadLine())
             {
@@ -104,18 +104,21 @@ public class VinylCollectionModule : IGeneratedModule
                     DeleteRecord(records, dataService);
                     break;
                 case "4":
-                    SearchRecords(records);
+                    ListRecords(records);
                     break;
                 case "5":
-                    AddSession(sessions, records, dataService);
+                    SearchRecords(records);
                     break;
                 case "6":
-                    ShowStatistics(records, sessions);
+                    AddSession(sessions, records, dataService);
                     break;
                 case "7":
-                    GenerateRecommendations(records);
+                    ShowStatistics(records, sessions);
                     break;
                 case "8":
+                    GenerateRecommendations(records);
+                    break;
+                case "9":
                     return true;
                 default:
                     Console.WriteLine("Invalid option");
@@ -135,6 +138,12 @@ public class VinylCollectionModule : IGeneratedModule
         record.Genre = Console.ReadLine();
         Console.Write("Release Year: ");
         record.ReleaseYear = int.Parse(Console.ReadLine());
+        Console.Write("Condition: ");
+        record.Condition = Console.ReadLine();
+        Console.Write("Notes: ");
+        record.Notes = Console.ReadLine();
+        Console.Write("Cover Image URL: ");
+        record.CoverImageUrl = Console.ReadLine();
         records.Add(record);
         dataService.SaveRecords(records);
         Console.WriteLine("Record added");
@@ -150,6 +159,32 @@ public class VinylCollectionModule : IGeneratedModule
             Console.Write("New Title (Enter to skip): ");
             var input = Console.ReadLine();
             if (!string.IsNullOrEmpty(input)) record.Title = input;
+
+            Console.Write("New Artist (Enter to skip): ");
+            input = Console.ReadLine();
+            if (!string.IsNullOrEmpty(input)) record.Artist = input;
+
+            Console.Write("New Genre (Enter to skip): ");
+            input = Console.ReadLine();
+            if (!string.IsNullOrEmpty(input)) record.Genre = input;
+
+            Console.Write("New Release Year (Enter to skip): ");
+            input = Console.ReadLine();
+            if (!string.IsNullOrEmpty(input) && int.TryParse(input, out int year))
+                record.ReleaseYear = year;
+
+            Console.Write("New Condition (Enter to skip): ");
+            input = Console.ReadLine();
+            if (!string.IsNullOrEmpty(input)) record.Condition = input;
+
+            Console.Write("New Notes (Enter to skip): ");
+            input = Console.ReadLine();
+            if (!string.IsNullOrEmpty(input)) record.Notes = input;
+
+            Console.Write("New Cover Image URL (Enter to skip): ");
+            input = Console.ReadLine();
+            if (!string.IsNullOrEmpty(input)) record.CoverImageUrl = input;
+
             dataService.SaveRecords(records);
             Console.WriteLine("Record updated");
         }
@@ -166,6 +201,23 @@ public class VinylCollectionModule : IGeneratedModule
             Console.WriteLine("Record deleted");
         }
         else Console.WriteLine("Record not found");
+    }
+
+    private void ListRecords(List<VinylRecord> records)
+    {
+        Console.WriteLine($"Total records: {records.Count}");
+        foreach (var record in records)
+        {
+            Console.WriteLine($"ID: {record.Id}");
+            Console.WriteLine($"Title: {record.Title}");
+            Console.WriteLine($"Artist: {record.Artist}");
+            Console.WriteLine($"Genre: {record.Genre}");
+            Console.WriteLine($"Release Year: {record.ReleaseYear}");
+            Console.WriteLine($"Condition: {record.Condition}");
+            Console.WriteLine($"Notes: {record.Notes}");
+            Console.WriteLine($"Cover Image URL: {record.CoverImageUrl}");
+            Console.WriteLine("-----------------------");
+        }
     }
 
     private void SearchRecords(List<VinylRecord> records)
