@@ -1,0 +1,111 @@
+{
+  "Name": "Teacher Assistance Manager",
+  "CreationRequirements": {
+    "InitialRequirement": "im a teacher, have multiple groups and need help to manage the assistance list for each group. need to be able to create groups with students and need to generate an assistance list for the current day, at the end of the week I need a summary for the percentage os assitance per group",
+    "ReviewedRequirement": "Design a software module to help teachers manage student attendance across multiple groups. The module should allow the teacher to create and manage groups of students, record daily attendance, and generate weekly attendance summaries. The teacher should be able to view and edit attendance records for each group, with the system automatically calculating attendance percentages at the end of the week. The module should ensure data integrity and provide an intuitive interface for managing all attendance-related tasks.",
+    "FunctionalDetails": [
+      "Create and manage student groups",
+      "Record daily attendance for each group",
+      "Generate weekly attendance summaries",
+      "Calculate attendance percentages per group",
+      "View and edit attendance records"
+    ],
+    "UserInteraction": [
+      "Teacher creates a new group and adds students to it",
+      "Teacher selects a group and marks attendance for the current day",
+      "Teacher views the attendance list for a specific day",
+      "Teacher edits attendance records if needed",
+      "Teacher generates and views the weekly attendance summary"
+    ],
+    "MinimumFeatures": [
+      {
+        "Description": "Create and manage student groups",
+        "IsImplemented": false
+      },
+      {
+        "Description": "Add, edit, and delete students in a group",
+        "IsImplemented": false
+      },
+      {
+        "Description": "Mark daily attendance for each group",
+        "IsImplemented": false
+      },
+      {
+        "Description": "View daily attendance records",
+        "IsImplemented": false
+      },
+      {
+        "Description": "Generate weekly attendance summary",
+        "IsImplemented": false
+      }
+    ],
+    "GoodToHaveFeatures": [
+      {
+        "Description": "Bulk import/export of student data",
+        "IsImplemented": false
+      },
+      {
+        "Description": "Customizable attendance statuses (e.g., present, absent, excused)",
+        "IsImplemented": false
+      },
+      {
+        "Description": "Filter and search attendance records by date or student",
+        "IsImplemented": false
+      },
+      {
+        "Description": "Visual charts for attendance trends",
+        "IsImplemented": false
+      },
+      {
+        "Description": "Notifications for low attendance percentages",
+        "IsImplemented": false
+      }
+    ],
+    "BarRaiserFeatures": [
+      {
+        "Description": "Predictive analytics for attendance patterns",
+        "IsImplemented": false
+      },
+      {
+        "Description": "Integration with school calendar for holidays and events",
+        "IsImplemented": false
+      },
+      {
+        "Description": "Multi-teacher collaboration for shared groups",
+        "IsImplemented": false
+      },
+      {
+        "Description": "Mobile access for attendance marking on-the-go",
+        "IsImplemented": false
+      },
+      {
+        "Description": "Automated reports sent to administrators",
+        "IsImplemented": false
+      }
+    ],
+    "DataModels": [
+      "**Group**: {\u0022group_id\u0022: \u0022string\u0022, \u0022group_name\u0022: \u0022string\u0022, \u0022creation_date\u0022: \u0022date\u0022, \u0022teacher_id\u0022: \u0022string\u0022}",
+      "**Student**: {\u0022student_id\u0022: \u0022string\u0022, \u0022first_name\u0022: \u0022string\u0022, \u0022last_name\u0022: \u0022string\u0022, \u0022group_id\u0022: \u0022string\u0022}",
+      "**Attendance**: {\u0022attendance_id\u0022: \u0022string\u0022, \u0022student_id\u0022: \u0022string\u0022, \u0022date\u0022: \u0022date\u0022, \u0022status\u0022: \u0022string\u0022, \u0022group_id\u0022: \u0022string\u0022}",
+      "**WeeklySummary**: {\u0022summary_id\u0022: \u0022string\u0022, \u0022group_id\u0022: \u0022string\u0022, \u0022week_start_date\u0022: \u0022date\u0022, \u0022week_end_date\u0022: \u0022date\u0022, \u0022total_students\u0022: \u0022integer\u0022, \u0022total_present\u0022: \u0022integer\u0022, \u0022percentage\u0022: \u0022float\u0022}"
+    ]
+  },
+  "Version": {
+    "Major": 0,
+    "Minor": 1,
+    "Patch": 0
+  },
+  "IsInitialRequirementReviewed": true,
+  "IsSourceCodeGenerated": true,
+  "AreMinimumFeaturesImplemented": false,
+  "AreGoodToHaveFeaturesImplemented": false,
+  "AreBarRaiserFeaturesImplemented": false,
+  "IsSourceCodeCompiled": true,
+  "IsReadmeFileGenerated": false,
+  "Description": "Attendance management system for teachers to handle student groups, daily attendance recording, and weekly summary generation with percentage calculations",
+  "RequiredAPIs": [
+    "System.Text.Json",
+    "System.IO"
+  ],
+  "RequiredNuGets": []
+}
