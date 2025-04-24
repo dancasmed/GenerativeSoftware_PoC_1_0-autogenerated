@@ -1,0 +1,40 @@
+{
+  "module_name": "UnitConverter",
+  "reviewed_prompt": "Design a software module that allows users to convert between different units of distance: kilometers, miles, meters, and feet. The module should provide a simple and intuitive interface for users to input a value, select the source unit, and select the target unit for conversion. The conversion should be accurate and handle edge cases such as zero and negative values appropriately. The module should support bidirectional conversions between all specified units.",
+  "functional_details": [
+    "Convert a given distance value from one unit to another.",
+    "Support bidirectional conversions between kilometers, miles, meters, and feet.",
+    "Handle edge cases such as zero and negative values.",
+    "Provide a simple and intuitive user interface for input and output."
+  ],
+  "user_interaction": [
+    "User inputs a numerical value to be converted.",
+    "User selects the source unit from a list of available units (kilometers, miles, meters, feet).",
+    "User selects the target unit from a list of available units (kilometers, miles, meters, feet).",
+    "User triggers the conversion process.",
+    "The module displays the converted value."
+  ],
+  "minimum_features": [
+    "Convert between kilometers and miles.",
+    "Convert between meters and feet.",
+    "Handle basic input validation (numeric values only).",
+    "Display the converted result."
+  ],
+  "desired_features": [
+    "Support conversions between all specified units (kilometers, miles, meters, feet).",
+    "Provide a history of recent conversions.",
+    "Allow users to swap source and target units with a single action.",
+    "Support decimal values for precise conversions."
+  ],
+  "bar_raiser_features": [
+    "Add support for additional units (e.g., inches, yards, nautical miles).",
+    "Integrate real-time conversion as the user types.",
+    "Provide visual representations of the converted values (e.g., charts or graphs).",
+    "Allow users to save and load conversion presets."
+  ],
+  "data_models": [
+    "**ConversionRequest**: \u0060{ value: float, source_unit: string, target_unit: string }\u0060",
+    "**ConversionResult**: \u0060{ original_value: float, original_unit: string, converted_value: float, converted_unit: string }\u0060",
+    "**ConversionHistory**: \u0060[ { timestamp: datetime, request: ConversionRequest, result: ConversionResult } ]\u0060"
+  ]
+}
