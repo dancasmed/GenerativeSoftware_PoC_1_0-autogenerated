@@ -306,7 +306,82 @@ public class AttendanceModule : IGeneratedModule
 
     private void ViewEditAttendance(string dataFolder)
     {
-        Console.WriteLine("Viewing/editing attendance...");
+        var groups = DataStorageHelper.LoadData<Group>(dataFolder, "groups.json");
+        if (groups.Count == 0)
+        {
+            Console.WriteLine("No groups available. Please create a group first.");
+            return;
+        }
+
+        Console.WriteLine("Select a group to view attendance:");
+        ListGroups(groups);
+        Console.WriteLine("Enter group ID:");
+        var groupId = Console.ReadLine();
+        var selectedGroup = groups.FirstOrDefault(g => g.GroupId == groupId);
+
+        if (selectedGroup == null)
+        {
+            Console.WriteLine("Invalid group selection");
+            return;
+        }
+
+        Console.WriteLine("Enter date to view (yyyy-MM-dd) or press Enter for today:");
+        var dateInput = Console.ReadLine();
+        DateTime targetDate;
+        if (!DateTime.TryParse(dateInput, out targetDate))
+        {
+            targetDate = DateTime.Today;
+        }
+
+        var attendanceRecords = DataStorageHelper.LoadData<AttendanceRecord>(dataFolder, "attendance.json")
+            .Where(r => r.GroupId == groupId && r.Date.Date == targetDate.Date)
+            .ToList();
+
+        if (attendanceRecords.Count == 0)
+        {
+            Console.WriteLine("No attendance records found for this date.");
+            return;
+        }
+
+        Console.WriteLine($"\nAttendance for {targetDate:yyyy-MM-dd}:");
+        foreach (var record in attendanceRecords)
+        {
+            var student = selectedGroup.Students.FirstOrDefault(s => s.StudentId == record.StudentId);
+            Console.WriteLine($"{student?.Name ?? "Unknown"}: {(record.IsPresent ? "Present" : "Absent")}");
+        }
+
+        Console.WriteLine("\nEdit records? (Y/N)");
+        if (Console.ReadLine().Trim().ToUpper() == "Y")
+        {
+            foreach (var record in attendanceRecords.ToList())
+            {
+                var student = selectedGroup.Students.FirstOrDefault(s => s.StudentId == record.StudentId);
+                Console.WriteLine($"{student?.Name ?? "Unknown"} - Current status: {(record.IsPresent ? "Present" : "Absent"}");
+                Console.WriteLine("New status (P/A/Cancel):");
+                var input = Console.ReadLine().Trim().ToUpper();
+                
+                if (input == "P")
+                {
+                    record.IsPresent = true;
+                }
+                else if (input == "A")
+                {
+                    record.IsPresent = false;
+                }
+                else
+                {
+                    Console.WriteLine("Edit cancelled for this student.");
+                }
+            }
+            
+            var allRecords = DataStorageHelper.LoadData<AttendanceRecord>(dataFolder, "attendance.json")
+                .Where(r => !(r.GroupId == groupId && r.Date.Date == targetDate.Date))
+                .Concat(attendanceRecords)
+                .ToList();
+            
+            DataStorageHelper.SaveData(dataFolder, "attendance.json", allRecords);
+            Console.WriteLine("Attendance records updated successfully!");
+        }
     }
 
     private void GenerateWeeklySummary(string dataFolder)
