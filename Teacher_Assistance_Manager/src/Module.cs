@@ -155,45 +155,78 @@ public class AttendanceModule : IGeneratedModule
 
     private void ManageStudents(DataStorage dataStorage, List<Student> students, List<Group> groups)
     {
-        Console.WriteLine("\nStudent Management:");
-        Console.WriteLine("1. Add Student");
-        Console.WriteLine("2. List Students");
-        var choice = Console.ReadLine();
-
-        if (choice == "1")
+        while (true)
         {
-            Console.Write("Enter student name: ");
-            var name = Console.ReadLine();
-            Console.Write("Enter student email: ");
-            var email = Console.ReadLine();
-            Console.Write("Enter group ID: ");
-            var groupId = Console.ReadLine();
+            Console.WriteLine("\nStudent Management:");
+            Console.WriteLine("1. Add Student");
+            Console.WriteLine("2. List Students");
+            Console.WriteLine("3. Remove Student");
+            Console.WriteLine("4. Back to Main Menu");
+            var choice = Console.ReadLine();
 
-            if (!groups.Any(g => g.GroupId == groupId))
+            if (choice == "1")
             {
-                Console.WriteLine("Invalid group ID");
-                return;
+                Console.Write("Enter student name: ");
+                var name = Console.ReadLine();
+                Console.Write("Enter student email: ");
+                var email = Console.ReadLine();
+                Console.Write("Enter group ID: ");
+                var groupId = Console.ReadLine();
+
+                if (!groups.Any(g => g.GroupId == groupId))
+                {
+                    Console.WriteLine("Invalid group ID");
+                    continue;
+                }
+
+                students.Add(new Student
+                {
+                    StudentId = Guid.NewGuid().ToString(),
+                    GroupId = groupId,
+                    Name = name,
+                    Email = email,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now
+                });
+
+                dataStorage.SaveData(students);
+                Console.WriteLine("Student added successfully");
             }
-
-            students.Add(new Student
+            else if (choice == "2")
             {
-                StudentId = Guid.NewGuid().ToString(),
-                GroupId = groupId,
-                Name = name,
-                Email = email,
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now
-            });
-
-            dataStorage.SaveData(students);
-            Console.WriteLine("Student added successfully");
-        }
-        else if (choice == "2")
-        {
-            Console.WriteLine("\nExisting Students:");
-            foreach (var student in students)
+                Console.WriteLine("\nExisting Students:");
+                foreach (var student in students)
+                {
+                    Console.WriteLine($"ID: {student.StudentId}, Name: {student.Name}, Email: {student.Email}, Group: {groups.FirstOrDefault(g => g.GroupId == student.GroupId)?.GroupName}");
+                }
+            }
+            else if (choice == "3")
             {
-                Console.WriteLine("Student: " + student.Name + ", Email: " + student.Email);
+                Console.Write("Enter Student ID to remove: ");
+                var studentId = Console.ReadLine();
+                var student = students.FirstOrDefault(s => s.StudentId == studentId);
+                if (student == null)
+                {
+                    Console.WriteLine("Student not found.");
+                    continue;
+                }
+
+                Console.Write($"Are you sure you want to delete {student.Name}? (Y/N): ");
+                var confirm = Console.ReadLine().ToUpper();
+                if (confirm == "Y")
+                {
+                    students.Remove(student);
+                    dataStorage.SaveData(students);
+                    Console.WriteLine("Student removed successfully.");
+                }
+            }
+            else if (choice == "4")
+            {
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Invalid option");
             }
         }
     }
