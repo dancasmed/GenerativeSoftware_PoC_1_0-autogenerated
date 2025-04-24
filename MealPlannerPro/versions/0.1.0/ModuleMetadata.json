@@ -90,11 +90,11 @@
     "Patch": 0
   },
   "IsInitialRequirementReviewed": true,
-  "IsSourceCodeGenerated": true,
+  "IsSourceCodeGenerated": false,
   "AreMinimumFeaturesImplemented": false,
   "AreGoodToHaveFeaturesImplemented": false,
   "AreBarRaiserFeaturesImplemented": false,
-  "IsSourceCodeCompiled": true,
+  "IsSourceCodeCompiled": false,
   "IsReadmeFileGenerated": false,
   "Description": "A comprehensive meal planning module that allows users to manage weekly meal plans, track nutritional information, and generate organized grocery lists. Implements CRUD operations for meals/plans and calculates total calories.",
   "RequiredAPIs": [],

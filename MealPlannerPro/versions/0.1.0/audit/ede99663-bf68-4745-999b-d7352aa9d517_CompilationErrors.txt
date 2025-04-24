@@ -1,0 +1,4 @@
+CS0103 : The name 'ManageMealPlans' does not exist in the current context At Line-Column : (178,26)-(178,41)
+CS0103 : The name 'GenerateGroceryList' does not exist in the current context At Line-Column : (179,26)-(179,45)
+CS0103 : The name 'CreateMeal' does not exist in the current context At Line-Column : (197,22)-(197,32)
+CS0103 : The name 'ListMeals' does not exist in the current context At Line-Column : (198,22)-(198,31)
