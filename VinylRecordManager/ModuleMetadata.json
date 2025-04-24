@@ -32,11 +32,11 @@
       },
       {
         "Description": "Search and filter functionality",
-        "IsImplemented": false
+        "IsImplemented": true
       },
       {
         "Description": "Mark records as favorites",
-        "IsImplemented": false
+        "IsImplemented": true
       }
     ],
     "GoodToHaveFeatures": [
@@ -93,11 +93,11 @@
   },
   "IsInitialRequirementReviewed": true,
   "IsSourceCodeGenerated": true,
-  "AreMinimumFeaturesImplemented": false,
+  "AreMinimumFeaturesImplemented": true,
   "AreGoodToHaveFeaturesImplemented": false,
   "AreBarRaiserFeaturesImplemented": false,
   "IsSourceCodeCompiled": true,
-  "IsReadmeFileGenerated": false,
+  "IsReadmeFileGenerated": true,
   "Description": "Vinyl collection manager with CRUD operations, search/filter, statistics, and data import/export capabilities",
   "RequiredAPIs": [],
   "RequiredNuGets": [

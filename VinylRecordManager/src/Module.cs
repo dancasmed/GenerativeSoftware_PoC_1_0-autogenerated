@@ -194,19 +194,57 @@ public class VinylManager : IGeneratedModule
 
     private void SearchRecords()
     {
-        Console.Write("Search term (artist/album/genre): ");
-        var term = Console.ReadLine().ToLower();
-        
-        var results = records.Where(r =>
-            r.Artist.ToLower().Contains(term) ||
-            r.AlbumTitle.ToLower().Contains(term) ||
-            r.Genre.ToLower().Contains(term))
-            .ToList();
-        
-        Console.WriteLine(String.Format("Found {0} results:", results.Count));
-        foreach (var r in results)
+        Console.WriteLine("\nSearch and Filter Options:");
+        Console.Write("Enter search term (artist/album/genre, leave blank for all): ");
+        var term = Console.ReadLine()?.ToLower();
+
+        Console.Write("Filter by genre (leave blank to skip): ");
+        var genreFilter = Console.ReadLine()?.ToLower();
+
+        Console.Write("Filter by minimum release year (leave blank to skip): ");
+        var minYearInput = Console.ReadLine();
+
+        Console.Write("Filter by maximum release year (leave blank to skip): ");
+        var maxYearInput = Console.ReadLine();
+
+        Console.Write("Filter by condition (leave blank to skip): ");
+        var conditionFilter = Console.ReadLine()?.ToLower();
+
+        Console.Write("Show only favorites? (Y/N, leave blank to skip): ");
+        var favoriteFilter = Console.ReadLine()?.ToUpper();
+
+        IEnumerable<Record> results = records;
+
+        if (!string.IsNullOrEmpty(term))
         {
-            Console.WriteLine(String.Format("{0} - {1} ({2})", r.Artist, r.AlbumTitle, r.ReleaseYear));
+            results = results.Where(r =>
+                r.Artist.ToLower().Contains(term) ||
+                r.AlbumTitle.ToLower().Contains(term) ||
+                r.Genre.ToLower().Contains(term));
+        }
+
+        if (!string.IsNullOrEmpty(genreFilter))
+            results = results.Where(r => r.Genre.ToLower() == genreFilter);
+
+        if (int.TryParse(minYearInput, out int minYear))
+            results = results.Where(r => r.ReleaseYear >= minYear);
+
+        if (int.TryParse(maxYearInput, out int maxYear))
+            results = results.Where(r => r.ReleaseYear <= maxYear);
+
+        if (!string.IsNullOrEmpty(conditionFilter))
+            results = results.Where(r => r.Condition.ToLower() == conditionFilter);
+
+        if (favoriteFilter == "Y")
+            results = results.Where(r => r.IsFavorite);
+
+        var filteredResults = results.ToList();
+
+        Console.WriteLine(String.Format("Found {0} results:", filteredResults.Count));
+        foreach (var r in filteredResults)
+        {
+            Console.WriteLine(String.Format("{0} - {1} ({2}) [Genre: {3}, Condition: {4}, Favorite: {5}]",
+                r.Artist, r.AlbumTitle, r.ReleaseYear, r.Genre, r.Condition, r.IsFavorite ? "Yes" : "No"));
         }
     }
 
