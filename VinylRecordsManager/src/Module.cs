@@ -130,6 +130,7 @@ public class VinylManagerModule : IGeneratedModule {
         Console.WriteLine("1. Collection Summary");
         Console.WriteLine("2. Genre Distribution");
         Console.WriteLine("3. Value Report");
+        Console.WriteLine("4. Genre and Artist Categorization");
         
         var records = LoadRecords();
         var report = new Report {
@@ -152,6 +153,26 @@ public class VinylManagerModule : IGeneratedModule {
                 report.Type = "Value Report";
                 report.Content = "Total Collection Value: " + 
                     records.Sum(r => r.Value).ToString("C");
+                break;
+            case "4":
+                report.Type = "Genre and Artist Categorization";
+                var sb = new System.Text.StringBuilder();
+                var groupedByGenre = records.GroupBy(r => r.Genre)
+                    .OrderBy(g => g.Key);
+                
+                foreach (var genreGroup in groupedByGenre) {
+                    sb.AppendLine($"Genre: {genreGroup.Key}");
+                    var groupedByArtist = genreGroup.GroupBy(r => r.Artist)
+                        .OrderBy(a => a.Key);
+                    
+                    foreach (var artistGroup in groupedByArtist) {
+                        sb.AppendLine($"  Artist: {artistGroup.Key}");
+                        foreach (var record in artistGroup.OrderBy(r => r.Title)) {
+                            sb.AppendLine($"    - {record.Title} ({record.Year})");
+                        }
+                    }
+                }
+                report.Content = sb.ToString();
                 break;
         }
         
