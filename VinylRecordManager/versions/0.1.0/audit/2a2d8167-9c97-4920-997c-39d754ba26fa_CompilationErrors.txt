@@ -1,0 +1,2 @@
+CS0103 : The name 'DeleteRecord' does not exist in the current context At Line-Column : (93,22)-(93,34)
+CS0103 : The name 'ManageWishlist' does not exist in the current context At Line-Column : (96,22)-(96,36)
