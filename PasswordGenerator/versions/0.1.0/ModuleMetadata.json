@@ -18,11 +18,11 @@
     "MinimumFeatures": [
       {
         "Description": "Generate random passwords of specified length.",
-        "IsImplemented": false
+        "IsImplemented": true
       },
       {
         "Description": "Option to include or exclude special characters.",
-        "IsImplemented": false
+        "IsImplemented": true
       },
       {
         "Description": "Basic security checks to ensure password strength.",

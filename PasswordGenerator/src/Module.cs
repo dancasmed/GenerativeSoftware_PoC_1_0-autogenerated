@@ -16,19 +16,28 @@ public class PasswordGeneratorModule : IGeneratedModule
 
         try
         {
-            var criteria = GetPasswordCriteria();
-            var password = GenerateSecurePassword(criteria);
-            var strength = CalculatePasswordStrength(password, criteria);
-            
-            SavePasswordResult(dataFolder, new GeneratedPassword 
-            { 
-                password = password, 
-                strength = strength, 
-                timestamp = DateTime.UtcNow 
-            });
-
-            Console.WriteLine("Generated Password: " + password);
-            Console.WriteLine("Password Strength: " + strength);
+            bool exitRequested = false;
+            while (!exitRequested)
+            {
+                Console.WriteLine("\nMain Menu:");
+                Console.WriteLine("1. Generate New Password");
+                Console.WriteLine("2. Exit");
+                Console.Write("Select an option: ");
+                
+                var input = Console.ReadLine()?.Trim();
+                switch (input)
+                {
+                    case "1":
+                        GenerateAndSavePassword(dataFolder);
+                        break;
+                    case "2":
+                        exitRequested = true;
+                        break;
+                    default:
+                        Console.WriteLine("Invalid option. Please try again.");
+                        break;
+                }
+            }
             return true;
         }
         catch (Exception ex)
@@ -36,6 +45,23 @@ public class PasswordGeneratorModule : IGeneratedModule
             Console.WriteLine("Error: " + ex.Message);
             return false;
         }
+    }
+
+    private void GenerateAndSavePassword(string dataFolder)
+    {
+        var criteria = GetPasswordCriteria();
+        var password = GenerateSecurePassword(criteria);
+        var strength = CalculatePasswordStrength(password, criteria);
+        
+        SavePasswordResult(dataFolder, new GeneratedPassword 
+        { 
+            password = password, 
+            strength = strength, 
+            timestamp = DateTime.UtcNow 
+        });
+
+        Console.WriteLine("Generated Password: " + password);
+        Console.WriteLine("Password Strength: " + strength);
     }
 
     private PasswordCriteria GetPasswordCriteria()
