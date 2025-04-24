@@ -1,1 +1,0 @@
-{"Name":"Compound Interest Calculator","Version":{"Major":0,"Minor":2,"Patch":0},"Compiled":true,"Description":"A module that calculates compound interest over time based on user configuration stored in JSON files.","RequiredAPIs":[],"RequiredNuGets":[]}

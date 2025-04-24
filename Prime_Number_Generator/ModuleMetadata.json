@@ -1,1 +1,0 @@
-{"Name":"Prime Number Generator","Version":{"Major":0,"Minor":2,"Patch":0},"Compiled":true,"Description":"Generates a list of prime numbers up to a given limit and saves them to a JSON file.","RequiredAPIs":[],"RequiredNuGets":[{"nuget_name":"Newtonsoft.Json","nuget_version":"13.0.1"}]}

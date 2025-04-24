@@ -1,1 +1,0 @@
-{"Name":"Fibonacci Calculator","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"Calculates the nth Fibonacci number and logs the results to a JSON file.","RequiredAPIs":[],"RequiredNuGets":[]}

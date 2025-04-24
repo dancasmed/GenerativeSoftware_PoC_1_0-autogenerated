@@ -1,1 +1,0 @@
-{"Name":"Task Manager Module","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A simple task manager application that allows users to add, delete, and mark tasks as completed. Tasks are persisted in JSON format.","RequiredAPIs":[],"RequiredNuGets":[]}

@@ -1,1 +1,0 @@
-{"Name":"Fitness Tracker Module","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A module for tracking and analyzing fitness goals including steps, calories burned, and workouts. Stores data in JSON format.","RequiredAPIs":[],"RequiredNuGets":[]}

@@ -1,1 +1,0 @@
-{"Name":"Price Calculator Module","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"Calculates selling price based on cost price and markup percentage. Reads configuration from and saves results to JSON files in the specified data folder.","RequiredAPIs":[],"RequiredNuGets":[]}

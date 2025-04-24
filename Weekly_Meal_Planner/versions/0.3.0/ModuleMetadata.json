@@ -1,1 +1,0 @@
-{"Name":"Weekly Meal Planner","Version":{"Major":0,"Minor":3,"Patch":0},"Compiled":true,"Description":"Helps plan meals for the week and generates grocery lists based on recipes","RequiredAPIs":[],"RequiredNuGets":[{"nuget_name":"System.Text.Json","nuget_version":"6.0.0"}]}

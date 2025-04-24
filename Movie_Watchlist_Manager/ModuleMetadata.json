@@ -1,1 +1,0 @@
-{"Name":"Movie Watchlist Manager","Version":{"Major":0,"Minor":2,"Patch":0},"Compiled":true,"Description":"A module to manage your movie watchlist, allowing you to add movies, mark them as watched, rate them, and remove them from the list.","RequiredAPIs":[],"RequiredNuGets":[{"nuget_name":"System.Text.Json","nuget_version":"7.0.0"}]}

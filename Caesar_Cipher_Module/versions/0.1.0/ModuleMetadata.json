@@ -1,1 +1,0 @@
-{"Name":"Caesar Cipher Module","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A module that provides Caesar cipher encryption and decryption functionality with configurable shift value.","RequiredAPIs":[],"RequiredNuGets":[]}

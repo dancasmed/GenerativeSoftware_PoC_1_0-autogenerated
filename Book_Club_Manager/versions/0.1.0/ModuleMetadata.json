@@ -1,1 +1,0 @@
-{"Name":"Book Club Manager","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"Manages book club meetings with book suggestions and discussion schedules","RequiredAPIs":[],"RequiredNuGets":[{"nuget_name":"System.Text.Json","nuget_version":"6.0.0"}]}

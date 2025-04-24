@@ -1,1 +1,0 @@
-{"Name":"Zoo Animal Inventory and Feeding Schedule Manager","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A module for managing zoo animal inventory and their feeding schedules with persistent storage in JSON files","RequiredAPIs":[],"RequiredNuGets":[]}

@@ -1,1 +1,0 @@
-{"Name":"Number Converter Module","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A module that converts numbers between binary, decimal, and hexadecimal formats. It reads input from a file and writes the conversion results to an output file.","RequiredAPIs":[],"RequiredNuGets":[]}

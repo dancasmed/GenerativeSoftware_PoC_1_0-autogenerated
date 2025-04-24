@@ -1,1 +1,0 @@
-{"Name":"Roman Numeral Converter","Version":{"Major":0,"Minor":1,"Patch":1},"Compiled":true,"Description":"A module that converts between Roman numerals and integers, using JSON files for input/output.","RequiredAPIs":[],"RequiredNuGets":[{"nuget_name":"System.Text.Json","nuget_version":"6.0.0"}]}

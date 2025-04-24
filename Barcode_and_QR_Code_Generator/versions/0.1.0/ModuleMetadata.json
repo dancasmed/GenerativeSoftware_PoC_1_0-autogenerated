@@ -1,1 +1,0 @@
-{"Name":"Barcode and QR Code Generator","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A module that generates barcodes or QR codes from user input and saves them as PNG files.","RequiredAPIs":[],"RequiredNuGets":[{"nuget_name":"System.Drawing.Common","nuget_version":"6.0.0"}]}

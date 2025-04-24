@@ -1,1 +1,0 @@
-{"Name":"Goal Tracker Module","Version":{"Major":0,"Minor":2,"Patch":0},"Compiled":true,"Description":"A simple goal-setting and progress tracking module that allows users to add, view, and update goals with progress tracking. Goals are saved to a JSON file in the specified data folder.","RequiredAPIs":[],"RequiredNuGets":[]}

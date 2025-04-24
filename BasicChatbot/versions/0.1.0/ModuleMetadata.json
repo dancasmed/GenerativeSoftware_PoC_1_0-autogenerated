@@ -1,1 +1,0 @@
-{"Name":"BasicChatbot","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A simple chatbot module with predefined responses that can be saved and loaded from JSON files.","RequiredAPIs":[],"RequiredNuGets":[]}

@@ -1,1 +1,0 @@
-{"Name":"Motivational Quote Generator","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A module that generates random motivational quotes and persists them in a JSON file.","RequiredAPIs":[],"RequiredNuGets":[]}

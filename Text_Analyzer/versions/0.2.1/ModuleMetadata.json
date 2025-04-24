@@ -1,1 +1,0 @@
-{"Name":"Text Analyzer","Version":{"Major":0,"Minor":2,"Patch":1},"Compiled":true,"Description":"A module that analyzes the frequency of vowels and consonants in a given text and saves the results to a JSON file.","RequiredAPIs":[],"RequiredNuGets":[{"nuget_name":"Newtonsoft.Json","nuget_version":"13.0.1"}]}

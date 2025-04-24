@@ -1,1 +1,0 @@
-{"Name":"Unit Converter Module","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":false,"Description":"A module that converts between different units of measurement (distance, temperature, weight)","RequiredAPIs":[],"RequiredNuGets":[{"nuget_name":"System.Text.Json","nuget_version":"6.0.0"}]}

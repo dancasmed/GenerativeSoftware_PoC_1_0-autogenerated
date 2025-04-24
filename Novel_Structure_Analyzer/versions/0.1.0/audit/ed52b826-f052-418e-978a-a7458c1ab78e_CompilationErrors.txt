@@ -1,1 +1,0 @@
-CS1061 : 'List<string>' does not contain a definition for 'Average' and no accessible extension method 'Average' accepting a first argument of type 'List<string>' could be found (are you missing a using directive or an assembly reference?) At Line-Column : (60,22)-(60,29)

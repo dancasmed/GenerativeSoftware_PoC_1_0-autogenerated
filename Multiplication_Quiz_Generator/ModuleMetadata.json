@@ -1,1 +1,0 @@
-{"Name":"Multiplication Quiz Generator","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"Generates practice quizzes for studying multiplication tables, saves results to JSON file","RequiredAPIs":[],"RequiredNuGets":[{"nuget_name":"System.Text.Json","nuget_version":"6.0.0"}]}

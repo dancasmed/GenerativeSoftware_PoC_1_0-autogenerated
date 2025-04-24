@@ -1,1 +1,0 @@
-{"Name":"Puzzle Generator","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A module that generates random Sudoku and Crossword puzzles and saves them as JSON files.","RequiredAPIs":[],"RequiredNuGets":[]}

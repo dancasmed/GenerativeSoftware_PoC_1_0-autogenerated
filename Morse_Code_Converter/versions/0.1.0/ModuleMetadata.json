@@ -1,1 +1,0 @@
-{"Name":"Morse Code Converter","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A module that converts text to Morse code and vice versa. It saves the results to JSON files in the specified data folder.","RequiredAPIs":[],"RequiredNuGets":[]}

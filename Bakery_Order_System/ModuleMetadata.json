@@ -1,1 +1,0 @@
-{"Name":"Bakery Order System","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A console application for managing bakery orders including cakes, pastries, and customizations with persistent storage in JSON format.","RequiredAPIs":[],"RequiredNuGets":[]}

@@ -1,1 +1,0 @@
-CS0191 : A readonly field cannot be assigned to (except in a constructor or init-only setter of the type in which the field is defined or a variable initializer) At Line-Column : (32,8)-(32,21)

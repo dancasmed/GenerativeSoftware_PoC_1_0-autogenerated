@@ -1,1 +1,0 @@
-{"Name":"Stock Portfolio Tracker","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A simple stock portfolio tracker that allows users to add, remove, update, and view their stock holdings with simulated price data.","RequiredAPIs":[],"RequiredNuGets":[{"nuget_name":"System.Text.Json","nuget_version":"6.0.0"}]}

@@ -1,1 +1,0 @@
-{"Name":"Fictional Character Name Generator","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"Generates random names for fictional characters with optional titles. Can be configured via JSON file.","RequiredAPIs":[],"RequiredNuGets":[]}

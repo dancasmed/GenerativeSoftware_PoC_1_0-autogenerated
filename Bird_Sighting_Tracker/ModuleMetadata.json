@@ -1,1 +1,0 @@
-{"Name":"Bird Sighting Tracker","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"Tracks bird sightings with species, location, and date information. Allows adding new sightings, viewing all records, and searching by species.","RequiredAPIs":[],"RequiredNuGets":[]}

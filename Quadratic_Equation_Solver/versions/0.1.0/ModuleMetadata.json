@@ -1,1 +1,0 @@
-{"Name":"Quadratic Equation Solver","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":false,"Description":"A module that calculates the roots of a quadratic equation (ax\u00B2 \u002B bx \u002B c = 0) and saves the results to a JSON file.","RequiredAPIs":[],"RequiredNuGets":[]}

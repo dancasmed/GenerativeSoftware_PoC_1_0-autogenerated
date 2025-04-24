@@ -1,1 +1,0 @@
-{"Name":"Movie Database Manager","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A module for managing a movie database with genres, ratings, and release dates. Allows adding, listing, and searching movies.","RequiredAPIs":[],"RequiredNuGets":[]}

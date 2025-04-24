@@ -1,1 +1,0 @@
-{"Name":"Fitness Center Management System","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"A system to manage fitness center memberships and class schedules with data persistence in JSON files.","RequiredAPIs":[],"RequiredNuGets":[]}

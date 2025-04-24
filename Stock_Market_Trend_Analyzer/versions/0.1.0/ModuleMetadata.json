@@ -1,1 +1,0 @@
-{"Name":"Stock Market Trend Analyzer","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"Analyzes stock market trends and generates buy/sell recommendations based on price, moving average, RSI, and volume data.","RequiredAPIs":[],"RequiredNuGets":[]}

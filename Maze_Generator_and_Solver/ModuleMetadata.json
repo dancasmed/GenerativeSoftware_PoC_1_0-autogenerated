@@ -1,1 +1,0 @@
-{"Name":"Maze Generator and Solver","Version":{"Major":0,"Minor":2,"Patch":0},"Compiled":true,"Description":"A module that generates random mazes and solves them using a recursive backtracking algorithm.","RequiredAPIs":[],"RequiredNuGets":[]}

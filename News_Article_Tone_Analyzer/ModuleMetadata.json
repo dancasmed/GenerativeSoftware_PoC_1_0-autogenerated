@@ -1,1 +1,0 @@
-{"Name":"News Article Tone Analyzer","Version":{"Major":0,"Minor":1,"Patch":0},"Compiled":true,"Description":"Analyzes the tone of a news article by counting positive, negative, neutral, strong, and weak words.","RequiredAPIs":[],"RequiredNuGets":[]}

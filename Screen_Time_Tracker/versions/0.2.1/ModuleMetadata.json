@@ -1,1 +1,0 @@
-{"Name":"Screen Time Tracker","Version":{"Major":0,"Minor":2,"Patch":1},"Compiled":true,"Description":"Tracks screen time for productivity analysis by recording duration between start and stop events and saving data to JSON files.","RequiredAPIs":[],"RequiredNuGets":[]}

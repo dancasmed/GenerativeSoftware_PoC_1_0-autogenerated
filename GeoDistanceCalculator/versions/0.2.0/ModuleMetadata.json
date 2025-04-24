@@ -1,1 +1,0 @@
-{"Name":"GeoDistanceCalculator","Version":{"Major":0,"Minor":2,"Patch":0},"Compiled":true,"Description":"Calculates the distance between two geographical locations using latitude and longitude coordinates with the Haversine formula.","RequiredAPIs":[],"RequiredNuGets":[{"nuget_name":"System.Text.Json","nuget_version":"6.0.0"}]}
