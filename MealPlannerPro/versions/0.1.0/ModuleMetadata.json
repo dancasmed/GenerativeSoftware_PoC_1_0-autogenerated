@@ -27,7 +27,7 @@
       },
       {
         "Description": "Calculate and display calorie counts",
-        "IsImplemented": false
+        "IsImplemented": true
       },
       {
         "Description": "Generate basic grocery lists",

@@ -312,10 +312,14 @@ public class MealPlannerModule : IGeneratedModule
             Console.WriteLine("\nMeal Plan Details:");
             foreach (var day in selectedPlan.Days)
             {
-                Console.WriteLine($"{day.Date.ToShortDateString()}: {day.Meals.Count} meals");
+                Console.WriteLine($"{day.Date.ToShortDateString()}: {day.Meals.Count} meals - Total Calories: {day.TotalCalories} (Target: {currentUser.CalorieTarget})");
                 foreach (var meal in day.Meals)
                 {
                     Console.WriteLine($"- {meal.Name} ({meal.Calories} calories)");
+                }
+                if (day.TotalCalories > currentUser.CalorieTarget)
+                {
+                    Console.WriteLine("WARNING: Exceeds daily calorie target!");
                 }
             }
         }
@@ -404,12 +408,12 @@ public class MealPlannerModule : IGeneratedModule
             }).ToList();
 
         var groceryList = new GroceryList
-        {
-            Id = Guid.NewGuid().ToString(),
-            MealPlanId = plan.Id,
-            Items = ingredients,
-            TotalItems = ingredients.Count
-        };
+            {
+                Id = Guid.NewGuid().ToString(),
+                MealPlanId = plan.Id,
+                Items = ingredients,
+                TotalItems = ingredients.Count
+            };
 
         groceryLists.Add(groceryList);
         Console.WriteLine("\nGrocery list generated with " + ingredients.Count + " items:");
