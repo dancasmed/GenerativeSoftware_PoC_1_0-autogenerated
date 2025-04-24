@@ -2,6 +2,7 @@ using SelfEvolvingSoftware.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 
 public class BookInventoryManager : IGeneratedModule
@@ -77,11 +78,13 @@ public class BookInventoryManager : IGeneratedModule
             Console.WriteLine("1. Add Book");
             Console.WriteLine("2. Update Book");
             Console.WriteLine("3. Delete Book");
-            Console.WriteLine("4. Record Sale");
-            Console.WriteLine("5. Restock Alerts");
-            Console.WriteLine("6. Generate Reports");
-            Console.WriteLine("7. Adjust Thresholds");
-            Console.WriteLine("8. Exit");
+            Console.WriteLine("4. View Books");
+            Console.WriteLine("5. Search Books");
+            Console.WriteLine("6. Record Sale");
+            Console.WriteLine("7. Restock Alerts");
+            Console.WriteLine("8. Generate Reports");
+            Console.WriteLine("9. Adjust Thresholds");
+            Console.WriteLine("10. Exit");
 
             var choice = Console.ReadLine();
             switch (choice)
@@ -89,11 +92,13 @@ public class BookInventoryManager : IGeneratedModule
                 case "1": AddBook(); break;
                 case "2": UpdateBook(); break;
                 case "3": DeleteBook(); break;
-                case "4": RecordSale(); break;
-                case "5": ShowRestockAlerts(); break;
-                case "6": GenerateReports(); break;
-                case "7": AdjustThresholds(); break;
-                case "8": SaveAllData(); return;
+                case "4": ViewBooks(); break;
+                case "5": SearchBooks(); break;
+                case "6": RecordSale(); break;
+                case "7": ShowRestockAlerts(); break;
+                case "8": GenerateReports(); break;
+                case "9": AdjustThresholds(); break;
+                case "10": SaveAllData(); return;
                 default: Console.WriteLine("Invalid option"); break;
             }
         }
@@ -167,6 +172,37 @@ public class BookInventoryManager : IGeneratedModule
         {
             Console.WriteLine("Book not found");
         }
+    }
+
+    private void ViewBooks()
+    {
+        Console.WriteLine("List of All Books:");
+        foreach (var book in _books)
+        {
+            Console.WriteLine($"ISBN: {book.ISBN}, Title: {book.Title}, Author: {book.Author}, Price: {book.Price}, Stock: {book.CurrentStock}, Threshold: {book.MinimumStockThreshold}");
+        }
+        Console.WriteLine("Press any key to continue...");
+        Console.ReadKey();
+    }
+
+    private void SearchBooks()
+    {
+        Console.Write("Enter search term (ISBN, Title, or Author): ");
+        var searchTerm = Console.ReadLine()?.ToLower();
+
+        var results = _books.Where(b =>
+            b.ISBN.ToLower().Contains(searchTerm) ||
+            b.Title.ToLower().Contains(searchTerm) ||
+            b.Author.ToLower().Contains(searchTerm)
+        ).ToList();
+
+        Console.WriteLine($"Found {results.Count} matches:");
+        foreach (var book in results)
+        {
+            Console.WriteLine($"ISBN: {book.ISBN}, Title: {book.Title}, Author: {book.Author}, Price: {book.Price}, Stock: {book.CurrentStock}");
+        }
+        Console.WriteLine("Press any key to continue...");
+        Console.ReadKey();
     }
 
     private void RecordSale()

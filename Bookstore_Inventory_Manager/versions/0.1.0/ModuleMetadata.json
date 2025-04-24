@@ -20,7 +20,7 @@
     "MinimumFeatures": [
       {
         "Description": "CRUDS operations for books in inventory",
-        "IsImplemented": false
+        "IsImplemented": true
       },
       {
         "Description": "Basic sales tracking",
