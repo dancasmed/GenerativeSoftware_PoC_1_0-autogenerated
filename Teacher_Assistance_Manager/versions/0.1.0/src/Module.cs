@@ -256,7 +256,134 @@ public class AttendanceModule : IGeneratedModule
 
     private void ManageStudents(StudentService studentService, GroupService groupService)
     {
-        // CRUDS implementation for students
+        while (true)
+        {
+            Console.WriteLine("\nStudent Management:");
+            Console.WriteLine("1. Create Student");
+            Console.WriteLine("2. List All Students");
+            Console.WriteLine("3. Update Student");
+            Console.WriteLine("4. Delete Student");
+            Console.WriteLine("5. Search Students");
+            Console.WriteLine("6. Return to Main Menu");
+
+            var choice = Console.ReadLine();
+            var students = studentService.LoadStudents();
+            var groups = groupService.LoadGroups();
+
+            switch (choice)
+            {
+                case "1":
+                    Console.Write("Enter student name: ");
+                    var name = Console.ReadLine();
+                    
+                    Console.WriteLine("Available Groups:");
+                    foreach (var group in groups)
+                    {
+                        Console.WriteLine($"{group.Id}: {group.Name}");
+                    }
+                    Console.Write("Enter group ID: ");
+                    var groupId = Console.ReadLine();
+
+                    if (groups.Any(g => g.Id == groupId))
+                    {
+                        students.Add(new Student { Name = name, GroupId = groupId });
+                        studentService.SaveStudents(students);
+                        Console.WriteLine("Student created successfully!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid group ID!");
+                    }
+                    break;
+
+                case "2":
+                    Console.WriteLine("\nAll Students:");
+                    foreach (var student in students)
+                    {
+                        var groupName = groups.FirstOrDefault(g => g.Id == student.GroupId)?.Name ?? "Unknown Group";
+                        Console.WriteLine($"ID: {student.Id} | Name: {student.Name} | Group: {groupName} | Created: {student.CreatedAt}");
+                    }
+                    break;
+
+                case "3":
+                    Console.Write("Enter student ID to update: ");
+                    var updateId = Console.ReadLine();
+                    var studentToUpdate = students.FirstOrDefault(s => s.Id == updateId);
+                    if (studentToUpdate != null)
+                    {
+                        Console.Write("New name (press enter to keep current): ");
+                        var newName = Console.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(newName)) studentToUpdate.Name = newName;
+
+                        Console.WriteLine("Available Groups:");
+                        foreach (var group in groups)
+                        {
+                            Console.WriteLine($"{group.Id}: {group.Name}");
+                        }
+                        Console.Write("New group ID (press enter to keep current): ");
+                        var newGroupId = Console.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(newGroupId) 
+                        {
+                            if (groups.Any(g => g.Id == newGroupId))
+                            {
+                                studentToUpdate.GroupId = newGroupId;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Invalid group ID, keeping current group");
+                            }
+                        }
+
+                        studentToUpdate.UpdatedAt = DateTime.Now;
+                        studentService.SaveStudents(students);
+                        Console.WriteLine("Student updated successfully!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Student not found!");
+                    }
+                    break;
+
+                case "4":
+                    Console.Write("Enter student ID to delete: ");
+                    var deleteId = Console.ReadLine();
+                    var studentToDelete = students.FirstOrDefault(s => s.Id == deleteId);
+                    if (studentToDelete != null)
+                    {
+                        students.Remove(studentToDelete);
+                        studentService.SaveStudents(students);
+                        Console.WriteLine("Student deleted successfully!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Student not found!");
+                    }
+                    break;
+
+                case "5":
+                    Console.Write("Enter search term: ");
+                    var searchTerm = Console.ReadLine().ToLower();
+                    var results = students.Where(s => 
+                        s.Name.ToLower().Contains(searchTerm) || 
+                        s.GroupId.ToLower().Contains(searchTerm))
+                        .ToList();
+
+                    Console.WriteLine($"\nFound {results.Count} students:");
+                    foreach (var student in results)
+                    {
+                        var groupName = groups.FirstOrDefault(g => g.Id == student.GroupId)?.Name ?? "Unknown Group";
+                        Console.WriteLine($"ID: {student.Id} | Name: {student.Name} | Group: {groupName}");
+                    }
+                    break;
+
+                case "6":
+                    return;
+
+                default:
+                    Console.WriteLine("Invalid option");
+                    break;
+            }
+        }
     }
 
     private void RecordAttendance(AttendanceService attendanceService, StudentService studentService, GroupService groupService)

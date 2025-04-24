@@ -92,11 +92,11 @@
     "Patch": 0
   },
   "IsInitialRequirementReviewed": true,
-  "IsSourceCodeGenerated": true,
+  "IsSourceCodeGenerated": false,
   "AreMinimumFeaturesImplemented": false,
   "AreGoodToHaveFeaturesImplemented": false,
   "AreBarRaiserFeaturesImplemented": false,
-  "IsSourceCodeCompiled": true,
+  "IsSourceCodeCompiled": false,
   "IsReadmeFileGenerated": false,
   "Description": "Attendance management system for teachers with group/student CRUDS operations, daily attendance tracking, and weekly summary generation. Maintains JSON data stores for groups, students, attendances and summaries.",
   "RequiredAPIs": [],
