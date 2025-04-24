@@ -71,7 +71,7 @@ public class AttendanceModule : IGeneratedModule
                 ListGroups(groups);
                 break;
             case "3":
-                AddStudentToGroup(dataFolder, dataFolder);
+                AddStudentToGroup(dataFolder);
                 break;
         }
     }
@@ -167,8 +167,21 @@ public class AttendanceModule : IGeneratedModule
         }
     }
 
-    private void AddStudentToGroup(string dataFolder, string dataFolderPath)
+    private void AddStudentToGroup(string dataFolder)
     {
+        var groups = DataStorageHelper.LoadData<Group>(dataFolder, "groups.json");
+        Console.WriteLine("Available Groups:");
+        ListGroups(groups);
+
+        Console.WriteLine("\nEnter group ID to add student to:");
+        var groupId = Console.ReadLine();
+
+        if (!groups.Any(g => g.GroupId == groupId))
+        {
+            Console.WriteLine("Invalid group ID!");
+            return;
+        }
+
         var students = DataStorageHelper.LoadData<Student>(dataFolder, "students.json");
         
         Console.WriteLine("Enter student first name:");
@@ -181,12 +194,12 @@ public class AttendanceModule : IGeneratedModule
             StudentId = Guid.NewGuid().ToString(),
             FirstName = firstName,
             LastName = lastName,
-            GroupId = null
+            GroupId = groupId
         };
         
         students.Add(newStudent);
         DataStorageHelper.SaveData(dataFolder, "students.json", students);
-        Console.WriteLine("Student added successfully");
+        Console.WriteLine("Student added to group successfully");
     }
 
     private void ViewEditAttendance(string dataFolder)
