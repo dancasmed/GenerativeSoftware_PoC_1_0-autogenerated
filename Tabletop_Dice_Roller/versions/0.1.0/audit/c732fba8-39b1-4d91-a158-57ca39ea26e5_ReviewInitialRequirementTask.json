@@ -1,0 +1,70 @@
+{
+  "UseOnlineModel": true,
+  "ModelToUse": "deepseek-chat",
+  "Description": "",
+  "SystemPrompt": "You are a helpful assistant with high skills in software, prompt engineering and business development. The user will provide a requirement to create a software module. Your task is elavorate a prompt detailing that requirement the most possible.\n### Requirements:\n- Assign a name to the software module.\n- Generate a clear prompt that will be used as input for an LLM model to design the first version of this software module.\n- Avoid mentioning version numbers, this will be managed later.\n- Avoid mention an expected response format, this will be provided later.\n- Avoid specifying the behaivor the LLM model must take, this will be managed later.\n- The response must be in markdown notation.\n- Focus on functional details\n- Avoid suggesting platforms, programming languages or any other implementation details.\n- Detail the user interaction with the module.\n- Generate a list of minimum features, desired features and bar-raiser features.\n- Data models description must be included and must be in markdown notation. IMPORTANT: It will be processed as string.\n- Make clear all models should implement CRUDS operations.\n### Example output:\n{\u0022module_name\u0022:\u0022MODULE_NAME\u0022 \u0022reviewed_prompt\u0022:\u0022GENERATED PROMPT\u0022,\u0022functional_details\u0022:\u0022[\u0022FUNCTIONAL DETAIL 1\u0022,\u0022FUNCTIONAL DETAIL 2\u0022],\u0022user_interaction\u0022:\u0022[USER INTERACTION 1, USER INTERACTION 2]\u0022,\u0022minimum_features\u0022:\u0022[MINIMUM FEATURE 1, MINIMUM FEATURE 2]\u0022,\u0022desired_features\u0022:\u0022[DESIRED FEATURE 1, DESIRED FEATURE 2]\u0022,\u0022bar_raiser_features\u0022:\u0022[BAR RAISER FEATURE 1, BAR RAISER FEATURE 2]\u0022,\u0022data_models\u0022:\u0022[DATA MODEL 1, DATA MODEL 2]\u0022}",
+  "BasePrompt": "Analyze and improve the next prompt, adding all the possible details. This are the initial or high-level requirements: \u003CTASK_INPUT\u003E",
+  "TaskInput": "Simulate a dice roller for tabletop games with multiple dice types",
+  "ModelRawResponse": "{\n  \u0022choices\u0022: [\n    {\n      \u0022message\u0022: {\n        \u0022content\u0022: \u0022\\u0060\\u0060\\u0060json\\n{\\n  \\u0022module_name\\u0022: \\u0022Tabletop Dice Roller\\u0022,\\n  \\u0022reviewed_prompt\\u0022: \\u0022Design a software module that simulates a dice roller for tabletop games, supporting multiple dice types. The module should allow users to roll various dice types (e.g., d4, d6, d8, d10, d12, d20, d100) and combinations thereof. The system should provide results for each roll, including individual dice values and the total sum when applicable. The module should support rolling multiple dice of the same type or different types in a single action. Additionally, the module should allow users to save frequently used dice combinations for quick access. The system should ensure randomness in dice rolls to simulate real-world dice behavior.\\u0022,\\n  \\u0022functional_details\\u0022: [\\n    \\u0022Support rolling multiple dice types (d4, d6, d8, d10, d12, d20, d100).\\u0022,\\n    \\u0022Allow rolling combinations of different dice types in a single action.\\u0022,\\n    \\u0022Provide individual dice values and total sum for each roll.\\u0022,\\n    \\u0022Support saving and retrieving frequently used dice combinations.\\u0022,\\n    \\u0022Ensure randomness in dice rolls to simulate real-world behavior.\\u0022\\n  ],\\n  \\u0022user_interaction\\u0022: [\\n    \\u0022User selects dice types and quantities to roll.\\u0022,\\n    \\u0022User initiates the roll action.\\u0022,\\n    \\u0022System displays individual dice values and total sum.\\u0022,\\n    \\u0022User can save a dice combination for future use.\\u0022,\\n    \\u0022User can retrieve and use saved dice combinations.\\u0022\\n  ],\\n  \\u0022minimum_features\\u0022: [\\n    \\u0022Roll single or multiple dice of the same type.\\u0022,\\n    \\u0022Display individual dice values and total sum.\\u0022,\\n    \\u0022Support standard dice types (d4, d6, d8, d10, d12, d20, d100).\\u0022\\n  ],\\n  \\u0022desired_features\\u0022: [\\n    \\u0022Roll combinations of different dice types in a single action.\\u0022,\\n    \\u0022Save and retrieve frequently used dice combinations.\\u0022,\\n    \\u0022History of recent rolls.\\u0022\\n  ],\\n  \\u0022bar_raiser_features\\u0022: [\\n    \\u0022Custom dice types (e.g., d3, d7).\\u0022,\\n    \\u0022Advanced roll options (e.g., drop lowest/highest, reroll on certain values).\\u0022,\\n    \\u0022Export roll history or results.\\u0022\\n  ],\\n  \\u0022data_models\\u0022: [\\n    \\u0022**DiceRoll**: { id: unique identifier, diceType: string, quantity: integer, results: array of integers, total: integer, timestamp: datetime }\\u0022,\\n    \\u0022**SavedCombination**: { id: unique identifier, name: string, diceTypes: array of strings, quantities: array of integers }\\u0022,\\n    \\u0022**RollHistory**: { id: unique identifier, rolls: array of DiceRoll, timestamp: datetime }\\u0022\\n  ]\\n}\\n\\u0060\\u0060\\u0060\u0022\n      }\n    }\n  ]\n}",
+  "ResponseFormat": {
+    "type": "object",
+    "properties": {
+      "module_name": {
+        "type": "string"
+      },
+      "reviewed_prompt": {
+        "type": "string"
+      },
+      "functional_details": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "user_interaction": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "minimum_features": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "desired_features": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "bar_raiser_features": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "data_models": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "required": [
+      "module_name",
+      "reviewed_prompt",
+      "functional_details",
+      "user_interaction",
+      "minimum_features",
+      "desired_features",
+      "bar_raiser_features",
+      "data_models"
+    ]
+  },
+  "ExecutionTimeMS": 301,
+  "responseType": "SelfEvolvingSoftware.LLM.Tasks.Responses.ReviewInitialRequirementTaskResponse, PoC_1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+  "TaskUUID": "c732fba8-39b1-4d91-a158-57ca39ea26e5",
+  "ModuleName": "ModuleCreator"
+}

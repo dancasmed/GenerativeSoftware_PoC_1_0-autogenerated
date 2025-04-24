@@ -1,0 +1,38 @@
+{
+  "module_name": "Tabletop Dice Roller",
+  "reviewed_prompt": "Design a software module that simulates a dice roller for tabletop games, supporting multiple dice types. The module should allow users to roll various dice types (e.g., d4, d6, d8, d10, d12, d20, d100) and combinations thereof. The system should provide results for each roll, including individual dice values and the total sum when applicable. The module should support rolling multiple dice of the same type or different types in a single action. Additionally, the module should allow users to save frequently used dice combinations for quick access. The system should ensure randomness in dice rolls to simulate real-world dice behavior.",
+  "functional_details": [
+    "Support rolling multiple dice types (d4, d6, d8, d10, d12, d20, d100).",
+    "Allow rolling combinations of different dice types in a single action.",
+    "Provide individual dice values and total sum for each roll.",
+    "Support saving and retrieving frequently used dice combinations.",
+    "Ensure randomness in dice rolls to simulate real-world behavior."
+  ],
+  "user_interaction": [
+    "User selects dice types and quantities to roll.",
+    "User initiates the roll action.",
+    "System displays individual dice values and total sum.",
+    "User can save a dice combination for future use.",
+    "User can retrieve and use saved dice combinations."
+  ],
+  "minimum_features": [
+    "Roll single or multiple dice of the same type.",
+    "Display individual dice values and total sum.",
+    "Support standard dice types (d4, d6, d8, d10, d12, d20, d100)."
+  ],
+  "desired_features": [
+    "Roll combinations of different dice types in a single action.",
+    "Save and retrieve frequently used dice combinations.",
+    "History of recent rolls."
+  ],
+  "bar_raiser_features": [
+    "Custom dice types (e.g., d3, d7).",
+    "Advanced roll options (e.g., drop lowest/highest, reroll on certain values).",
+    "Export roll history or results."
+  ],
+  "data_models": [
+    "**DiceRoll**: { id: unique identifier, diceType: string, quantity: integer, results: array of integers, total: integer, timestamp: datetime }",
+    "**SavedCombination**: { id: unique identifier, name: string, diceTypes: array of strings, quantities: array of integers }",
+    "**RollHistory**: { id: unique identifier, rolls: array of DiceRoll, timestamp: datetime }"
+  ]
+}
