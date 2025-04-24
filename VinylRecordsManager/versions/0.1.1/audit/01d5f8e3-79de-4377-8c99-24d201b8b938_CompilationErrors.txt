@@ -1,2 +1,0 @@
-CS1061 : 'List<Record>' does not contain a definition for 'GroupBy' and no accessible extension method 'GroupBy' accepting a first argument of type 'List<Record>' could be found (are you missing a using directive or an assembly reference?) At Line-Column : (140,28)-(140,35)
-CS1061 : 'List<Record>' does not contain a definition for 'Sum' and no accessible extension method 'Sum' accepting a first argument of type 'List<Record>' could be found (are you missing a using directive or an assembly reference?) At Line-Column : (146,28)-(146,31)

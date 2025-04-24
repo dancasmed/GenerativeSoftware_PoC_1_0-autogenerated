@@ -1,7 +1,0 @@
-CS0103 : The name 'ManageGroups' does not exist in the current context At Line-Column : (32,20)-(32,32)
-CS0103 : The name 'RecordAttendance' does not exist in the current context At Line-Column : (35,20)-(35,36)
-CS0103 : The name 'ViewEditAttendance' does not exist in the current context At Line-Column : (38,20)-(38,38)
-CS0117 : 'DataStorageHelper' does not contain a definition for 'LoadData' At Line-Column : (56,39)-(56,54)
-CS0019 : Operator '==' cannot be applied to operands of type 'method group' and 'int' At Line-Column : (57,12)-(57,29)
-CS0103 : The name 'ListGroups' does not exist in the current context At Line-Column : (64,8)-(64,18)
-CS0117 : 'DataStorageHelper' does not contain a definition for 'LoadData' At Line-Column : (86,43)-(86,69)

@@ -1,2 +1,0 @@
-CS0136 : A local or parameter named 'student' cannot be declared in this scope because that name is used in an enclosing local scope to define a local or parameter At Line-Column : (202,21)-(202,28)
-CS0136 : A local or parameter named 'student' cannot be declared in this scope because that name is used in an enclosing local scope to define a local or parameter At Line-Column : (236,21)-(236,28)
