@@ -7,7 +7,7 @@
     },
     {
       "role": "user",
-      "content": "Analyze and improve the next prompt, adding all the possible details. This are the initial or high-level requirements: help me to manage my vinyl recors collection"
+      "content": "Analyze and improve the next prompt, adding all the possible details. This are the initial or high-level requirements: help me to manage my vinyl records collection"
     }
   ],
   "stream": false

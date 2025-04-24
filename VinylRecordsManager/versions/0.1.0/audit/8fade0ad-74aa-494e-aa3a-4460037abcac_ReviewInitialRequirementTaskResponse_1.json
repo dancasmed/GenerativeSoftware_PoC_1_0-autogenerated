@@ -1,0 +1,43 @@
+{
+  "module_name": "VinylRecordsManager",
+  "reviewed_prompt": "Design a software module to help users manage their vinyl records collection. The module should allow users to catalog their records, track their listening habits, and discover new music based on their collection. Users should be able to add, edit, and remove records from their collection, as well as search and filter their records based on various criteria. The module should also provide insights into the user\u0027s collection, such as most played records, genres distribution, and recommendations for new records to add based on their current collection.",
+  "functional_details": [
+    "Catalog vinyl records with detailed information",
+    "Track listening history and habits",
+    "Provide recommendations based on the collection",
+    "Search and filter records by various criteria",
+    "Generate insights and statistics about the collection"
+  ],
+  "user_interaction": [
+    "Add a new vinyl record to the collection",
+    "Edit details of an existing record",
+    "Remove a record from the collection",
+    "Search and filter records by artist, genre, year, etc.",
+    "View listening history and statistics",
+    "Receive recommendations for new records"
+  ],
+  "minimum_features": [
+    "CRUDS operations for vinyl records",
+    "Basic search and filter functionality",
+    "Listening history tracking",
+    "Basic collection statistics"
+  ],
+  "desired_features": [
+    "Advanced search with multiple criteria",
+    "Detailed statistics and insights",
+    "Integration with music databases for automatic record information retrieval",
+    "Customizable fields for record details"
+  ],
+  "bar_raiser_features": [
+    "AI-based recommendations for new records",
+    "Social features to share collection with friends",
+    "Barcode scanning for quick record addition",
+    "Export/import collection data"
+  ],
+  "data_models": [
+    "**VinylRecord**: \u0060{ id: string, title: string, artist: string, genre: string, year: number, label: string, condition: string, notes: string, coverImage: string }\u0060",
+    "**ListeningSession**: \u0060{ id: string, recordId: string, date: date, duration: number, notes: string }\u0060",
+    "**User**: \u0060{ id: string, name: string, email: string, preferences: object }\u0060",
+    "**Recommendation**: \u0060{ id: string, recordId: string, userId: string, reason: string, date: date }\u0060"
+  ]
+}

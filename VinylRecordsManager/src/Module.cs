@@ -4,281 +4,235 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
-public class VinylRecord
-{
-    [JsonPropertyName("id")]
-    public string Id { get; set; } = Guid.NewGuid().ToString();
-    [JsonPropertyName("title")]
-    public string Title { get; set; }
-    [JsonPropertyName("artist")]
-    public string Artist { get; set; }
-    [JsonPropertyName("genre")]
-    public string Genre { get; set; }
-    [JsonPropertyName("release_year")]
-    public int ReleaseYear { get; set; }
-    [JsonPropertyName("condition")]
-    public string Condition { get; set; }
-    [JsonPropertyName("notes")]
-    public string Notes { get; set; }
-    [JsonPropertyName("cover_image_url")]
-    public string CoverImageUrl { get; set; }
-}
-
-public class ListeningSession
-{
-    [JsonPropertyName("id")]
-    public string Id { get; set; } = Guid.NewGuid().ToString();
-    [JsonPropertyName("record_id")]
-    public string RecordId { get; set; }
-    [JsonPropertyName("date")]
-    public DateTime Date { get; set; }
-    [JsonPropertyName("duration")]
-    public int Duration { get; set; }
-    [JsonPropertyName("notes")]
-    public string Notes { get; set; }
-}
-
-public class DataService
-{
-    private readonly string _dataFolder;
-
-    public DataService(string dataFolder)
-    {
-        _dataFolder = dataFolder;
-        Directory.CreateDirectory(dataFolder);
-    }
-
-    public List<VinylRecord> LoadRecords() =>
-        LoadData<VinylRecord>("records.json");
-
-    public void SaveRecords(List<VinylRecord> records) =>
-        SaveData("records.json", records);
-
-    public List<ListeningSession> LoadSessions() =>
-        LoadData<ListeningSession>("sessions.json");
-
-    public void SaveSessions(List<ListeningSession> sessions) =>
-        SaveData("sessions.json", sessions);
-
-    private List<T> LoadData<T>(string fileName)
-    {
-        var path = Path.Combine(_dataFolder, fileName);
-        return File.Exists(path)
-            ? JsonSerializer.Deserialize<List<T>>(File.ReadAllText(path))
-            : new List<T>();
-    }
-
-    private void SaveData<T>(string fileName, List<T> data)
-    {
-        var path = Path.Combine(_dataFolder, fileName);
-        File.WriteAllText(path, JsonSerializer.Serialize(data));
-    }
-}
-
-public class VinylCollectionModule : IGeneratedModule
+public class VinylCollectionManager : IGeneratedModule
 {
     public string Name { get; set; } = "Vinyl Collection Manager";
 
+    private List<VinylRecord> vinylRecords = new List<VinylRecord>();
+    private List<ListeningSession> listeningSessions = new List<ListeningSession>();
+    private List<Recommendation> recommendations = new List<Recommendation>();
+    private string recordsPath;
+    private string sessionsPath;
+    private string recommendationsPath;
+
     public bool Main(string dataFolder)
     {
-        Console.WriteLine("Starting Vinyl Collection Manager...");
-        var dataService = new DataService(dataFolder);
-        var records = dataService.LoadRecords();
-        var sessions = dataService.LoadSessions();
+        Console.WriteLine("Initializing Vinyl Collection Manager...");
 
-        while (true)
+        recordsPath = Path.Combine(dataFolder, "records.json");
+        sessionsPath = Path.Combine(dataFolder, "sessions.json");
+        recommendationsPath = Path.Combine(dataFolder, "recommendations.json");
+
+        LoadData();
+
+        while (ShowMainMenu()) { }
+
+        SaveData();
+        Console.WriteLine("Module execution completed successfully.");
+        return true;
+    }
+
+    private void LoadData()
+    {
+        try
         {
-            Console.WriteLine("\n1. Add Record\n2. Update Record\n3. Delete Record\n4. List Records\n5. Search Records\n6. Add Listening Session\n7. View Statistics\n8. Get Recommendations\n9. Exit");
-            Console.Write("Select option: ");
-            switch (Console.ReadLine())
-            {
-                case "1":
-                    AddRecord(records, dataService);
-                    break;
-                case "2":
-                    UpdateRecord(records, dataService);
-                    break;
-                case "3":
-                    DeleteRecord(records, dataService);
-                    break;
-                case "4":
-                    ListRecords(records);
-                    break;
-                case "5":
-                    SearchRecords(records);
-                    break;
-                case "6":
-                    AddSession(sessions, records, dataService);
-                    break;
-                case "7":
-                    ShowStatistics(records, sessions);
-                    break;
-                case "8":
-                    GenerateRecommendations(records);
-                    break;
-                case "9":
-                    return true;
-                default:
-                    Console.WriteLine("Invalid option");
-                    break;
-            }
+            if (File.Exists(recordsPath))
+                vinylRecords = JsonSerializer.Deserialize<List<VinylRecord>>(File.ReadAllText(recordsPath));
+
+            if (File.Exists(sessionsPath))
+                listeningSessions = JsonSerializer.Deserialize<List<ListeningSession>>(File.ReadAllText(sessionsPath));
+
+            if (File.Exists(recommendationsPath))
+                recommendations = JsonSerializer.Deserialize<List<Recommendation>>(File.ReadAllText(recommendationsPath));
+        }
+        catch { }
+    }
+
+    private void SaveData()
+    {
+        var options = new JsonSerializerOptions { WriteIndented = true };
+        File.WriteAllText(recordsPath, JsonSerializer.Serialize(vinylRecords, options));
+        File.WriteAllText(sessionsPath, JsonSerializer.Serialize(listeningSessions, options));
+        File.WriteAllText(recommendationsPath, JsonSerializer.Serialize(recommendations, options));
+    }
+
+    private bool ShowMainMenu()
+    {
+        Console.WriteLine("\nMain Menu:");
+        Console.WriteLine("1. Add New Record");
+        Console.WriteLine("2. Edit Record");
+        Console.WriteLine("3. Remove Record");
+        Console.WriteLine("4. Search Records");
+        Console.WriteLine("5. Record Listening Session");
+        Console.WriteLine("6. Show Statistics");
+        Console.WriteLine("7. Generate Recommendations");
+        Console.WriteLine("8. Exit");
+
+        switch (Console.ReadLine())
+        {
+            case "1": AddRecord(); return true;
+            case "2": EditRecord(); return true;
+            case "3": RemoveRecord(); return true;
+            case "4": SearchRecords(); return true;
+            case "5": AddListeningSession(); return true;
+            case "6": ShowStatistics(); return true;
+            case "7": GenerateRecommendations(); return true;
+            case "8": return false;
+            default: return true;
         }
     }
 
-    private void AddRecord(List<VinylRecord> records, DataService dataService)
+    private void AddRecord()
     {
-        var record = new VinylRecord();
-        Console.Write("Title: ");
-        record.Title = Console.ReadLine();
-        Console.Write("Artist: ");
-        record.Artist = Console.ReadLine();
-        Console.Write("Genre: ");
-        record.Genre = Console.ReadLine();
-        Console.Write("Release Year: ");
-        record.ReleaseYear = int.Parse(Console.ReadLine());
-        Console.Write("Condition: ");
-        record.Condition = Console.ReadLine();
-        Console.Write("Notes: ");
-        record.Notes = Console.ReadLine();
-        Console.Write("Cover Image URL: ");
-        record.CoverImageUrl = Console.ReadLine();
-        records.Add(record);
-        dataService.SaveRecords(records);
-        Console.WriteLine("Record added");
-    }
-
-    private void UpdateRecord(List<VinylRecord> records, DataService dataService)
-    {
-        Console.Write("Enter record ID: ");
-        var record = records.FirstOrDefault(r => r.Id == Console.ReadLine());
-        if (record == null) Console.WriteLine("Record not found");
-        else
+        var record = new VinylRecord
         {
-            Console.Write("New Title (Enter to skip): ");
-            var input = Console.ReadLine();
-            if (!string.IsNullOrEmpty(input)) record.Title = input;
+            Id = Guid.NewGuid().ToString(),
+            Title = ReadInput("Title"),
+            Artist = ReadInput("Artist"),
+            Genre = ReadInput("Genre"),
+            Year = int.Parse(ReadInput("Year")),
+            Label = ReadInput("Label"),
+            Condition = ReadInput("Condition"),
+            Notes = ReadInput("Notes")
+        };
 
-            Console.Write("New Artist (Enter to skip): ");
-            input = Console.ReadLine();
-            if (!string.IsNullOrEmpty(input)) record.Artist = input;
-
-            Console.Write("New Genre (Enter to skip): ");
-            input = Console.ReadLine();
-            if (!string.IsNullOrEmpty(input)) record.Genre = input;
-
-            Console.Write("New Release Year (Enter to skip): ");
-            input = Console.ReadLine();
-            if (!string.IsNullOrEmpty(input) && int.TryParse(input, out int year))
-                record.ReleaseYear = year;
-
-            Console.Write("New Condition (Enter to skip): ");
-            input = Console.ReadLine();
-            if (!string.IsNullOrEmpty(input)) record.Condition = input;
-
-            Console.Write("New Notes (Enter to skip): ");
-            input = Console.ReadLine();
-            if (!string.IsNullOrEmpty(input)) record.Notes = input;
-
-            Console.Write("New Cover Image URL (Enter to skip): ");
-            input = Console.ReadLine();
-            if (!string.IsNullOrEmpty(input)) record.CoverImageUrl = input;
-
-            dataService.SaveRecords(records);
-            Console.WriteLine("Record updated");
-        }
+        vinylRecords.Add(record);
+        Console.WriteLine("Record added successfully.");
     }
 
-    private void DeleteRecord(List<VinylRecord> records, DataService dataService)
+    private void EditRecord()
     {
-        Console.Write("Enter record ID: ");
-        var record = records.FirstOrDefault(r => r.Id == Console.ReadLine());
+        var id = ReadInput("Enter record ID to edit");
+        var record = vinylRecords.FirstOrDefault(r => r.Id == id);
+
+        if (record == null)
+        {
+            Console.WriteLine("Record not found.");
+            return;
+        }
+
+        record.Title = ReadInput("Title (current: " + record.Title + ")");
+        record.Artist = ReadInput("Artist (current: " + record.Artist + ")");
+        record.Genre = ReadInput("Genre (current: " + record.Genre + ")");
+        record.Year = int.Parse(ReadInput("Year (current: " + record.Year + ")"));
+        Console.WriteLine("Record updated successfully.");
+    }
+
+    private void RemoveRecord()
+    {
+        var id = ReadInput("Enter record ID to remove");
+        var record = vinylRecords.FirstOrDefault(r => r.Id == id);
+
         if (record != null)
         {
-            records.Remove(record);
-            dataService.SaveRecords(records);
-            Console.WriteLine("Record deleted");
+            vinylRecords.Remove(record);
+            Console.WriteLine("Record removed successfully.");
         }
-        else Console.WriteLine("Record not found");
-    }
-
-    private void ListRecords(List<VinylRecord> records)
-    {
-        Console.WriteLine($"Total records: {records.Count}");
-        foreach (var record in records)
-        {
-            Console.WriteLine($"ID: {record.Id}");
-            Console.WriteLine($"Title: {record.Title}");
-            Console.WriteLine($"Artist: {record.Artist}");
-            Console.WriteLine($"Genre: {record.Genre}");
-            Console.WriteLine($"Release Year: {record.ReleaseYear}");
-            Console.WriteLine($"Condition: {record.Condition}");
-            Console.WriteLine($"Notes: {record.Notes}");
-            Console.WriteLine($"Cover Image URL: {record.CoverImageUrl}");
-            Console.WriteLine("-----------------------");
-        }
-    }
-
-    private void SearchRecords(List<VinylRecord> records)
-    {
-        Console.Write("Search term: ");
-        var term = Console.ReadLine().ToLower();
-        var results = records.Where(r =>
-            r.Title.ToLower().Contains(term) ||
-            r.Artist.ToLower().Contains(term) ||
-            r.Genre.ToLower().Contains(term)
-        ).ToList();
-        Console.WriteLine("Found " + results.Count + " records:");
-        results.ForEach(r => Console.WriteLine(r.Title + " - " + r.Artist));
-    }
-
-    private void AddSession(List<ListeningSession> sessions, List<VinylRecord> records, DataService dataService)
-    {
-        Console.Write("Record ID: ");
-        var record = records.FirstOrDefault(r => r.Id == Console.ReadLine());
-        if (record == null) Console.WriteLine("Record not found");
         else
         {
-            var session = new ListeningSession { RecordId = record.Id };
-            Console.Write("Duration (minutes): ");
-            session.Duration = int.Parse(Console.ReadLine());
-            sessions.Add(session);
-            dataService.SaveSessions(sessions);
-            Console.WriteLine("Session recorded");
+            Console.WriteLine("Record not found.");
         }
     }
 
-    private void ShowStatistics(List<VinylRecord> records, List<ListeningSession> sessions)
+    private void SearchRecords()
     {
-        Console.WriteLine("Total records: " + records.Count);
-        Console.WriteLine("\nGenres:");
-        records.GroupBy(r => r.Genre)
-            .ToList()
-            .ForEach(g => Console.WriteLine(g.Key + ": " + g.Count()));
+        var query = ReadInput("Search by Artist, Genre, or Year");
+        var results = vinylRecords.Where(r =>
+            r.Artist.Contains(query, StringComparison.OrdinalIgnoreCase) ||
+            r.Genre.Contains(query, StringComparison.OrdinalIgnoreCase) ||
+            r.Year.ToString().Contains(query))
+            .ToList();
 
-        Console.WriteLine("\nMost played records:");
-        sessions.GroupBy(s => s.RecordId)
-            .Select(g => new { Id = g.Key, Plays = g.Count() })
-            .OrderByDescending(g => g.Plays)
-            .Take(3)
-            .ToList()
-            .ForEach(g =>
-            {
-                var record = records.FirstOrDefault(r => r.Id == g.Id);
-                Console.WriteLine(record?.Title + " - " + g.Plays + " plays");
-            });
+        Console.WriteLine("Found " + results.Count + " records:");
+        results.ForEach(r => Console.WriteLine(r.Artist + " - " + r.Title));
     }
 
-    private void GenerateRecommendations(List<VinylRecord> records)
+    private void AddListeningSession()
     {
-        var topGenre = records
+        var session = new ListeningSession
+        {
+            Id = Guid.NewGuid().ToString(),
+            RecordId = ReadInput("Enter record ID"),
+            Date = DateTime.Now,
+            Duration = int.Parse(ReadInput("Duration in minutes")),
+            Notes = ReadInput("Session notes")
+        };
+
+        listeningSessions.Add(session);
+        Console.WriteLine("Listening session recorded.");
+    }
+
+    private void ShowStatistics()
+    {
+        Console.WriteLine("Collection Statistics:");
+        Console.WriteLine("Total Records: " + vinylRecords.Count);
+        Console.WriteLine("Total Listening Sessions: " + listeningSessions.Count);
+
+        var genreStats = vinylRecords
+            .GroupBy(r => r.Genre)
+            .Select(g => new { Genre = g.Key, Count = g.Count() });
+
+        Console.WriteLine("\nGenre Distribution:");
+        foreach (var stat in genreStats)
+            Console.WriteLine(stat.Genre + ": " + stat.Count);
+    }
+
+    private void GenerateRecommendations()
+    {
+        var topGenre = vinylRecords
             .GroupBy(r => r.Genre)
             .OrderByDescending(g => g.Count())
             .FirstOrDefault()?.Key;
 
-        Console.WriteLine("Recommended " + topGenre + " records:");
-        Console.WriteLine("1. Essential compilation albums in " + topGenre);
-        Console.WriteLine("2. Classic " + topGenre + " releases from the 70s");
+        if (topGenre != null)
+        {
+            var recommendation = new Recommendation
+            {
+                Id = Guid.NewGuid().ToString(),
+                RecordId = "",
+                Reason = "Popular genre in your collection: " + topGenre,
+                Date = DateTime.Now
+            };
+
+            recommendations.Add(recommendation);
+            Console.WriteLine("New recommendation generated: " + recommendation.Reason);
+        }
     }
+
+    private string ReadInput(string prompt)
+    {
+        Console.Write(prompt + ": ");
+        return Console.ReadLine();
+    }
+}
+
+public class VinylRecord
+{
+    public string Id { get; set; }
+    public string Title { get; set; }
+    public string Artist { get; set; }
+    public string Genre { get; set; }
+    public int Year { get; set; }
+    public string Label { get; set; }
+    public string Condition { get; set; }
+    public string Notes { get; set; }
+}
+
+public class ListeningSession
+{
+    public string Id { get; set; }
+    public string RecordId { get; set; }
+    public DateTime Date { get; set; }
+    public double Duration { get; set; }
+    public string Notes { get; set; }
+}
+
+public class Recommendation
+{
+    public string Id { get; set; }
+    public string RecordId { get; set; }
+    public string UserId { get; set; }
+    public string Reason { get; set; }
+    public DateTime Date { get; set; }
 }
