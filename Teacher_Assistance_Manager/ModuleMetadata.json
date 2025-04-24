@@ -24,7 +24,7 @@
       },
       {
         "Description": "Add and remove students from groups",
-        "IsImplemented": false
+        "IsImplemented": true
       },
       {
         "Description": "Record daily attendance",

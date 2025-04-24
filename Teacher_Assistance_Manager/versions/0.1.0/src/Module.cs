@@ -160,8 +160,9 @@ public class AttendanceModule : IGeneratedModule
             Console.WriteLine("\nStudent Management:");
             Console.WriteLine("1. Add Student");
             Console.WriteLine("2. List Students");
-            Console.WriteLine("3. Remove Student");
-            Console.WriteLine("4. Back to Main Menu");
+            Console.WriteLine("3. Edit Student Group");
+            Console.WriteLine("4. Remove Student");
+            Console.WriteLine("5. Back to Main Menu");
             var choice = Console.ReadLine();
 
             if (choice == "1")
@@ -173,7 +174,7 @@ public class AttendanceModule : IGeneratedModule
                 Console.Write("Enter group ID: ");
                 var groupId = Console.ReadLine();
 
-                if (!groups.Any(g => g.GroupId == groupId))
+                if (!string.IsNullOrWhiteSpace(groupId) && !groups.Any(g => g.GroupId == groupId))
                 {
                     Console.WriteLine("Invalid group ID");
                     continue;
@@ -197,10 +198,35 @@ public class AttendanceModule : IGeneratedModule
                 Console.WriteLine("\nExisting Students:");
                 foreach (var student in students)
                 {
-                    Console.WriteLine($"ID: {student.StudentId}, Name: {student.Name}, Email: {student.Email}, Group: {groups.FirstOrDefault(g => g.GroupId == student.GroupId)?.GroupName}");
+                    Console.WriteLine($"ID: {student.StudentId}, Name: {student.Name}, Email: {student.Email}, Group: {groups.FirstOrDefault(g => g.GroupId == student.GroupId)?.GroupName ?? "[No Group]"}");
                 }
             }
             else if (choice == "3")
+            {
+                Console.Write("Enter Student ID to edit: ");
+                var studentId = Console.ReadLine();
+                var student = students.FirstOrDefault(s => s.StudentId == studentId);
+                if (student == null)
+                {
+                    Console.WriteLine("Student not found.");
+                    continue;
+                }
+
+                Console.Write("Enter new group ID (leave blank to remove from group): ");
+                var newGroupId = Console.ReadLine();
+
+                if (!string.IsNullOrWhiteSpace(newGroupId) && !groups.Any(g => g.GroupId == newGroupId))
+                {
+                    Console.WriteLine("Invalid group ID. No changes made.");
+                    continue;
+                }
+
+                student.GroupId = string.IsNullOrWhiteSpace(newGroupId) ? null : newGroupId;
+                student.UpdatedAt = DateTime.Now;
+                dataStorage.SaveData(students);
+                Console.WriteLine("Student group updated successfully.");
+            }
+            else if (choice == "4")
             {
                 Console.Write("Enter Student ID to remove: ");
                 var studentId = Console.ReadLine();
@@ -220,7 +246,7 @@ public class AttendanceModule : IGeneratedModule
                     Console.WriteLine("Student removed successfully.");
                 }
             }
-            else if (choice == "4")
+            else if (choice == "5")
             {
                 break;
             }
