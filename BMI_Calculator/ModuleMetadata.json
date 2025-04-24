@@ -1,0 +1,95 @@
+{
+  "Name": "BMI Calculator",
+  "CreationRequirements": {
+    "InitialRequirement": "Calculate body mass index (BMI) based on height and weight input",
+    "ReviewedRequirement": "Design a software module that calculates Body Mass Index (BMI) based on user-provided height and weight inputs. The module should accurately compute BMI using the standard formula (weight divided by height squared) and provide immediate feedback. The system should handle various units of measurement (e.g., metric and imperial) and ensure data validation to prevent incorrect inputs. The module should be user-friendly, with clear instructions and error messages for invalid entries. Additionally, the module should categorize the BMI result into standard health categories (e.g., underweight, normal weight, overweight, obese) and optionally provide recommendations based on the category.",
+    "FunctionalDetails": [
+      "Calculate BMI using the standard formula: weight / (height^2).",
+      "Support multiple units of measurement (metric and imperial).",
+      "Validate user inputs to ensure they are within reasonable ranges.",
+      "Categorize BMI results into standard health categories.",
+      "Provide immediate feedback and clear error messages for invalid inputs."
+    ],
+    "UserInteraction": [
+      "User enters height and weight in preferred units.",
+      "User submits the data for calculation.",
+      "System validates inputs and calculates BMI.",
+      "System displays BMI result and health category.",
+      "System provides optional recommendations based on BMI category."
+    ],
+    "MinimumFeatures": [
+      {
+        "Description": "Calculate BMI based on height and weight inputs.",
+        "IsImplemented": true
+      },
+      {
+        "Description": "Support metric units (kg, cm).",
+        "IsImplemented": true
+      },
+      {
+        "Description": "Basic input validation (positive numbers, reasonable ranges).",
+        "IsImplemented": true
+      },
+      {
+        "Description": "Display BMI result and health category.",
+        "IsImplemented": true
+      }
+    ],
+    "GoodToHaveFeatures": [
+      {
+        "Description": "Support imperial units (lbs, inches).",
+        "IsImplemented": false
+      },
+      {
+        "Description": "Detailed input validation (e.g., preventing unrealistic heights/weights).",
+        "IsImplemented": false
+      },
+      {
+        "Description": "Save user inputs and results for future reference.",
+        "IsImplemented": false
+      },
+      {
+        "Description": "Provide personalized recommendations based on BMI category.",
+        "IsImplemented": false
+      }
+    ],
+    "BarRaiserFeatures": [
+      {
+        "Description": "Multi-language support for user interface and feedback.",
+        "IsImplemented": false
+      },
+      {
+        "Description": "Integration with health tracking systems or APIs.",
+        "IsImplemented": false
+      },
+      {
+        "Description": "Graphical representation of BMI trends over time.",
+        "IsImplemented": false
+      },
+      {
+        "Description": "Advanced analytics (e.g., BMI history, progress tracking).",
+        "IsImplemented": false
+      }
+    ],
+    "DataModels": [
+      "**UserInput**: { height: float, weight: float, units: string (metric/imperial) }",
+      "**BMIResult**: { bmi: float, category: string, recommendation: string }",
+      "**UserSession**: { user_id: string, inputs: [UserInput], results: [BMIResult], timestamp: datetime }"
+    ]
+  },
+  "Version": {
+    "Major": 0,
+    "Minor": 1,
+    "Patch": 0
+  },
+  "IsInitialRequirementReviewed": true,
+  "IsSourceCodeGenerated": true,
+  "AreMinimumFeaturesImplemented": true,
+  "AreGoodToHaveFeaturesImplemented": false,
+  "AreBarRaiserFeaturesImplemented": false,
+  "IsSourceCodeCompiled": true,
+  "IsReadmeFileGenerated": true,
+  "Description": "A module that calculates Body Mass Index (BMI) using metric or imperial units. It validates user inputs, computes BMI, categorizes results, and provides recommendations. Each session is saved to a JSON file containing all inputs and results.",
+  "RequiredAPIs": [],
+  "RequiredNuGets": []
+}
