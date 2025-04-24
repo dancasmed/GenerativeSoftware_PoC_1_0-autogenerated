@@ -1,0 +1,46 @@
+{
+  "module_name": "VinylRecordsManager",
+  "reviewed_prompt": "Design a software module to help users manage their vinyl records collection. The module should allow users to catalog, search, and organize their vinyl records efficiently. Users should be able to add, edit, delete, and view details of their records, as well as perform advanced searches and generate reports. The module should also support categorization by genre, artist, and other metadata. Additionally, it should provide features to track the condition of records and manage wishlists for future purchases.",
+  "functional_details": [
+    "Catalog vinyl records with detailed metadata",
+    "Search and filter records by various criteria",
+    "Organize records into custom categories or playlists",
+    "Track the condition and value of each record",
+    "Manage a wishlist for future purchases",
+    "Generate reports on the collection"
+  ],
+  "user_interaction": [
+    "Add a new vinyl record to the collection",
+    "Edit or update details of an existing record",
+    "Delete a record from the collection",
+    "Search for records by title, artist, genre, etc.",
+    "Filter records by condition, year, or other attributes",
+    "Generate a report or summary of the collection",
+    "Add records to a wishlist for future reference"
+  ],
+  "minimum_features": [
+    "CRUDS operations for vinyl records",
+    "Basic search functionality",
+    "Ability to categorize records by genre and artist",
+    "Track basic metadata (title, artist, year, genre)"
+  ],
+  "desired_features": [
+    "Advanced search with multiple filters",
+    "Custom categorization or tagging",
+    "Condition tracking for records",
+    "Wishlist management",
+    "Basic reporting (e.g., total records, by genre)"
+  ],
+  "bar_raiser_features": [
+    "Integration with external music databases for automatic metadata fetching",
+    "Barcode scanning for quick record addition",
+    "Value tracking and estimation",
+    "Advanced reporting (e.g., collection growth over time)",
+    "Multi-user support for shared collections"
+  ],
+  "data_models": [
+    "markdown\n# Record\n- **id**: Unique identifier\n- **title**: Title of the record\n- **artist**: Artist or band name\n- **year**: Release year\n- **genre**: Music genre\n- **condition**: Physical condition (e.g., Mint, Good, Fair)\n- **notes**: Additional notes or comments\n- **value**: Estimated monetary value\n",
+    "markdown\n# Wishlist\n- **id**: Unique identifier\n- **title**: Title of the desired record\n- **artist**: Artist or band name\n- **year**: Release year\n- **genre**: Music genre\n- **priority**: Priority level (e.g., High, Medium, Low)\n- **notes**: Additional notes or comments\n",
+    "markdown\n# Report\n- **id**: Unique identifier\n- **type**: Type of report (e.g., Summary, By Genre, By Year)\n- **date**: Date of report generation\n- **content**: Report content or data\n"
+  ]
+}

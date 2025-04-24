@@ -2,21 +2,23 @@
   "Name": "VinylRecordsManager",
   "CreationRequirements": {
     "InitialRequirement": "help me to manage my vinyl records collection",
-    "ReviewedRequirement": "Design a software module to help users manage their vinyl records collection. The module should allow users to catalog their records, track their listening habits, and discover new music based on their collection. Users should be able to add, edit, and remove records from their collection, as well as search and filter their records based on various criteria. The module should also provide insights into the user\u0027s collection, such as most played records, genres distribution, and recommendations for new records to add based on their current collection.",
+    "ReviewedRequirement": "Design a software module to help users manage their vinyl records collection. The module should allow users to catalog, search, and organize their vinyl records efficiently. Users should be able to add, edit, delete, and view details of their records, as well as perform advanced searches and generate reports. The module should also support categorization by genre, artist, and other metadata. Additionally, it should provide features to track the condition of records and manage wishlists for future purchases.",
     "FunctionalDetails": [
-      "Catalog vinyl records with detailed information",
-      "Track listening history and habits",
-      "Provide recommendations based on the collection",
+      "Catalog vinyl records with detailed metadata",
       "Search and filter records by various criteria",
-      "Generate insights and statistics about the collection"
+      "Organize records into custom categories or playlists",
+      "Track the condition and value of each record",
+      "Manage a wishlist for future purchases",
+      "Generate reports on the collection"
     ],
     "UserInteraction": [
       "Add a new vinyl record to the collection",
-      "Edit details of an existing record",
-      "Remove a record from the collection",
-      "Search and filter records by artist, genre, year, etc.",
-      "View listening history and statistics",
-      "Receive recommendations for new records"
+      "Edit or update details of an existing record",
+      "Delete a record from the collection",
+      "Search for records by title, artist, genre, etc.",
+      "Filter records by condition, year, or other attributes",
+      "Generate a report or summary of the collection",
+      "Add records to a wishlist for future reference"
     ],
     "MinimumFeatures": [
       {
@@ -24,43 +26,43 @@
         "IsImplemented": false
       },
       {
-        "Description": "Basic search and filter functionality",
+        "Description": "Basic search functionality",
         "IsImplemented": false
       },
       {
-        "Description": "Listening history tracking",
+        "Description": "Ability to categorize records by genre and artist",
         "IsImplemented": false
       },
       {
-        "Description": "Basic collection statistics",
+        "Description": "Track basic metadata (title, artist, year, genre)",
         "IsImplemented": false
       }
     ],
     "GoodToHaveFeatures": [
       {
-        "Description": "Advanced search with multiple criteria",
+        "Description": "Advanced search with multiple filters",
         "IsImplemented": false
       },
       {
-        "Description": "Detailed statistics and insights",
+        "Description": "Custom categorization or tagging",
         "IsImplemented": false
       },
       {
-        "Description": "Integration with music databases for automatic record information retrieval",
+        "Description": "Condition tracking for records",
         "IsImplemented": false
       },
       {
-        "Description": "Customizable fields for record details",
+        "Description": "Wishlist management",
+        "IsImplemented": false
+      },
+      {
+        "Description": "Basic reporting (e.g., total records, by genre)",
         "IsImplemented": false
       }
     ],
     "BarRaiserFeatures": [
       {
-        "Description": "AI-based recommendations for new records",
-        "IsImplemented": false
-      },
-      {
-        "Description": "Social features to share collection with friends",
+        "Description": "Integration with external music databases for automatic metadata fetching",
         "IsImplemented": false
       },
       {
@@ -68,15 +70,22 @@
         "IsImplemented": false
       },
       {
-        "Description": "Export/import collection data",
+        "Description": "Value tracking and estimation",
+        "IsImplemented": false
+      },
+      {
+        "Description": "Advanced reporting (e.g., collection growth over time)",
+        "IsImplemented": false
+      },
+      {
+        "Description": "Multi-user support for shared collections",
         "IsImplemented": false
       }
     ],
     "DataModels": [
-      "**VinylRecord**: \u0060{ id: string, title: string, artist: string, genre: string, year: number, label: string, condition: string, notes: string, coverImage: string }\u0060",
-      "**ListeningSession**: \u0060{ id: string, recordId: string, date: date, duration: number, notes: string }\u0060",
-      "**User**: \u0060{ id: string, name: string, email: string, preferences: object }\u0060",
-      "**Recommendation**: \u0060{ id: string, recordId: string, userId: string, reason: string, date: date }\u0060"
+      "markdown\n# Record\n- **id**: Unique identifier\n- **title**: Title of the record\n- **artist**: Artist or band name\n- **year**: Release year\n- **genre**: Music genre\n- **condition**: Physical condition (e.g., Mint, Good, Fair)\n- **notes**: Additional notes or comments\n- **value**: Estimated monetary value\n",
+      "markdown\n# Wishlist\n- **id**: Unique identifier\n- **title**: Title of the desired record\n- **artist**: Artist or band name\n- **year**: Release year\n- **genre**: Music genre\n- **priority**: Priority level (e.g., High, Medium, Low)\n- **notes**: Additional notes or comments\n",
+      "markdown\n# Report\n- **id**: Unique identifier\n- **type**: Type of report (e.g., Summary, By Genre, By Year)\n- **date**: Date of report generation\n- **content**: Report content or data\n"
     ]
   },
   "Version": {
@@ -85,13 +94,13 @@
     "Patch": 0
   },
   "IsInitialRequirementReviewed": true,
-  "IsSourceCodeGenerated": true,
+  "IsSourceCodeGenerated": false,
   "AreMinimumFeaturesImplemented": false,
   "AreGoodToHaveFeaturesImplemented": false,
   "AreBarRaiserFeaturesImplemented": false,
-  "IsSourceCodeCompiled": true,
+  "IsSourceCodeCompiled": false,
   "IsReadmeFileGenerated": false,
-  "Description": "Vinyl collection manager with CRUDS operations, listening history tracking, basic statistics, and genre-based recommendations. Maintains data in JSON files and provides console-based interaction.",
+  "Description": "Vinyl collection manager with CRUDS operations for records and wishlist, search capabilities, and report generation. Maintains collection data in JSON format with genre categorization and condition tracking.",
   "RequiredAPIs": [],
   "RequiredNuGets": []
 }

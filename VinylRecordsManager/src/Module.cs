@@ -1,238 +1,184 @@
 using SelfEvolvingSoftware.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text.Json;
+using System.IO;
 
-public class VinylCollectionManager : IGeneratedModule
-{
+public class VinylManagerModule : IGeneratedModule {
     public string Name { get; set; } = "Vinyl Collection Manager";
-
-    private List<VinylRecord> vinylRecords = new List<VinylRecord>();
-    private List<ListeningSession> listeningSessions = new List<ListeningSession>();
-    private List<Recommendation> recommendations = new List<Recommendation>();
-    private string recordsPath;
-    private string sessionsPath;
-    private string recommendationsPath;
-
-    public bool Main(string dataFolder)
-    {
+    
+    private string _recordsPath;
+    private string _wishlistPath;
+    private string _reportsPath;
+    
+    public bool Main(string dataFolder) {
         Console.WriteLine("Initializing Vinyl Collection Manager...");
-
-        recordsPath = Path.Combine(dataFolder, "records.json");
-        sessionsPath = Path.Combine(dataFolder, "sessions.json");
-        recommendationsPath = Path.Combine(dataFolder, "recommendations.json");
-
-        LoadData();
-
+        
+        _recordsPath = Path.Combine(dataFolder, "records.json");
+        _wishlistPath = Path.Combine(dataFolder, "wishlist.json");
+        _reportsPath = Path.Combine(dataFolder, "reports.json");
+        
+        InitializeFiles();
+        
         while (ShowMainMenu()) { }
-
-        SaveData();
-        Console.WriteLine("Module execution completed successfully.");
+        
+        Console.WriteLine("Exiting Vinyl Collection Manager");
         return true;
     }
-
-    private void LoadData()
-    {
-        try
-        {
-            if (File.Exists(recordsPath))
-                vinylRecords = JsonSerializer.Deserialize<List<VinylRecord>>(File.ReadAllText(recordsPath));
-
-            if (File.Exists(sessionsPath))
-                listeningSessions = JsonSerializer.Deserialize<List<ListeningSession>>(File.ReadAllText(sessionsPath));
-
-            if (File.Exists(recommendationsPath))
-                recommendations = JsonSerializer.Deserialize<List<Recommendation>>(File.ReadAllText(recommendationsPath));
+    
+    private void InitializeFiles() {
+        foreach (var path in new[] { _recordsPath, _wishlistPath, _reportsPath }) {
+            if (!File.Exists(path)) {
+                File.WriteAllText(path, "[]");
+            }
         }
-        catch { }
     }
-
-    private void SaveData()
-    {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        File.WriteAllText(recordsPath, JsonSerializer.Serialize(vinylRecords, options));
-        File.WriteAllText(sessionsPath, JsonSerializer.Serialize(listeningSessions, options));
-        File.WriteAllText(recommendationsPath, JsonSerializer.Serialize(recommendations, options));
-    }
-
-    private bool ShowMainMenu()
-    {
+    
+    private bool ShowMainMenu() {
         Console.WriteLine("\nMain Menu:");
-        Console.WriteLine("1. Add New Record");
-        Console.WriteLine("2. Edit Record");
-        Console.WriteLine("3. Remove Record");
-        Console.WriteLine("4. Search Records");
-        Console.WriteLine("5. Record Listening Session");
-        Console.WriteLine("6. Show Statistics");
-        Console.WriteLine("7. Generate Recommendations");
-        Console.WriteLine("8. Exit");
-
-        switch (Console.ReadLine())
-        {
-            case "1": AddRecord(); return true;
-            case "2": EditRecord(); return true;
-            case "3": RemoveRecord(); return true;
-            case "4": SearchRecords(); return true;
-            case "5": AddListeningSession(); return true;
-            case "6": ShowStatistics(); return true;
-            case "7": GenerateRecommendations(); return true;
-            case "8": return false;
-            default: return true;
+        Console.WriteLine("1. Manage Records");
+        Console.WriteLine("2. Manage Wishlist");
+        Console.WriteLine("3. Generate Reports");
+        Console.WriteLine("4. Exit");
+        
+        switch (Console.ReadLine()) {
+            case "1":
+                ManageRecords();
+                return true;
+            case "2":
+                ManageWishlist();
+                return true;
+            case "3":
+                GenerateReportMenu();
+                return true;
+            case "4":
+                return false;
+            default:
+                Console.WriteLine("Invalid option");
+                return true;
         }
     }
-
-    private void AddRecord()
-    {
-        var record = new VinylRecord
-        {
-            Id = Guid.NewGuid().ToString(),
+    
+    private void ManageRecords() {
+        Console.WriteLine("\nRecord Management:");
+        Console.WriteLine("1. Add Record");
+        Console.WriteLine("2. Edit Record");
+        Console.WriteLine("3. Delete Record");
+        Console.WriteLine("4. List All Records");
+        Console.WriteLine("5. Search Records");
+        Console.WriteLine("6. Back");
+        
+        var records = LoadRecords();
+        
+        switch (Console.ReadLine()) {
+            case "1":
+                AddRecord(records);
+                break;
+            case "2":
+                EditRecord(records);
+                break;
+            case "3":
+                DeleteRecord(records);
+                break;
+            case "4":
+                ListRecords(records);
+                break;
+            case "5":
+                SearchRecords(records);
+                break;
+        }
+    }
+    
+    private List<Record> LoadRecords() {
+        return JsonSerializer.Deserialize<List<Record>>(File.ReadAllText(_recordsPath));
+    }
+    
+    private void SaveRecords(List<Record> records) {
+        File.WriteAllText(_recordsPath, JsonSerializer.Serialize(records));
+    }
+    
+    private void AddRecord(List<Record> records) {
+        var newRecord = new Record {
+            Id = Guid.NewGuid(),
             Title = ReadInput("Title"),
             Artist = ReadInput("Artist"),
-            Genre = ReadInput("Genre"),
             Year = int.Parse(ReadInput("Year")),
-            Label = ReadInput("Label"),
-            Condition = ReadInput("Condition"),
-            Notes = ReadInput("Notes")
+            Genre = ReadInput("Genre"),
+            Condition = ReadInput("Condition (Mint/Good/Fair)"),
+            Value = decimal.Parse(ReadInput("Value"))
         };
-
-        vinylRecords.Add(record);
-        Console.WriteLine("Record added successfully.");
+        
+        records.Add(newRecord);
+        SaveRecords(records);
+        Console.WriteLine("Record added successfully");
     }
-
-    private void EditRecord()
-    {
-        var id = ReadInput("Enter record ID to edit");
-        var record = vinylRecords.FirstOrDefault(r => r.Id == id);
-
-        if (record == null)
-        {
-            Console.WriteLine("Record not found.");
-            return;
-        }
-
-        record.Title = ReadInput("Title (current: " + record.Title + ")");
-        record.Artist = ReadInput("Artist (current: " + record.Artist + ")");
-        record.Genre = ReadInput("Genre (current: " + record.Genre + ")");
-        record.Year = int.Parse(ReadInput("Year (current: " + record.Year + ")"));
-        Console.WriteLine("Record updated successfully.");
-    }
-
-    private void RemoveRecord()
-    {
-        var id = ReadInput("Enter record ID to remove");
-        var record = vinylRecords.FirstOrDefault(r => r.Id == id);
-
-        if (record != null)
-        {
-            vinylRecords.Remove(record);
-            Console.WriteLine("Record removed successfully.");
-        }
-        else
-        {
-            Console.WriteLine("Record not found.");
-        }
-    }
-
-    private void SearchRecords()
-    {
-        var query = ReadInput("Search by Artist, Genre, or Year");
-        var results = vinylRecords.Where(r =>
-            r.Artist.Contains(query, StringComparison.OrdinalIgnoreCase) ||
-            r.Genre.Contains(query, StringComparison.OrdinalIgnoreCase) ||
-            r.Year.ToString().Contains(query))
-            .ToList();
-
-        Console.WriteLine("Found " + results.Count + " records:");
-        results.ForEach(r => Console.WriteLine(r.Artist + " - " + r.Title));
-    }
-
-    private void AddListeningSession()
-    {
-        var session = new ListeningSession
-        {
-            Id = Guid.NewGuid().ToString(),
-            RecordId = ReadInput("Enter record ID"),
-            Date = DateTime.Now,
-            Duration = int.Parse(ReadInput("Duration in minutes")),
-            Notes = ReadInput("Session notes")
-        };
-
-        listeningSessions.Add(session);
-        Console.WriteLine("Listening session recorded.");
-    }
-
-    private void ShowStatistics()
-    {
-        Console.WriteLine("Collection Statistics:");
-        Console.WriteLine("Total Records: " + vinylRecords.Count);
-        Console.WriteLine("Total Listening Sessions: " + listeningSessions.Count);
-
-        var genreStats = vinylRecords
-            .GroupBy(r => r.Genre)
-            .Select(g => new { Genre = g.Key, Count = g.Count() });
-
-        Console.WriteLine("\nGenre Distribution:");
-        foreach (var stat in genreStats)
-            Console.WriteLine(stat.Genre + ": " + stat.Count);
-    }
-
-    private void GenerateRecommendations()
-    {
-        var topGenre = vinylRecords
-            .GroupBy(r => r.Genre)
-            .OrderByDescending(g => g.Count())
-            .FirstOrDefault()?.Key;
-
-        if (topGenre != null)
-        {
-            var recommendation = new Recommendation
-            {
-                Id = Guid.NewGuid().ToString(),
-                RecordId = "",
-                Reason = "Popular genre in your collection: " + topGenre,
-                Date = DateTime.Now
-            };
-
-            recommendations.Add(recommendation);
-            Console.WriteLine("New recommendation generated: " + recommendation.Reason);
-        }
-    }
-
-    private string ReadInput(string prompt)
-    {
+    
+    private string ReadInput(string prompt) {
         Console.Write(prompt + ": ");
         return Console.ReadLine();
     }
+    
+    private void GenerateReportMenu() {
+        Console.WriteLine("\nReport Types:");
+        Console.WriteLine("1. Collection Summary");
+        Console.WriteLine("2. Genre Distribution");
+        Console.WriteLine("3. Value Report");
+        
+        var records = LoadRecords();
+        var report = new Report {
+            Id = Guid.NewGuid(),
+            Date = DateTime.Now
+        };
+        
+        switch (Console.ReadLine()) {
+            case "1":
+                report.Type = "Summary";
+                report.Content = "Total Records: " + records.Count;
+                break;
+            case "2":
+                report.Type = "Genre Distribution";
+                report.Content = string.Join("\n", 
+                    records.GroupBy(r => r.Genre)
+                           .Select(g => g.Key + ": " + g.Count()));
+                break;
+            case "3":
+                report.Type = "Value Report";
+                report.Content = "Total Collection Value: " + 
+                    records.Sum(r => r.Value).ToString("C");
+                break;
+        }
+        
+        SaveReport(report);
+        Console.WriteLine("Report generated: \n" + report.Content);
+    }
+    
+    private void SaveReport(Report report) {
+        var reports = JsonSerializer.Deserialize<List<Report>>(File.ReadAllText(_reportsPath));
+        reports.Add(report);
+        File.WriteAllText(_reportsPath, JsonSerializer.Serialize(reports));
+    }
 }
 
-public class VinylRecord
-{
-    public string Id { get; set; }
+public class Record {
+    public Guid Id { get; set; }
     public string Title { get; set; }
     public string Artist { get; set; }
-    public string Genre { get; set; }
     public int Year { get; set; }
-    public string Label { get; set; }
+    public string Genre { get; set; }
     public string Condition { get; set; }
-    public string Notes { get; set; }
+    public decimal Value { get; set; }
 }
 
-public class ListeningSession
-{
-    public string Id { get; set; }
-    public string RecordId { get; set; }
-    public DateTime Date { get; set; }
-    public double Duration { get; set; }
-    public string Notes { get; set; }
+public class Wishlist {
+    public Guid Id { get; set; }
+    public string Title { get; set; }
+    public string Artist { get; set; }
+    public int Year { get; set; }
+    public string Genre { get; set; }
+    public string Priority { get; set; }
 }
 
-public class Recommendation
-{
-    public string Id { get; set; }
-    public string RecordId { get; set; }
-    public string UserId { get; set; }
-    public string Reason { get; set; }
+public class Report {
+    public Guid Id { get; set; }
+    public string Type { get; set; }
     public DateTime Date { get; set; }
+    public string Content { get; set; }
 }
