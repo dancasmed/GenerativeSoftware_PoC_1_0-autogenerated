@@ -269,10 +269,27 @@ public class AttendanceModule : IGeneratedModule
             return;
         }
 
-        Console.WriteLine("Marking attendance for " + DateTime.Today.ToString("yyyy-MM-dd"));
+        var today = DateTime.Today;
+        var existingRecords = attendanceRecords
+            .Where(a => a.GroupId == groupId && a.Date.Date == today)
+            .ToList();
+
+        Console.WriteLine("Marking attendance for " + today.ToString("yyyy-MM-dd"));
         foreach (var student in groupStudents)
         {
-            Console.Write("Is " + student.Name + " present? (Y/N): ");
+            var existing = existingRecords.FirstOrDefault(a => a.StudentId == student.StudentId);
+            if (existing != null)
+            {
+                Console.Write($"{student.Name} already has attendance recorded as {existing.Status}. Overwrite? (Y/N): ");
+                var overwrite = Console.ReadLine().ToUpper();
+                if (overwrite != "Y")
+                {
+                    continue;
+                }
+                attendanceRecords.Remove(existing);
+            }
+
+            Console.Write($"Is {student.Name} present? (Y/N): ");
             var status = Console.ReadLine().ToUpper() == "Y" ? "Present" : "Absent";
 
             attendanceRecords.Add(new Attendance
@@ -280,7 +297,7 @@ public class AttendanceModule : IGeneratedModule
                 AttendanceId = Guid.NewGuid().ToString(),
                 GroupId = groupId,
                 StudentId = student.StudentId,
-                Date = DateTime.Today,
+                Date = today,
                 Status = status,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now
