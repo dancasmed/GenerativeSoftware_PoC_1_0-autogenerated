@@ -32,7 +32,7 @@
       },
       {
         "Description": "View daily attendance records",
-        "IsImplemented": false
+        "IsImplemented": true
       },
       {
         "Description": "Generate weekly attendance summary",
