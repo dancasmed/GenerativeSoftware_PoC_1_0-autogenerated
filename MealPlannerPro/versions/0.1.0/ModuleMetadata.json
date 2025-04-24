@@ -23,7 +23,7 @@
     "MinimumFeatures": [
       {
         "Description": "Create and manage weekly meal plans",
-        "IsImplemented": false
+        "IsImplemented": true
       },
       {
         "Description": "Calculate and display calorie counts",

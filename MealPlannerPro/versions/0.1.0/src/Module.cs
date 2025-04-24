@@ -217,6 +217,29 @@ public class MealPlannerModule : IGeneratedModule
         int.TryParse(Console.ReadLine(), out int calories);
         meal.Calories = calories;
 
+        bool addingIngredients = true;
+        while (addingIngredients)
+        {
+            var ingredient = new Ingredient
+            {
+                Id = Guid.NewGuid().ToString()
+            };
+            Console.Write("Enter ingredient name (or 'done' to finish): ");
+            var nameInput = Console.ReadLine();
+            if (nameInput?.ToLower() == "done") break;
+
+            ingredient.Name = nameInput;
+            Console.Write("Enter category: ");
+            ingredient.Category = Console.ReadLine();
+            Console.Write("Enter quantity: ");
+            double.TryParse(Console.ReadLine(), out double quantity);
+            ingredient.Quantity = quantity;
+            Console.Write("Enter unit: ");
+            ingredient.Unit = Console.ReadLine();
+
+            meal.Ingredients.Add(ingredient);
+        }
+
         meals.Add(meal);
         Console.WriteLine("Meal created successfully.");
     }
@@ -225,7 +248,7 @@ public class MealPlannerModule : IGeneratedModule
     {
         Console.WriteLine("\nAll Meals:");
         foreach (var meal in meals)
-            Console.WriteLine(meal.Name + " - " + meal.Calories + " calories");
+            Console.WriteLine($"{meal.Name} - {meal.Calories} calories ({meal.Ingredients.Count} ingredients)");
     }
 
     private void ManageMealPlans()
@@ -233,12 +256,14 @@ public class MealPlannerModule : IGeneratedModule
         Console.WriteLine("\nManage Meal Plans:");
         Console.WriteLine("1. Create Meal Plan");
         Console.WriteLine("2. View Meal Plans");
+        Console.WriteLine("3. Add Meals to Plan");
         Console.Write("Enter choice: ");
 
         switch (Console.ReadLine())
         {
             case "1": CreateMealPlan(); break;
             case "2": ViewMealPlans(); break;
+            case "3": AddMealsToPlan(); break;
             default: Console.WriteLine("Invalid option"); break;
         }
     }
@@ -257,6 +282,17 @@ public class MealPlannerModule : IGeneratedModule
         plan.StartDate = startDate;
         plan.EndDate = startDate.AddDays(6);
 
+        // Initialize empty days
+        for (int i = 0; i < 7; i++)
+        {
+            plan.Days.Add(new Day
+            {
+                Date = startDate.AddDays(i),
+                Meals = new List<Meal>(),
+                TotalCalories = 0
+            });
+        }
+
         mealPlans.Add(plan);
         Console.WriteLine("Meal plan created for week starting " + startDate.ToShortDateString());
     }
@@ -264,8 +300,83 @@ public class MealPlannerModule : IGeneratedModule
     private void ViewMealPlans()
     {
         Console.WriteLine("\nCurrent Meal Plans:");
-        foreach (var plan in mealPlans)
-            Console.WriteLine(plan.StartDate.ToShortDateString() + " to " + plan.EndDate.ToShortDateString());
+        for (int i = 0; i < mealPlans.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {mealPlans[i].StartDate.ToShortDateString()} to {mealPlans[i].EndDate.ToShortDateString()}");
+        }
+
+        Console.Write("\nSelect meal plan to view details (0 to cancel): ");
+        if (int.TryParse(Console.ReadLine(), out int selection) && selection > 0 && selection <= mealPlans.Count)
+        {
+            var selectedPlan = mealPlans[selection - 1];
+            Console.WriteLine("\nMeal Plan Details:");
+            foreach (var day in selectedPlan.Days)
+            {
+                Console.WriteLine($"{day.Date.ToShortDateString()}: {day.Meals.Count} meals");
+                foreach (var meal in day.Meals)
+                {
+                    Console.WriteLine($"- {meal.Name} ({meal.Calories} calories)");
+                }
+            }
+        }
+    }
+
+    private void AddMealsToPlan()
+    {
+        if (!mealPlans.Any())
+        {
+            Console.WriteLine("No meal plans available");
+            return;
+        }
+
+        Console.WriteLine("\nSelect Meal Plan:");
+        for (int i = 0; i < mealPlans.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {mealPlans[i].StartDate.ToShortDateString()} to {mealPlans[i].EndDate.ToShortDateString()}");
+        }
+
+        Console.Write("Enter selection: ");
+        if (!int.TryParse(Console.ReadLine(), out int planIndex) || planIndex < 1 || planIndex > mealPlans.Count)
+        {
+            Console.WriteLine("Invalid selection");
+            return;
+        }
+
+        var selectedPlan = mealPlans[planIndex - 1];
+
+        Console.WriteLine("\nSelect Day:");
+        for (int i = 0; i < selectedPlan.Days.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {selectedPlan.Days[i].Date.ToShortDateString()}");
+        }
+
+        Console.Write("Enter day number: ");
+        if (!int.TryParse(Console.ReadLine(), out int dayIndex) || dayIndex < 1 || dayIndex > selectedPlan.Days.Count)
+        {
+            Console.WriteLine("Invalid selection");
+            return;
+        }
+
+        var selectedDay = selectedPlan.Days[dayIndex - 1];
+
+        Console.WriteLine("\nAvailable Meals:");
+        for (int i = 0; i < meals.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {meals[i].Name} ({meals[i].Calories} calories)");
+        }
+
+        Console.Write("Select meal to add (0 to finish): ");
+        while (int.TryParse(Console.ReadLine(), out int mealIndex))
+        {
+            if (mealIndex == 0) break;
+            if (mealIndex > 0 && mealIndex <= meals.Count)
+            {
+                selectedDay.Meals.Add(meals[mealIndex - 1]);
+                selectedDay.TotalCalories += meals[mealIndex - 1].Calories;
+                Console.WriteLine($"Added {meals[mealIndex - 1].Name} to {selectedDay.Date.ToShortDateString()}");
+            }
+            Console.Write("Select another meal (0 to finish): ");
+        }
     }
 
     private void GenerateGroceryList()
@@ -288,7 +399,8 @@ public class MealPlannerModule : IGeneratedModule
                 Name = g.Key,
                 Category = g.First().Category,
                 Quantity = g.Sum(i => i.Quantity),
-                Unit = g.First().Unit
+                Unit = g.First().Unit,
+                Checked = false
             }).ToList();
 
         var groceryList = new GroceryList
@@ -300,7 +412,11 @@ public class MealPlannerModule : IGeneratedModule
         };
 
         groceryLists.Add(groceryList);
-        Console.WriteLine("Grocery list generated with " + ingredients.Count + " items");
+        Console.WriteLine("\nGrocery list generated with " + ingredients.Count + " items:");
+        foreach (var item in ingredients)
+        {
+            Console.WriteLine($"- {item.Quantity} {item.Unit} of {item.Name} ({item.Category})");
+        }
     }
 
     private void ViewUserSettings()
