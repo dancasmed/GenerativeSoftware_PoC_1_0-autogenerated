@@ -20,7 +20,7 @@
     "MinimumFeatures": [
       {
         "Description": "Create, read, update, delete, and search (CRUDS) operations for groups",
-        "IsImplemented": false
+        "IsImplemented": true
       },
       {
         "Description": "Create, read, update, delete, and search (CRUDS) operations for students",

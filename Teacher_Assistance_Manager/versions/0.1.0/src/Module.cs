@@ -155,7 +155,103 @@ public class AttendanceModule : IGeneratedModule
 
     private void ManageGroups(GroupService service)
     {
-        // CRUDS implementation for groups
+        while (true)
+        {
+            Console.WriteLine("\nGroup Management:");
+            Console.WriteLine("1. Create Group");
+            Console.WriteLine("2. List All Groups");
+            Console.WriteLine("3. Update Group");
+            Console.WriteLine("4. Delete Group");
+            Console.WriteLine("5. Search Groups");
+            Console.WriteLine("6. Return to Main Menu");
+
+            var choice = Console.ReadLine();
+            var groups = service.LoadGroups();
+
+            switch (choice)
+            {
+                case "1":
+                    Console.Write("Enter group name: ");
+                    var name = Console.ReadLine();
+                    Console.Write("Enter group description: ");
+                    var description = Console.ReadLine();
+
+                    groups.Add(new Group { Name = name, Description = description });
+                    service.SaveGroups(groups);
+                    Console.WriteLine("Group created successfully!");
+                    break;
+
+                case "2":
+                    Console.WriteLine("\nAll Groups:");
+                    foreach (var group in groups)
+                    {
+                        Console.WriteLine($"ID: {group.Id} | Name: {group.Name} | Description: {group.Description} | Created: {group.CreatedAt}");
+                    }
+                    break;
+
+                case "3":
+                    Console.Write("Enter group ID to update: ");
+                    var updateId = Console.ReadLine();
+                    var groupToUpdate = groups.FirstOrDefault(g => g.Id == updateId);
+                    if (groupToUpdate != null)
+                    {
+                        Console.Write("New name (press enter to keep current): ");
+                        var newName = Console.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(newName)) groupToUpdate.Name = newName;
+
+                        Console.Write("New description (press enter to keep current): ");
+                        var newDesc = Console.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(newDesc)) groupToUpdate.Description = newDesc;
+
+                        groupToUpdate.UpdatedAt = DateTime.Now;
+                        service.SaveGroups(groups);
+                        Console.WriteLine("Group updated successfully!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Group not found!");
+                    }
+                    break;
+
+                case "4":
+                    Console.Write("Enter group ID to delete: ");
+                    var deleteId = Console.ReadLine();
+                    var groupToDelete = groups.FirstOrDefault(g => g.Id == deleteId);
+                    if (groupToDelete != null)
+                    {
+                        groups.Remove(groupToDelete);
+                        service.SaveGroups(groups);
+                        Console.WriteLine("Group deleted successfully!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Group not found!");
+                    }
+                    break;
+
+                case "5":
+                    Console.Write("Enter search term: ");
+                    var searchTerm = Console.ReadLine().ToLower();
+                    var results = groups.Where(g => 
+                        g.Name.ToLower().Contains(searchTerm) || 
+                        g.Description.ToLower().Contains(searchTerm))
+                        .ToList();
+
+                    Console.WriteLine($"\nFound {results.Count} groups:");
+                    foreach (var group in results)
+                    {
+                        Console.WriteLine($"ID: {group.Id} | Name: {group.Name} | Description: {group.Description}");
+                    }
+                    break;
+
+                case "6":
+                    return;
+
+                default:
+                    Console.WriteLine("Invalid option");
+                    break;
+            }
+        }
     }
 
     private void ManageStudents(StudentService studentService, GroupService groupService)
