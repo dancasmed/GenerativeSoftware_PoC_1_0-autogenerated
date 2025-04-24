@@ -20,11 +20,11 @@
     "MinimumFeatures": [
       {
         "Description": "Roll single or multiple dice of the same type.",
-        "IsImplemented": false
+        "IsImplemented": true
       },
       {
         "Description": "Display individual dice values and total sum.",
-        "IsImplemented": false
+        "IsImplemented": true
       },
       {
         "Description": "Support standard dice types (d4, d6, d8, d10, d12, d20, d100).",

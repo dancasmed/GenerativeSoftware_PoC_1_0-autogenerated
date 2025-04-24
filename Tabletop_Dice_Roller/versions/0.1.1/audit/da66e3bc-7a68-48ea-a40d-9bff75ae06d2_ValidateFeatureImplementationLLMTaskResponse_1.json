@@ -1,0 +1,10 @@
+{
+  "isFeatureImplemented": true,
+  "updatedSourceCodeFiles": [],
+  "required_nugets": [
+    {
+      "nuget_name": "Newtonsoft.Json",
+      "nuget_version": "13.0.3"
+    }
+  ]
+}
