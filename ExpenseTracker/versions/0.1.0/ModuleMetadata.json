@@ -27,7 +27,7 @@
       },
       {
         "Description": "View and edit expenses.",
-        "IsImplemented": false
+        "IsImplemented": true
       },
       {
         "Description": "Generate simple monthly reports.",

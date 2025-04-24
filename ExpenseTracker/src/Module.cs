@@ -219,6 +219,24 @@ public class ExpenseTrackerModule : IGeneratedModule
             if (DateTime.TryParse(Console.ReadLine(), out DateTime newDate))
                 selectedExpense.Date = newDate;
 
+            Console.WriteLine("Current category: " + _categories.First(c => c.Id == selectedExpense.CategoryId).Name);
+            Console.WriteLine("Available categories: " + string.Join(", ", _categories.Select(c => c.Name)));
+            Console.Write("New category name: ");
+            string newCategoryName = Console.ReadLine();
+            var newCategory = _categories.FirstOrDefault(c => c.Name.Equals(newCategoryName, StringComparison.OrdinalIgnoreCase));
+            if (newCategory == null)
+            {
+                newCategory = new Category
+                {
+                    Id = Guid.NewGuid(),
+                    Name = newCategoryName,
+                    UserId = _currentUser.Id
+                };
+                _categories.Add(newCategory);
+                _dataService.SaveData("categories.json", _categories);
+            }
+            selectedExpense.CategoryId = newCategory.Id;
+
             Console.Write("New notes (current: " + selectedExpense.Notes + "): ");
             selectedExpense.Notes = Console.ReadLine();
 
