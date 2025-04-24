@@ -269,12 +269,31 @@ public class AttendanceModule : IGeneratedModule
             return;
         }
 
-        var today = DateTime.Today;
+        DateTime attendanceDate;
+        while (true)
+        {
+            Console.Write("Enter attendance date (YYYY-MM-DD) or press Enter for today: ");
+            var dateInput = Console.ReadLine();
+            
+            if (string.IsNullOrWhiteSpace(dateInput))
+            {
+                attendanceDate = DateTime.Today;
+                break;
+            }
+
+            if (!DateTime.TryParse(dateInput, out attendanceDate))
+            {
+                Console.WriteLine("Invalid date format. Please try again.");
+                continue;
+            }
+            break;
+        }
+
         var existingRecords = attendanceRecords
-            .Where(a => a.GroupId == groupId && a.Date.Date == today)
+            .Where(a => a.GroupId == groupId && a.Date.Date == attendanceDate.Date)
             .ToList();
 
-        Console.WriteLine("Marking attendance for " + today.ToString("yyyy-MM-dd"));
+        Console.WriteLine("Marking attendance for " + attendanceDate.ToString("yyyy-MM-dd"));
         foreach (var student in groupStudents)
         {
             var existing = existingRecords.FirstOrDefault(a => a.StudentId == student.StudentId);
@@ -297,7 +316,7 @@ public class AttendanceModule : IGeneratedModule
                 AttendanceId = Guid.NewGuid().ToString(),
                 GroupId = groupId,
                 StudentId = student.StudentId,
-                Date = today,
+                Date = attendanceDate,
                 Status = status,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now
