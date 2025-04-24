@@ -1,0 +1,44 @@
+{
+  "module_name": "Teacher Assistance Manager",
+  "reviewed_prompt": "Design a software module to help teachers manage student attendance across multiple groups. The module should allow the teacher to create and manage groups of students, record daily attendance, and generate weekly attendance summaries. The teacher should be able to view and update attendance records for each group on a daily basis. At the end of the week, the module should automatically calculate and display the attendance percentage for each group. The system should ensure data integrity and provide an intuitive interface for the teacher to interact with the attendance records.",
+  "functional_details": [
+    "Create and manage student groups",
+    "Record daily attendance for each group",
+    "Generate weekly attendance summaries",
+    "Calculate attendance percentages per group",
+    "Provide an intuitive interface for teachers"
+  ],
+  "user_interaction": [
+    "Teacher creates a new group and adds students to it",
+    "Teacher marks attendance for each student in a group on a daily basis",
+    "Teacher views the attendance record for a specific day",
+    "Teacher generates a weekly attendance summary for a group",
+    "Teacher views the attendance percentage for a group at the end of the week"
+  ],
+  "minimum_features": [
+    "Create, read, update, delete, and search (CRUDS) operations for groups",
+    "Create, read, update, delete, and search (CRUDS) operations for students",
+    "Record daily attendance for students",
+    "View daily attendance records",
+    "Generate weekly attendance summaries",
+    "Calculate and display attendance percentages per group"
+  ],
+  "desired_features": [
+    "Export attendance records to a file (e.g., CSV, PDF)",
+    "Filter and sort attendance records by date, group, or student",
+    "Notify teacher of low attendance percentages",
+    "Backup and restore attendance data"
+  ],
+  "bar_raiser_features": [
+    "Predict attendance trends based on historical data",
+    "Integration with calendar systems to mark holidays and non-school days",
+    "Multi-teacher support with role-based access control",
+    "Mobile-friendly interface for attendance marking on-the-go"
+  ],
+  "data_models": [
+    "Group: {\n  \u0022id\u0022: \u0022string\u0022,\n  \u0022name\u0022: \u0022string\u0022,\n  \u0022description\u0022: \u0022string\u0022,\n  \u0022created_at\u0022: \u0022date\u0022,\n  \u0022updated_at\u0022: \u0022date\u0022\n}",
+    "Student: {\n  \u0022id\u0022: \u0022string\u0022,\n  \u0022name\u0022: \u0022string\u0022,\n  \u0022group_id\u0022: \u0022string\u0022,\n  \u0022created_at\u0022: \u0022date\u0022,\n  \u0022updated_at\u0022: \u0022date\u0022\n}",
+    "Attendance: {\n  \u0022id\u0022: \u0022string\u0022,\n  \u0022student_id\u0022: \u0022string\u0022,\n  \u0022date\u0022: \u0022date\u0022,\n  \u0022status\u0022: \u0022enum(present, absent, late, excused)\u0022,\n  \u0022notes\u0022: \u0022string\u0022,\n  \u0022created_at\u0022: \u0022date\u0022,\n  \u0022updated_at\u0022: \u0022date\u0022\n}",
+    "WeeklySummary: {\n  \u0022id\u0022: \u0022string\u0022,\n  \u0022group_id\u0022: \u0022string\u0022,\n  \u0022week_start_date\u0022: \u0022date\u0022,\n  \u0022week_end_date\u0022: \u0022date\u0022,\n  \u0022total_students\u0022: \u0022integer\u0022,\n  \u0022total_present\u0022: \u0022integer\u0022,\n  \u0022total_absent\u0022: \u0022integer\u0022,\n  \u0022total_late\u0022: \u0022integer\u0022,\n  \u0022total_excused\u0022: \u0022integer\u0022,\n  \u0022attendance_percentage\u0022: \u0022float\u0022,\n  \u0022created_at\u0022: \u0022date\u0022,\n  \u0022updated_at\u0022: \u0022date\u0022\n}"
+  ]
+}

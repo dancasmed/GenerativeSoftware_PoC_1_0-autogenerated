@@ -1,0 +1,70 @@
+{
+  "UseOnlineModel": true,
+  "ModelToUse": "deepseek-chat",
+  "Description": "",
+  "SystemPrompt": "You are a helpful assistant with high skills in software, prompt engineering and business development. The user will provide a requirement to create a software module. Your task is elavorate a prompt detailing that requirement the most possible.\n### Requirements:\n- Assign a name to the software module.\n- Generate a clear prompt that will be used as input for an LLM model to design the first version of this software module.\n- Avoid mentioning version numbers, this will be managed later.\n- Avoid mention an expected response format, this will be provided later.\n- Avoid specifying the behaivor the LLM model must take, this will be managed later.\n- The response must be in markdown notation.\n- Focus on functional details\n- Avoid suggesting platforms, programming languages or any other implementation details.\n- Detail the user interaction with the module.\n- Generate a list of minimum features, desired features and bar-raiser features.\n- Data models description must be included and must be in markdown notation. IMPORTANT: It will be processed as string.\n- Make clear all models should implement CRUDS operations.\n### Example output:\n{\u0022module_name\u0022:\u0022MODULE_NAME\u0022 \u0022reviewed_prompt\u0022:\u0022GENERATED PROMPT\u0022,\u0022functional_details\u0022:\u0022[\u0022FUNCTIONAL DETAIL 1\u0022,\u0022FUNCTIONAL DETAIL 2\u0022],\u0022user_interaction\u0022:\u0022[USER INTERACTION 1, USER INTERACTION 2]\u0022,\u0022minimum_features\u0022:\u0022[MINIMUM FEATURE 1, MINIMUM FEATURE 2]\u0022,\u0022desired_features\u0022:\u0022[DESIRED FEATURE 1, DESIRED FEATURE 2]\u0022,\u0022bar_raiser_features\u0022:\u0022[BAR RAISER FEATURE 1, BAR RAISER FEATURE 2]\u0022,\u0022data_models\u0022:\u0022[DATA MODEL 1, DATA MODEL 2]\u0022}",
+  "BasePrompt": "Analyze and improve the next prompt, adding all the possible details. This are the initial or high-level requirements: \u003CTASK_INPUT\u003E",
+  "TaskInput": "im a teacher, have multiple groups and need help to manage the assistance list for each group. need to be able to create groups with students and need to generate an assistance list for the current day, at the end of the week I need a summary for the percentage os assitance per group",
+  "ModelRawResponse": "{\n  \u0022choices\u0022: [\n    {\n      \u0022message\u0022: {\n        \u0022content\u0022: \u0022\\u0060\\u0060\\u0060json\\n{\\n  \\u0022module_name\\u0022: \\u0022Teacher Assistance Manager\\u0022,\\n  \\u0022reviewed_prompt\\u0022: \\u0022Design a software module to help teachers manage student attendance across multiple groups. The module should allow the teacher to create and manage groups of students, record daily attendance, and generate weekly attendance summaries. The teacher should be able to view and update attendance records for each group on a daily basis. At the end of the week, the module should automatically calculate and display the attendance percentage for each group. The system should ensure data integrity and provide an intuitive interface for the teacher to interact with the attendance records.\\u0022,\\n  \\u0022functional_details\\u0022: [\\n    \\u0022Create and manage student groups\\u0022,\\n    \\u0022Record daily attendance for each group\\u0022,\\n    \\u0022Generate weekly attendance summaries\\u0022,\\n    \\u0022Calculate attendance percentages per group\\u0022,\\n    \\u0022Provide an intuitive interface for teachers\\u0022\\n  ],\\n  \\u0022user_interaction\\u0022: [\\n    \\u0022Teacher creates a new group and adds students to it\\u0022,\\n    \\u0022Teacher marks attendance for each student in a group on a daily basis\\u0022,\\n    \\u0022Teacher views the attendance record for a specific day\\u0022,\\n    \\u0022Teacher generates a weekly attendance summary for a group\\u0022,\\n    \\u0022Teacher views the attendance percentage for a group at the end of the week\\u0022\\n  ],\\n  \\u0022minimum_features\\u0022: [\\n    \\u0022Create, read, update, delete, and search (CRUDS) operations for groups\\u0022,\\n    \\u0022Create, read, update, delete, and search (CRUDS) operations for students\\u0022,\\n    \\u0022Record daily attendance for students\\u0022,\\n    \\u0022View daily attendance records\\u0022,\\n    \\u0022Generate weekly attendance summaries\\u0022,\\n    \\u0022Calculate and display attendance percentages per group\\u0022\\n  ],\\n  \\u0022desired_features\\u0022: [\\n    \\u0022Export attendance records to a file (e.g., CSV, PDF)\\u0022,\\n    \\u0022Filter and sort attendance records by date, group, or student\\u0022,\\n    \\u0022Notify teacher of low attendance percentages\\u0022,\\n    \\u0022Backup and restore attendance data\\u0022\\n  ],\\n  \\u0022bar_raiser_features\\u0022: [\\n    \\u0022Predict attendance trends based on historical data\\u0022,\\n    \\u0022Integration with calendar systems to mark holidays and non-school days\\u0022,\\n    \\u0022Multi-teacher support with role-based access control\\u0022,\\n    \\u0022Mobile-friendly interface for attendance marking on-the-go\\u0022\\n  ],\\n  \\u0022data_models\\u0022: [\\n    \\u0022Group: {\\\\n  \\\\\\u0022id\\\\\\u0022: \\\\\\u0022string\\\\\\u0022,\\\\n  \\\\\\u0022name\\\\\\u0022: \\\\\\u0022string\\\\\\u0022,\\\\n  \\\\\\u0022description\\\\\\u0022: \\\\\\u0022string\\\\\\u0022,\\\\n  \\\\\\u0022created_at\\\\\\u0022: \\\\\\u0022date\\\\\\u0022,\\\\n  \\\\\\u0022updated_at\\\\\\u0022: \\\\\\u0022date\\\\\\u0022\\\\n}\\u0022,\\n    \\u0022Student: {\\\\n  \\\\\\u0022id\\\\\\u0022: \\\\\\u0022string\\\\\\u0022,\\\\n  \\\\\\u0022name\\\\\\u0022: \\\\\\u0022string\\\\\\u0022,\\\\n  \\\\\\u0022group_id\\\\\\u0022: \\\\\\u0022string\\\\\\u0022,\\\\n  \\\\\\u0022created_at\\\\\\u0022: \\\\\\u0022date\\\\\\u0022,\\\\n  \\\\\\u0022updated_at\\\\\\u0022: \\\\\\u0022date\\\\\\u0022\\\\n}\\u0022,\\n    \\u0022Attendance: {\\\\n  \\\\\\u0022id\\\\\\u0022: \\\\\\u0022string\\\\\\u0022,\\\\n  \\\\\\u0022student_id\\\\\\u0022: \\\\\\u0022string\\\\\\u0022,\\\\n  \\\\\\u0022date\\\\\\u0022: \\\\\\u0022date\\\\\\u0022,\\\\n  \\\\\\u0022status\\\\\\u0022: \\\\\\u0022enum(present, absent, late, excused)\\\\\\u0022,\\\\n  \\\\\\u0022notes\\\\\\u0022: \\\\\\u0022string\\\\\\u0022,\\\\n  \\\\\\u0022created_at\\\\\\u0022: \\\\\\u0022date\\\\\\u0022,\\\\n  \\\\\\u0022updated_at\\\\\\u0022: \\\\\\u0022date\\\\\\u0022\\\\n}\\u0022,\\n    \\u0022WeeklySummary: {\\\\n  \\\\\\u0022id\\\\\\u0022: \\\\\\u0022string\\\\\\u0022,\\\\n  \\\\\\u0022group_id\\\\\\u0022: \\\\\\u0022string\\\\\\u0022,\\\\n  \\\\\\u0022week_start_date\\\\\\u0022: \\\\\\u0022date\\\\\\u0022,\\\\n  \\\\\\u0022week_end_date\\\\\\u0022: \\\\\\u0022date\\\\\\u0022,\\\\n  \\\\\\u0022total_students\\\\\\u0022: \\\\\\u0022integer\\\\\\u0022,\\\\n  \\\\\\u0022total_present\\\\\\u0022: \\\\\\u0022integer\\\\\\u0022,\\\\n  \\\\\\u0022total_absent\\\\\\u0022: \\\\\\u0022integer\\\\\\u0022,\\\\n  \\\\\\u0022total_late\\\\\\u0022: \\\\\\u0022integer\\\\\\u0022,\\\\n  \\\\\\u0022total_excused\\\\\\u0022: \\\\\\u0022integer\\\\\\u0022,\\\\n  \\\\\\u0022attendance_percentage\\\\\\u0022: \\\\\\u0022float\\\\\\u0022,\\\\n  \\\\\\u0022created_at\\\\\\u0022: \\\\\\u0022date\\\\\\u0022,\\\\n  \\\\\\u0022updated_at\\\\\\u0022: \\\\\\u0022date\\\\\\u0022\\\\n}\\u0022\\n  ]\\n}\\n\\u0060\\u0060\\u0060\u0022\n      }\n    }\n  ]\n}",
+  "ResponseFormat": {
+    "type": "object",
+    "properties": {
+      "module_name": {
+        "type": "string"
+      },
+      "reviewed_prompt": {
+        "type": "string"
+      },
+      "functional_details": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "user_interaction": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "minimum_features": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "desired_features": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "bar_raiser_features": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "data_models": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "required": [
+      "module_name",
+      "reviewed_prompt",
+      "functional_details",
+      "user_interaction",
+      "minimum_features",
+      "desired_features",
+      "bar_raiser_features",
+      "data_models"
+    ]
+  },
+  "ExecutionTimeMS": 456,
+  "responseType": "SelfEvolvingSoftware.LLM.Tasks.Responses.ReviewInitialRequirementTaskResponse, PoC_1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+  "TaskUUID": "740cc5cd-8624-4f3c-8287-af5b60f4c33c",
+  "ModuleName": "ModuleCreator"
+}
