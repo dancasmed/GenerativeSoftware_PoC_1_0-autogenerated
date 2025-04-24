@@ -49,19 +49,36 @@ public class PasswordGeneratorModule : IGeneratedModule
 
     private void GenerateAndSavePassword(string dataFolder)
     {
-        var criteria = GetPasswordCriteria();
-        var password = GenerateSecurePassword(criteria);
-        var strength = CalculatePasswordStrength(password, criteria);
-        
-        SavePasswordResult(dataFolder, new GeneratedPassword 
-        { 
-            password = password, 
-            strength = strength, 
-            timestamp = DateTime.UtcNow 
-        });
+        bool validPassword = false;
+        while (!validPassword)
+        {
+            var criteria = GetPasswordCriteria();
+            var password = GenerateSecurePassword(criteria);
+            var strength = CalculatePasswordStrength(password, criteria);
 
-        Console.WriteLine("Generated Password: " + password);
-        Console.WriteLine("Password Strength: " + strength);
+            if (strength == "Weak")
+            {
+                Console.WriteLine("\nWarning: Generated password is too weak!");
+                Console.WriteLine("Password: " + password);
+                Console.WriteLine("Strength: " + strength);
+                Console.Write("Generate again with stronger criteria? (Y/N): ");
+                var response = Console.ReadLine()?.Trim().ToUpper();
+                if (response != "Y") return;
+            }
+            else
+            {
+                SavePasswordResult(dataFolder, new GeneratedPassword 
+                { 
+                    password = password, 
+                    strength = strength, 
+                    timestamp = DateTime.UtcNow 
+                });
+
+                Console.WriteLine("\nGenerated Password: " + password);
+                Console.WriteLine("Password Strength: " + strength);
+                validPassword = true;
+            }
+        }
     }
 
     private PasswordCriteria GetPasswordCriteria()
