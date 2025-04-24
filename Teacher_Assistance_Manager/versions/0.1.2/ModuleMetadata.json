@@ -28,7 +28,7 @@
       },
       {
         "Description": "Mark daily attendance for each group",
-        "IsImplemented": false
+        "IsImplemented": true
       },
       {
         "Description": "View daily attendance records",

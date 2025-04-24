@@ -255,7 +255,53 @@ public class AttendanceModule : IGeneratedModule
 
     private void RecordAttendance(string dataFolder)
     {
-        Console.WriteLine("Recording attendance...");
+        var groups = DataStorageHelper.LoadData<Group>(dataFolder, "groups.json");
+        if (groups.Count == 0)
+        {
+            Console.WriteLine("No groups available. Please create a group first.");
+            return;
+        }
+
+        Console.WriteLine("Select a group to record attendance:");
+        ListGroups(groups);
+        Console.WriteLine("Enter group ID:");
+        var groupId = Console.ReadLine();
+        var selectedGroup = groups.FirstOrDefault(g => g.GroupId == groupId);
+
+        if (selectedGroup == null)
+        {
+            Console.WriteLine("Invalid group selection");
+            return;
+        }
+
+        var attendanceDate = DateTime.Today;
+        var attendanceRecords = DataStorageHelper.LoadData<AttendanceRecord>(dataFolder, "attendance.json");
+        var existingRecords = attendanceRecords
+            .Where(r => r.GroupId == groupId && r.Date.Date == attendanceDate.Date)
+            .ToList();
+
+        if (existingRecords.Any())
+        {
+            Console.WriteLine("Attendance already recorded for today. Overwrite? (Y/N)");
+            if (Console.ReadLine().Trim().ToUpper() != "Y") return;
+            attendanceRecords.RemoveAll(r => r.GroupId == groupId && r.Date.Date == attendanceDate.Date);
+        }
+
+        foreach (var student in selectedGroup.Students)
+        {
+            Console.WriteLine($"Is {student.Name} present? (Y/N)");
+            var isPresent = Console.ReadLine().Trim().ToUpper() == "Y";
+            attendanceRecords.Add(new AttendanceRecord
+            {
+                GroupId = groupId,
+                StudentId = student.StudentId,
+                Date = attendanceDate,
+                IsPresent = isPresent
+            });
+        }
+
+        DataStorageHelper.SaveData(dataFolder, "attendance.json", attendanceRecords);
+        Console.WriteLine("Attendance recorded successfully!");
     }
 
     private void ViewEditAttendance(string dataFolder)
@@ -300,4 +346,12 @@ public class Student
 {
     public string StudentId { get; set; }
     public string Name { get; set; }
+}
+
+public class AttendanceRecord
+{
+    public string GroupId { get; set; }
+    public string StudentId { get; set; }
+    public DateTime Date { get; set; }
+    public bool IsPresent { get; set; }
 }
