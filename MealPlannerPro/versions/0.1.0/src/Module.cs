@@ -391,7 +391,21 @@ public class MealPlannerModule : IGeneratedModule
             return;
         }
 
-        var plan = mealPlans.Last();
+        Console.WriteLine("\nSelect Meal Plan:");
+        for (int i = 0; i < mealPlans.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {mealPlans[i].StartDate.ToShortDateString()} to {mealPlans[i].EndDate.ToShortDateString()}");
+        }
+
+        Console.Write("Enter selection: ");
+        if (!int.TryParse(Console.ReadLine(), out int planIndex) || planIndex < 1 || planIndex > mealPlans.Count)
+        {
+            Console.WriteLine("Invalid selection");
+            return;
+        }
+
+        var plan = mealPlans[planIndex - 1];
+
         var ingredients = plan.Days
             .SelectMany(d => d.Meals)
             .SelectMany(m => m.Ingredients)
@@ -408,12 +422,12 @@ public class MealPlannerModule : IGeneratedModule
             }).ToList();
 
         var groceryList = new GroceryList
-            {
-                Id = Guid.NewGuid().ToString(),
-                MealPlanId = plan.Id,
-                Items = ingredients,
-                TotalItems = ingredients.Count
-            };
+        {
+            Id = Guid.NewGuid().ToString(),
+            MealPlanId = plan.Id,
+            Items = ingredients,
+            TotalItems = ingredients.Count
+        };
 
         groceryLists.Add(groceryList);
         Console.WriteLine("\nGrocery list generated with " + ingredients.Count + " items:");
