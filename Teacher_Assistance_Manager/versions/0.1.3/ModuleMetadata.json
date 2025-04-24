@@ -96,11 +96,11 @@
     "Patch": 3
   },
   "IsInitialRequirementReviewed": true,
-  "IsSourceCodeGenerated": true,
+  "IsSourceCodeGenerated": false,
   "AreMinimumFeaturesImplemented": false,
   "AreGoodToHaveFeaturesImplemented": false,
   "AreBarRaiserFeaturesImplemented": false,
-  "IsSourceCodeCompiled": true,
+  "IsSourceCodeCompiled": false,
   "IsReadmeFileGenerated": false,
   "Description": "Attendance management system for teachers to handle student groups, daily attendance recording, and weekly summary generation with percentage calculations",
   "RequiredAPIs": [
