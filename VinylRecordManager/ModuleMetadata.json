@@ -24,11 +24,11 @@
     "MinimumFeatures": [
       {
         "Description": "Add, edit, and delete records",
-        "IsImplemented": false
+        "IsImplemented": true
       },
       {
         "Description": "Basic record details (artist, album title, release year, genre, condition)",
-        "IsImplemented": false
+        "IsImplemented": true
       },
       {
         "Description": "Search and filter functionality",

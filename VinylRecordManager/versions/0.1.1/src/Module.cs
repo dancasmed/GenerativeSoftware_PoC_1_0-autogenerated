@@ -135,6 +135,11 @@ public class VinylManager : IGeneratedModule
         record.Genre = Console.ReadLine();
         Console.Write("Condition: ");
         record.Condition = Console.ReadLine();
+        Console.Write("Is Favorite (Y/N): ");
+        var favoriteInput = Console.ReadLine();
+        record.IsFavorite = favoriteInput.ToUpper() == "Y";
+        Console.Write("Notes: ");
+        record.Notes = Console.ReadLine();
         record.Id = Guid.NewGuid().ToString();
         records.Add(record);
         Console.WriteLine("Record added successfully!");
@@ -160,6 +165,23 @@ public class VinylManager : IGeneratedModule
             Console.Write("New Release Year: ");
             var yearInput = Console.ReadLine();
             if (!string.IsNullOrEmpty(yearInput)) record.ReleaseYear = int.Parse(yearInput);
+            
+            Console.Write("New Genre: ");
+            var genre = Console.ReadLine();
+            if (!string.IsNullOrEmpty(genre)) record.Genre = genre;
+            
+            Console.Write("New Condition: ");
+            var condition = Console.ReadLine();
+            if (!string.IsNullOrEmpty(condition)) record.Condition = condition;
+            
+            Console.Write("Is Favorite (Y/N, leave blank to keep current): ");
+            var favoriteInput = Console.ReadLine();
+            if (!string.IsNullOrEmpty(favoriteInput))
+                record.IsFavorite = favoriteInput.ToUpper() == "Y";
+            
+            Console.Write("New Notes: ");
+            var notes = Console.ReadLine();
+            if (!string.IsNullOrEmpty(notes)) record.Notes = notes;
             
             records[records.FindIndex(r => r.Id == id)] = record;
             Console.WriteLine("Record updated!");
