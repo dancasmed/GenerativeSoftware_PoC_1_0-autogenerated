@@ -34,7 +34,8 @@ public class ExpenseTrackerModule : IGeneratedModule
             Console.WriteLine("1. Add Expense");
             Console.WriteLine("2. View/Edit Expenses");
             Console.WriteLine("3. Generate Report");
-            Console.WriteLine("4. Exit");
+            Console.WriteLine("4. Manage Categories");
+            Console.WriteLine("5. Exit");
             Console.Write("Select option: ");
 
             switch (Console.ReadLine())
@@ -49,6 +50,9 @@ public class ExpenseTrackerModule : IGeneratedModule
                     GenerateMonthlyReport();
                     break;
                 case "4":
+                    ManageCategories();
+                    break;
+                case "5":
                     return true;
                 default:
                     Console.WriteLine("Invalid option");
@@ -259,6 +263,126 @@ public class ExpenseTrackerModule : IGeneratedModule
         {
             Console.WriteLine(string.Format("{0}: {1:C}", item.Category, item.Total));
         }
+    }
+
+    private void ManageCategories()
+    {
+        while (true)
+        {
+            Console.WriteLine("\nManage Categories:");
+            var userCategories = _categories
+                .Where(c => c.UserId == _currentUser.Id || c.UserId == Guid.Empty)
+                .OrderBy(c => c.UserId)
+                .ToList();
+
+            for (int i = 0; i < userCategories.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {userCategories[i].Name} " +
+                    $"{(userCategories[i].UserId == Guid.Empty ? "(System Default)" : "")}");
+            }
+
+            Console.WriteLine("\n1. Add Category");
+            Console.WriteLine("2. Edit Category");
+            Console.WriteLine("3. Delete Category");
+            Console.WriteLine("4. Return to Main Menu");
+            Console.Write("Select option: ");
+
+            switch (Console.ReadLine())
+            {
+                case "1":
+                    AddNewCategory();
+                    break;
+                case "2":
+                    EditExistingCategory(userCategories);
+                    break;
+                case "3":
+                    DeleteExistingCategory(userCategories);
+                    break;
+                case "4":
+                    return;
+                default:
+                    Console.WriteLine("Invalid option");
+                    break;
+            }
+        }
+    }
+
+    private void AddNewCategory()
+    {
+        Console.Write("Enter category name: ");
+        string name = Console.ReadLine().Trim();
+
+        if (_categories.Any(c => c.Name.Equals(name, StringComparison.OrdinalIgnoreCase) && c.UserId == _currentUser.Id))
+        {
+            Console.WriteLine("Category already exists");
+            return;
+        }
+
+        _categories.Add(new Category
+        {
+            Id = Guid.NewGuid(),
+            Name = name,
+            UserId = _currentUser.Id
+        });
+        _dataService.SaveData("categories.json", _categories);
+        Console.WriteLine("Category added successfully");
+    }
+
+    private void EditExistingCategory(List<Category> userCategories)
+    {
+        Console.Write("Enter category number to edit: ");
+        if (!int.TryParse(Console.ReadLine(), out int index) || index < 1 || index > userCategories.Count)
+        {
+            Console.WriteLine("Invalid selection");
+            return;
+        }
+
+        var category = userCategories[index - 1];
+        if (category.UserId == Guid.Empty)
+        {
+            Console.WriteLine("System default categories cannot be modified");
+            return;
+        }
+
+        Console.Write("Enter new category name: ");
+        string newName = Console.ReadLine().Trim();
+
+        if (_categories.Any(c => c.Name.Equals(newName, StringComparison.OrdinalIgnoreCase) && c.UserId == _currentUser.Id))
+        {
+            Console.WriteLine("Category already exists");
+            return;
+        }
+
+        category.Name = newName;
+        _dataService.SaveData("categories.json", _categories);
+        Console.WriteLine("Category updated successfully");
+    }
+
+    private void DeleteExistingCategory(List<Category> userCategories)
+    {
+        Console.Write("Enter category number to delete: ");
+        if (!int.TryParse(Console.ReadLine(), out int index) || index < 1 || index > userCategories.Count)
+        {
+            Console.WriteLine("Invalid selection");
+            return;
+        }
+
+        var category = userCategories[index - 1];
+        if (category.UserId == Guid.Empty)
+        {
+            Console.WriteLine("System default categories cannot be deleted");
+            return;
+        }
+
+        if (_expenses.Any(e => e.CategoryId == category.Id))
+        {
+            Console.WriteLine("Cannot delete category with associated expenses");
+            return;
+        }
+
+        _categories.Remove(category);
+        _dataService.SaveData("categories.json", _categories);
+        Console.WriteLine("Category deleted successfully");
     }
 }
 

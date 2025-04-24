@@ -23,7 +23,7 @@
       },
       {
         "Description": "Basic categorization of expenses.",
-        "IsImplemented": false
+        "IsImplemented": true
       },
       {
         "Description": "View and edit expenses.",
