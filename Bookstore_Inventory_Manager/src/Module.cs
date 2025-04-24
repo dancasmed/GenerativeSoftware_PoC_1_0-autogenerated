@@ -81,10 +81,11 @@ public class BookInventoryManager : IGeneratedModule
             Console.WriteLine("4. View Books");
             Console.WriteLine("5. Search Books");
             Console.WriteLine("6. Record Sale");
-            Console.WriteLine("7. Restock Alerts");
-            Console.WriteLine("8. Generate Reports");
-            Console.WriteLine("9. Adjust Thresholds");
-            Console.WriteLine("10. Exit");
+            Console.WriteLine("7. View Sales");
+            Console.WriteLine("8. Restock Alerts");
+            Console.WriteLine("9. Generate Reports");
+            Console.WriteLine("10. Adjust Thresholds");
+            Console.WriteLine("11. Exit");
 
             var choice = Console.ReadLine();
             switch (choice)
@@ -95,10 +96,11 @@ public class BookInventoryManager : IGeneratedModule
                 case "4": ViewBooks(); break;
                 case "5": SearchBooks(); break;
                 case "6": RecordSale(); break;
-                case "7": ShowRestockAlerts(); break;
-                case "8": GenerateReports(); break;
-                case "9": AdjustThresholds(); break;
-                case "10": SaveAllData(); return;
+                case "7": ViewSales(); break;
+                case "8": ShowRestockAlerts(); break;
+                case "9": GenerateReports(); break;
+                case "10": AdjustThresholds(); break;
+                case "11": SaveAllData(); return;
                 default: Console.WriteLine("Invalid option"); break;
             }
         }
@@ -306,6 +308,18 @@ public class BookInventoryManager : IGeneratedModule
         SaveData(_booksPath, _books);
         CheckRestockAlerts(book);
         Console.WriteLine("Threshold updated successfully");
+    }
+
+    private void ViewSales()
+    {
+        Console.WriteLine("Sales History:");
+        foreach (var sale in _sales)
+        {
+            var book = _books.Find(b => b.Id == sale.BookId);
+            Console.WriteLine($"Date: {sale.SaleDate}, Book: {book?.Title}, Quantity: {sale.Quantity}, Total Price: {sale.TotalPrice}");
+        }
+        Console.WriteLine("Press any key to continue...");
+        Console.ReadKey();
     }
 
     private void SaveAllData()
