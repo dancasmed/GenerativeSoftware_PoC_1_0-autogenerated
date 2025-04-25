@@ -51,17 +51,21 @@ public class ExpenseTrackerModule : IGeneratedModule
         Console.WriteLine("\nMain Menu:");
         Console.WriteLine("1. Add Expense");
         Console.WriteLine("2. List Expenses");
-        Console.WriteLine("3. Manage Categories");
-        Console.WriteLine("4. Generate Report");
-        Console.WriteLine("5. Exit");
+        Console.WriteLine("3. Edit Expense");
+        Console.WriteLine("4. Delete Expense");
+        Console.WriteLine("5. Manage Categories");
+        Console.WriteLine("6. Generate Report");
+        Console.WriteLine("7. Exit");
         
         switch (Console.ReadLine())
         {
             case "1": AddExpense(expenseService, categoryService); return true;
             case "2": ListExpenses(expenseService); return true;
-            case "3": ManageCategories(categoryService); return true;
-            case "4": GenerateReport(reportService, expenseService); return true;
-            case "5": return false;
+            case "3": EditExpense(expenseService, categoryService); return true;
+            case "4": DeleteExpense(expenseService); return true;
+            case "5": ManageCategories(categoryService); return true;
+            case "6": GenerateReport(reportService, expenseService); return true;
+            case "7": return false;
             default: Console.WriteLine("Invalid option"); return true;
         }
     }
@@ -103,6 +107,80 @@ public class ExpenseTrackerModule : IGeneratedModule
         }
     }
     
+    private void EditExpense(ExpenseService service, CategoryService categoryService)
+    {
+        try
+        {
+            Console.WriteLine("Enter expense ID to edit:");
+            var id = Console.ReadLine();
+            var expense = service.GetExpense(id);
+            
+            if (expense == null)
+            {
+                Console.WriteLine("Expense not found!");
+                return;
+            }
+            
+            Console.WriteLine("Enter new amount (current: " + expense.Amount + "):");
+            var amountInput = Console.ReadLine();
+            if (!string.IsNullOrEmpty(amountInput))
+                expense.Amount = decimal.Parse(amountInput);
+            
+            Console.WriteLine("Enter new date (yyyy-MM-dd) (current: " + expense.Date.ToString("yyyy-MM-dd") + "):");
+            var dateInput = Console.ReadLine();
+            if (!string.IsNullOrEmpty(dateInput))
+                expense.Date = DateTime.Parse(dateInput);
+            
+            Console.WriteLine("Available categories:");
+            categoryService.GetAllCategories().ToList().ForEach(c => Console.WriteLine(c.Name));
+            Console.WriteLine("Enter new category name (current: " + categoryService.GetCategory(expense.CategoryId).Name + "):");
+            var categoryName = Console.ReadLine();
+            if (!string.IsNullOrEmpty(categoryName))
+            {
+                var category = categoryService.GetCategoryByName(categoryName);
+                if (category != null)
+                    expense.CategoryId = category.Id;
+                else
+                    Console.WriteLine("Category not found, keeping current category.");
+            }
+            
+            Console.WriteLine("Enter new description (current: " + expense.Description + "):");
+            var description = Console.ReadLine();
+            if (!string.IsNullOrEmpty(description))
+                expense.Description = description;
+            
+            service.UpdateExpense(expense);
+            Console.WriteLine("Expense updated successfully");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error editing expense: " + ex.Message);
+        }
+    }
+    
+    private void DeleteExpense(ExpenseService service)
+    {
+        try
+        {
+            Console.WriteLine("Enter expense ID to delete:");
+            var id = Console.ReadLine();
+            var expense = service.GetExpense(id);
+            
+            if (expense == null)
+            {
+                Console.WriteLine("Expense not found!");
+                return;
+            }
+            
+            service.DeleteExpense(id);
+            Console.WriteLine("Expense deleted successfully");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error deleting expense: " + ex.Message);
+        }
+    }
+    
     private void CheckBudgetAlert(Expense expense, CategoryService categoryService)
     {
         var category = categoryService.GetCategory(expense.CategoryId);
@@ -123,7 +201,7 @@ public class ExpenseTrackerModule : IGeneratedModule
     {
         Console.WriteLine("\nExpenses:");
         service.GetAllExpenses().ForEach(e =>
-            Console.WriteLine($"{e.Date:yyyy-MM-dd} - {e.Amount:C} - {e.Description}"));
+            Console.WriteLine($"{e.Id} - {e.Date:yyyy-MM-dd} - {e.Amount:C} - {e.Description}"));
     }
     
     private void ManageCategories(CategoryService service)
@@ -265,6 +343,30 @@ public class ExpenseService
     }
     
     public List<Expense> GetAllExpenses() => _repository.LoadExpenses();
+    
+    public Expense GetExpense(string id) => _repository.LoadExpenses().FirstOrDefault(e => e.Id == id);
+    
+    public void UpdateExpense(Expense expense)
+    {
+        var expenses = _repository.LoadExpenses();
+        var index = expenses.FindIndex(e => e.Id == expense.Id);
+        if (index >= 0)
+        {
+            expenses[index] = expense;
+            _repository.SaveExpenses(expenses);
+        }
+    }
+    
+    public void DeleteExpense(string expenseId)
+    {
+        var expenses = _repository.LoadExpenses();
+        var expense = expenses.FirstOrDefault(e => e.Id == expenseId);
+        if (expense != null)
+        {
+            expenses.Remove(expense);
+            _repository.SaveExpenses(expenses);
+        }
+    }
 }
 
 public class CategoryService
@@ -296,7 +398,7 @@ public class CategoryService
     
     public decimal GetMonthlyTotal(string categoryId, int month)
     {
-        var expenses = new ExpenseRepository("temp").LoadExpenses(); // Would need actual expense repo
+        var expenses = new ExpenseRepository(_expensesPath).LoadExpenses();
         return expenses
             .Where(e => e.CategoryId == categoryId && e.Date.Month == month)
             .Sum(e => e.Amount);

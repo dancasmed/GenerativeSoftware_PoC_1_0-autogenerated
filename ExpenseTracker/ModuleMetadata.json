@@ -84,11 +84,11 @@
     "Patch": 0
   },
   "IsInitialRequirementReviewed": true,
-  "IsSourceCodeGenerated": true,
+  "IsSourceCodeGenerated": false,
   "AreMinimumFeaturesImplemented": false,
   "AreGoodToHaveFeaturesImplemented": false,
   "AreBarRaiserFeaturesImplemented": false,
-  "IsSourceCodeCompiled": true,
+  "IsSourceCodeCompiled": false,
   "IsReadmeFileGenerated": false,
   "Description": "Expense tracking module with CRUDS operations for expenses and categories, budget monitoring, and report generation. Provides console-based interface for managing financial data and generating monthly reports.",
   "RequiredAPIs": [],
