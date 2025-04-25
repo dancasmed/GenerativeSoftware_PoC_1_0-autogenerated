@@ -1,0 +1,42 @@
+{
+  "module_name": "ExpenseTracker",
+  "reviewed_prompt": "Design a software module that allows users to track their daily expenses, categorize them, and generate monthly reports. The module should provide an intuitive interface for users to log their expenses, assign categories, and view summarized reports. The system should support CRUDS operations for all data models, ensuring users can create, read, update, delete, and search their expense records efficiently. The module should also allow users to customize categories and generate detailed or summarized reports based on their preferences.",
+  "functional_details": [
+    "Track daily expenses with details such as amount, date, category, and description.",
+    "Categorize expenses into predefined or user-defined categories.",
+    "Generate monthly reports summarizing expenses by category, date range, or other filters.",
+    "Provide an overview of total expenses, average spending, and trends over time.",
+    "Allow users to set budgets for categories and receive alerts when nearing or exceeding limits."
+  ],
+  "user_interaction": [
+    "Users can add a new expense by entering details like amount, date, category, and description.",
+    "Users can view a list of their expenses, filtered by date, category, or other criteria.",
+    "Users can edit or delete existing expense entries.",
+    "Users can generate and view monthly reports, either summarized or detailed.",
+    "Users can customize expense categories and manage their list of categories."
+  ],
+  "minimum_features": [
+    "Add, view, edit, and delete expense entries.",
+    "Basic categorization of expenses.",
+    "Generate simple monthly reports showing total expenses by category.",
+    "Search and filter expenses by date or category."
+  ],
+  "desired_features": [
+    "Customizable expense categories.",
+    "Budget setting and alerts for categories.",
+    "Export reports in common formats (e.g., CSV, PDF).",
+    "Visual charts and graphs for expense trends."
+  ],
+  "bar_raiser_features": [
+    "Integration with bank accounts or credit cards for automatic expense tracking.",
+    "Multi-user support with shared expense tracking.",
+    "Predictive analytics for future spending based on past trends.",
+    "Mobile app support for on-the-go expense tracking."
+  ],
+  "data_models": [
+    "**Expense**: \u0060{ id: string, amount: number, date: Date, categoryId: string, description: string, userId: string }\u0060",
+    "**Category**: \u0060{ id: string, name: string, userId: string, budgetLimit: number }\u0060",
+    "**Report**: \u0060{ id: string, userId: string, startDate: Date, endDate: Date, totalExpenses: number, expensesByCategory: { categoryId: string, total: number }[] }\u0060",
+    "**User**: \u0060{ id: string, name: string, email: string }\u0060"
+  ]
+}

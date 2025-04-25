@@ -1,0 +1,70 @@
+{
+  "UseOnlineModel": true,
+  "ModelToUse": "deepseek-chat",
+  "Description": "",
+  "SystemPrompt": "You are a helpful assistant with high skills in software, prompt engineering and business development. The user will provide a requirement to create a software module. Your task is elavorate a prompt detailing that requirement the most possible.\r\n### Requirements:\r\n- Assign a name to the software module.\r\n- Generate a clear prompt that will be used as input for an LLM model to design the first version of this software module.\r\n- Avoid mentioning version numbers, this will be managed later.\r\n- Avoid mention an expected response format, this will be provided later.\r\n- Avoid specifying the behaivor the LLM model must take, this will be managed later.\r\n- The response must be in markdown notation.\r\n- Focus on functional details\r\n- Avoid suggesting platforms, programming languages or any other implementation details.\r\n- Detail the user interaction with the module.\r\n- Generate a list of minimum features, desired features and bar-raiser features.\r\n- Data models description must be included and must be in markdown notation. IMPORTANT: It will be processed as string.\r\n- Make clear all models should implement CRUDS operations.\r\n### Example output:\r\n{\u0022module_name\u0022:\u0022MODULE_NAME\u0022 \u0022reviewed_prompt\u0022:\u0022GENERATED PROMPT\u0022,\u0022functional_details\u0022:\u0022[\u0022FUNCTIONAL DETAIL 1\u0022,\u0022FUNCTIONAL DETAIL 2\u0022],\u0022user_interaction\u0022:\u0022[USER INTERACTION 1, USER INTERACTION 2]\u0022,\u0022minimum_features\u0022:\u0022[MINIMUM FEATURE 1, MINIMUM FEATURE 2]\u0022,\u0022desired_features\u0022:\u0022[DESIRED FEATURE 1, DESIRED FEATURE 2]\u0022,\u0022bar_raiser_features\u0022:\u0022[BAR RAISER FEATURE 1, BAR RAISER FEATURE 2]\u0022,\u0022data_models\u0022:\u0022[DATA MODEL 1, DATA MODEL 2]\u0022}",
+  "BasePrompt": "Analyze and improve the next prompt, adding all the possible details. This are the initial or high-level requirements: \u003CTASK_INPUT\u003E",
+  "TaskInput": "Track daily expenses and categorize them for monthly reports",
+  "ModelRawResponse": "{\r\n  \u0022choices\u0022: [\r\n    {\r\n      \u0022message\u0022: {\r\n        \u0022content\u0022: \u0022\\u0060\\u0060\\u0060json\\n{\\n  \\u0022module_name\\u0022: \\u0022ExpenseTracker\\u0022,\\n  \\u0022reviewed_prompt\\u0022: \\u0022Design a software module that allows users to track their daily expenses, categorize them, and generate monthly reports. The module should provide an intuitive interface for users to log their expenses, assign categories, and view summarized reports. The system should support CRUDS operations for all data models, ensuring users can create, read, update, delete, and search their expense records efficiently. The module should also allow users to customize categories and generate detailed or summarized reports based on their preferences.\\u0022,\\n  \\u0022functional_details\\u0022: [\\n    \\u0022Track daily expenses with details such as amount, date, category, and description.\\u0022,\\n    \\u0022Categorize expenses into predefined or user-defined categories.\\u0022,\\n    \\u0022Generate monthly reports summarizing expenses by category, date range, or other filters.\\u0022,\\n    \\u0022Provide an overview of total expenses, average spending, and trends over time.\\u0022,\\n    \\u0022Allow users to set budgets for categories and receive alerts when nearing or exceeding limits.\\u0022\\n  ],\\n  \\u0022user_interaction\\u0022: [\\n    \\u0022Users can add a new expense by entering details like amount, date, category, and description.\\u0022,\\n    \\u0022Users can view a list of their expenses, filtered by date, category, or other criteria.\\u0022,\\n    \\u0022Users can edit or delete existing expense entries.\\u0022,\\n    \\u0022Users can generate and view monthly reports, either summarized or detailed.\\u0022,\\n    \\u0022Users can customize expense categories and manage their list of categories.\\u0022\\n  ],\\n  \\u0022minimum_features\\u0022: [\\n    \\u0022Add, view, edit, and delete expense entries.\\u0022,\\n    \\u0022Basic categorization of expenses.\\u0022,\\n    \\u0022Generate simple monthly reports showing total expenses by category.\\u0022,\\n    \\u0022Search and filter expenses by date or category.\\u0022\\n  ],\\n  \\u0022desired_features\\u0022: [\\n    \\u0022Customizable expense categories.\\u0022,\\n    \\u0022Budget setting and alerts for categories.\\u0022,\\n    \\u0022Export reports in common formats (e.g., CSV, PDF).\\u0022,\\n    \\u0022Visual charts and graphs for expense trends.\\u0022\\n  ],\\n  \\u0022bar_raiser_features\\u0022: [\\n    \\u0022Integration with bank accounts or credit cards for automatic expense tracking.\\u0022,\\n    \\u0022Multi-user support with shared expense tracking.\\u0022,\\n    \\u0022Predictive analytics for future spending based on past trends.\\u0022,\\n    \\u0022Mobile app support for on-the-go expense tracking.\\u0022\\n  ],\\n  \\u0022data_models\\u0022: [\\n    \\u0022**Expense**: \\u0060{ id: string, amount: number, date: Date, categoryId: string, description: string, userId: string }\\u0060\\u0022,\\n    \\u0022**Category**: \\u0060{ id: string, name: string, userId: string, budgetLimit: number }\\u0060\\u0022,\\n    \\u0022**Report**: \\u0060{ id: string, userId: string, startDate: Date, endDate: Date, totalExpenses: number, expensesByCategory: { categoryId: string, total: number }[] }\\u0060\\u0022,\\n    \\u0022**User**: \\u0060{ id: string, name: string, email: string }\\u0060\\u0022\\n  ]\\n}\\n\\u0060\\u0060\\u0060\u0022\r\n      }\r\n    }\r\n  ]\r\n}",
+  "ResponseFormat": {
+    "type": "object",
+    "properties": {
+      "module_name": {
+        "type": "string"
+      },
+      "reviewed_prompt": {
+        "type": "string"
+      },
+      "functional_details": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "user_interaction": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "minimum_features": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "desired_features": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "bar_raiser_features": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "data_models": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "required": [
+      "module_name",
+      "reviewed_prompt",
+      "functional_details",
+      "user_interaction",
+      "minimum_features",
+      "desired_features",
+      "bar_raiser_features",
+      "data_models"
+    ]
+  },
+  "ExecutionTimeMS": 759,
+  "responseType": "SelfEvolvingSoftware.LLM.Tasks.Responses.ReviewInitialRequirementTaskResponse, PoC_1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+  "TaskUUID": "7e8ba467-b46e-42b9-b77c-16955bf8bb5d",
+  "ModuleName": "ModuleCreator"
+}
