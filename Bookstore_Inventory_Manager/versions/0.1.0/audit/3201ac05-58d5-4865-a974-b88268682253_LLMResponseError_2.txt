@@ -1,1 +1,0 @@
-'I' is invalid after a value. Expected either ',', '}', or ']'. Path: $.updatedSourceCodeFiles[0] | LineNumber: 6 | BytePositionInLine: 6961.
